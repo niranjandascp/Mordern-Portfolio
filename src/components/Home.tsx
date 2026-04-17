@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImg from '../assets/hero.png';
 import InteractiveDots from './InteractiveDots';
 
@@ -16,37 +16,10 @@ export default function Home() {
   const yText = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacityText = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
-  // Image Scroll Parallax
-  const yImage = useTransform(scrollYProgress, [0, 1], [0, 80]);
-
-  // Mouse tilt effect logic
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 100, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 100, damping: 20 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (rect) {
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      mouseX.set((e.clientX - centerX) / rect.width);
-      mouseY.set((e.clientY - centerY) / rect.height);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   return (
     <section
       id="home"
       ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative min-h-[110vh] flex items-center justify-center overflow-hidden"
     >
       {/* Dynamic Background Noise/Pattern */}

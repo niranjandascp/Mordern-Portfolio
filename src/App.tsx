@@ -6,7 +6,7 @@ import Projects from './components/Projects';
 import Stats from './components/Stats';
 import Badges from './components/Badges';
 import Education from './components/Education';
-import Others1 from './components/Others1';
+// unused import removed
 import Contact from './components/Contact';
 import { ReactLenis } from 'lenis/react';
 import LiquidEther from './components/ui/LiquidEther';

@@ -1,5 +1,4 @@
 // EMERGENCY SYNC - VITE COMPATIBLE
-import type React from 'react';
 
 export default function Others1() {
     return (
