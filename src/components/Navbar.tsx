@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'motion/react';
 import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 
 const mainNav = [
@@ -86,7 +86,7 @@ function FlipLink({ children, href, isActive, onClick, onMouseEnter }: {
   );
 }
 
-const navContainerVariants = {
+const navContainerVariants: Variants = {
   hidden: { opacity: 0, y: -20 },
   visible: {
     opacity: 1,
@@ -100,7 +100,7 @@ const navContainerVariants = {
   }
 };
 
-const navItemVariants = {
+const navItemVariants: Variants = {
   hidden: { opacity: 0, y: -10 },
   visible: { 
     opacity: 1, 
@@ -178,7 +178,7 @@ export default function Navbar() {
           scale: isScrolled ? 1.02 : 1,
         }}
         className={`pointer-events-auto flex items-center bg-bg-secondary/80 border border-border-main rounded-full p-1.5 shadow-2xl relative transition-all duration-300 ${
-          isScrolled ? 'h-15' : 'h-14'
+          isScrolled ? 'h-16' : 'h-14'
         }`}
       >
         {/* Navigation Items */}

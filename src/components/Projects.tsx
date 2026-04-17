@@ -1,17 +1,17 @@
 import { useRef, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
-import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiNodedotjs, SiMongodb, SiSocketdotio, SiExpress, SiOpenai, SiFirebase } from 'react-icons/si';
+import { FaDocker, FaGithub } from 'react-icons/fa';
+import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress, } from 'react-icons/si';
 
 const projects = [
   {
     title: "Personal Portfolio",
     description: "My portfolio website, showcasing my professional background and more. Clean, responsive, and shows off my work while keeping things simple and professional.",
     tags: [
-      { name: "React", icon: SiReact }, 
-      { name: "TypeScript", icon: SiTypescript }, 
-      { name: "Tailwind", icon: SiTailwindcss }, 
+      { name: "React", icon: SiReact },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "Tailwind", icon: SiTailwindcss },
       { name: "Vite", icon: SiVite }
     ],
     github: "https://github.com/niranjandascp/react-ts-personal-portfolio",
@@ -23,15 +23,15 @@ const projects = [
     featured: true,
   },
   {
-    title: "Real-time Task Manager",
-    description: "Collaborative project management tool with real-time updates. Implemented WebSockets for instant state sync across multiple connected clients.",
+    title: "rest-api-ts-docker",
+    description: "Production-grade REST API built with Node.js, TypeScript, Express, MongoDB, Redis and Docker. Includes Jest, Supertest, test Coverage and Docker Compose.",
     tags: [
-      { name: "React", icon: SiReact }, 
-      { name: "Node.js", icon: SiNodedotjs }, 
-      { name: "Socket.io", icon: SiSocketdotio }, 
-      { name: "MongoDB", icon: SiMongodb }
+      { name: "Express", icon: SiExpress },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "MongoDB", icon: SiMongodb },
+      { name: "Docker", icon: FaDocker }
     ],
-    github: "#",
+    github: "https://github.com/niranjandascp/rest-api-ts-docker",
     live: "#",
     gradient: "from-cyan-600 via-blue-600 to-teal-600",
     glowColor: "rgba(6,182,212,0.3)",
@@ -40,16 +40,16 @@ const projects = [
     featured: false,
   },
   {
-    title: "AI Image Generator",
-    description: "SaaS application leveraging OpenAI's DALL-E API. Includes user authentication, image gallery, and cloud storage integration.",
+    title: "Mini Torque Webapp",
+    description: "A full-stack e-commerce application built with Next.js, TypeScript and Tailwind CSS. It features real-time updates, a sleek UI, and a robust backend to handle all your shopping needs.",
     tags: [
-      { name: "React", icon: SiReact }, 
-      { name: "OpenAI", icon: SiOpenai }, 
-      { name: "Firebase", icon: SiFirebase }, 
-      { name: "Node.js", icon: SiNodedotjs }
+      { name: "Next.js", icon: SiReact },
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "Tailwind", icon: SiTailwindcss },
+      { name: "React", icon: SiReact }
     ],
-    github: "#",
-    live: "#",
+    github: "https://github.com/niranjandascp/Mini-Torque-Ecommerce",
+    live: "https://mini-torque.onrender.com/",
     gradient: "from-pink-600 via-rose-600 to-orange-600",
     glowColor: "rgba(244,63,94,0.3)",
     accentColor: "#f43f5e",
