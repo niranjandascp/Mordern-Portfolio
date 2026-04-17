@@ -52,10 +52,10 @@ export function AboutTerminal({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-30%' }}
       transition={{ duration: 0.6 }}
-      className="flex h-full min-h-[320px] max-w-3xl flex-col overflow-hidden rounded-2xl border-2 border-[#00f0ff]/30 bg-[#0a0a0a] dark:bg-[#0a0a0a] sm:min-h-[360px]"
+      className="flex h-full min-h-[320px] max-w-3xl flex-col overflow-hidden rounded-2xl border-2 border-[#00f0ff]/30 bg-bg-primary dark:bg-[#0a0a0a] sm:min-h-[360px] transition-colors shadow-2xl"
     >
       {/* Terminal header - fixed */}
-      <div className="flex shrink-0 items-center gap-2 border-b border-[#00f0ff]/20 bg-[#121212]/80 px-4 py-3">
+      <div className="flex shrink-0 items-center gap-2 border-b border-[#00f0ff]/20 bg-bg-secondary/50 px-4 py-3">
         <div className="h-3 w-3 rounded-full bg-red-500" />
         <div className="h-3 w-3 rounded-full bg-yellow-500" />
         <div className="h-3 w-3 rounded-full bg-green-500" />
@@ -66,7 +66,7 @@ export function AboutTerminal({
       {/* Content area - fixed height, scroll inside so terminal size never changes */}
       <div className="flex min-h-0 flex-1 flex-col p-4 font-mono text-sm leading-relaxed sm:p-6">
         <div className="shrink-0 text-[#00f0ff]">$ cat about.txt</div>
-        <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-[#e2e8f0]/80 dark:text-[#e2e8f0]/80">
+        <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-text-primary/80">
           {commandExecuted && typedText.length > 0 ? typedText : '\u00A0'}
           {isTyping && <span className="animate-pulse text-[#00f0ff]">_</span>}
           {isComplete && (

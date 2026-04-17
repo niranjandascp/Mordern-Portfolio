@@ -21,7 +21,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-24 relative bg-bg-secondary/30">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -30,7 +30,7 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">About Me</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">About Me</h2>
           <div className="w-20 h-1 bg-purple-500 mx-auto rounded-full" />
         </motion.div>
 
@@ -42,13 +42,13 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-white/5 border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors"
+              className="bg-bg-primary border border-border-main p-8 rounded-2xl hover:border-purple-500/30 transition-all shadow-lg"
             >
               <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
                 {card.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-white">{card.title}</h3>
-              <p className="text-gray-400 leading-relaxed">
+              <h3 className="text-xl font-semibold mb-3 text-text-primary">{card.title}</h3>
+              <p className="text-text-secondary leading-relaxed">
                 {card.description}
               </p>
             </motion.div>

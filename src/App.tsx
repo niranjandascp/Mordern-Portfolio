@@ -10,14 +10,14 @@ import Contact from './components/Contact';
 
 function App() {
   return (
-    <div className="bg-black text-gray-50 font-sans selection:bg-purple-500/30 selection:text-purple-200 min-h-screen">
+    <div className="bg-bg-primary text-text-primary font-sans selection:bg-purple-500/30 selection:text-purple-200 min-h-screen transition-colors duration-300">
       <Navbar />
 
       <main>
         <Home />
         <About />
-        <Projects />
         <Skills />
+        <Projects />
         <Stats />
         <Badges />
         <Education />
@@ -25,8 +25,8 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 text-center bg-white/5">
-        <p className="text-gray-500 text-sm">
+      <footer className="border-t border-border-main py-8 text-center bg-bg-secondary/50">
+        <p className="text-text-secondary text-sm">
           &copy; {new Date().getFullYear()} Niranjan das. Built with React & Tailwind CSS.
         </p>
       </footer>
