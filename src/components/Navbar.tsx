@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'framer-motion';
 import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 
 const mainNav = [
@@ -205,10 +205,10 @@ export default function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="topIndicator"
-                    className="absolute top-[-6px] inset-x-0 mx-auto w-8 h-[3px] bg-purple-500 rounded-b-full shadow-[0_0_12px_2px_rgba(168,85,247,0.4)]"
+                    className="absolute top-[-6px] inset-x-0 mx-auto w-8 h-[3px] bg-[#C4521A] rounded-b-full shadow-[0_0_12px_2px_rgba(196,82,26,0.4)]"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   >
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 bg-purple-500/20 blur-xl rounded-full pointer-events-none" />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 bg-[#C4521A]/20 blur-xl rounded-full pointer-events-none" />
                   </motion.div>
                 )}
 
@@ -252,7 +252,7 @@ export default function Navbar() {
             {theme === 'dark' ? (
               <Sun size={18} className="text-yellow-400" />
             ) : (
-              <Moon size={18} className="text-blue-600" />
+              <Moon size={18} className="text-amber-600" />
             )}
           </motion.button>
 
@@ -266,15 +266,15 @@ export default function Navbar() {
                 href="#contact"
                 whileHover="hover"
                 initial="initial"
-                className="relative h-10 lg:h-11 px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white border border-white/20 text-[15px] font-bold transition-all whitespace-nowrap group z-30"
+                className="relative h-10 lg:h-11 px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4521A] to-orange-500 text-white border border-white/20 text-[15px] font-bold transition-all whitespace-nowrap group z-30"
                 style={{ 
-                  boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)',
+                  boxShadow: '0 0 20px rgba(196, 82, 26, 0.3)',
                 }}
                 variants={{
                   hover: { 
                     z: 50,
                     scale: 1.05,
-                    boxShadow: '0 0 35px rgba(139, 92, 246, 0.6)'
+                    boxShadow: '0 0 35px rgba(196, 82, 26, 0.6)'
                   }
                 }}
               >
@@ -285,7 +285,7 @@ export default function Navbar() {
                     hover: { scale: 1.5, opacity: 0.7 }
                   }}
                   transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
-                  className="absolute inset-0 bg-gradient-to-r from-purple-500/40 to-blue-500/40 blur-3xl -z-10 pointer-events-none"
+                  className="absolute inset-0 bg-gradient-to-r from-[#C4521A]/40 to-orange-500/40 blur-3xl -z-10 pointer-events-none"
                 />
                 
                 <span className="relative flex items-center gap-2 z-30">
@@ -322,7 +322,7 @@ export default function Navbar() {
                 href={`#${item.id.toLowerCase()}`}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`px-4 py-3 rounded-2xl text-base font-medium transition-colors ${activeTab === item.id
-                  ? 'bg-purple-500/10 text-purple-500'
+                  ? 'bg-[#C4521A]/10 text-[#C4521A]'
                   : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary/50'
                   }`}
               >

@@ -48,7 +48,7 @@ export default function Skills() {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   return (
-    <section id="skills" ref={containerRef} className="py-24 relative overflow-hidden bg-bg-primary transition-colors">
+    <section id="skills" ref={containerRef} className="py-24 relative overflow-hidden transition-colors">
 
       {/* Background Rotating Fan Image Layer */}
       <div className="absolute inset-0 w-full opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
@@ -74,7 +74,7 @@ export default function Skills() {
             My Skillset
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-2">
-            The Magic <span className="font-serif italic bg-gradient-to-r from-pink-500 to-orange-400 bg-clip-text text-transparent pr-2">Behind</span>
+            The Magic <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-2">Behind</span>
           </h2>
         </motion.div>
 
@@ -92,7 +92,7 @@ export default function Skills() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: (idx % 10) * 0.05 }}
-                className="flex items-center gap-2.5 px-5 py-2.5 bg-bg-secondary/90 backdrop-blur-md border border-border-main rounded-full hover:border-purple-500/30 transition-all duration-300 shadow-lg cursor-default group"
+                className="flex items-center gap-2.5 px-5 py-2.5 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-full hover:border-[#C4521A]/30 transition-all duration-300 shadow-lg cursor-default group"
               >
                 <Icon
                   className="text-lg group-hover:scale-110 transition-transform duration-300"

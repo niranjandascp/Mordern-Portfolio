@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 // Custom parsing of " 'wght' 400, 'opsz' 9 "
 function parseSettings(settingsStr: string) {

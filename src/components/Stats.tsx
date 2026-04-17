@@ -1,5 +1,5 @@
 import { useRef, useState, type MouseEvent } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { GitHubCalendar } from 'react-github-calendar';
 
 export default function Stats() {
@@ -34,9 +34,9 @@ export default function Stats() {
   };
 
   return (
-    <section id="stats" className="py-24 relative bg-bg-primary overflow-hidden transition-colors">
+    <section id="stats" className="py-24 relative overflow-hidden transition-colors">
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-600/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
 
@@ -50,7 +50,7 @@ export default function Stats() {
         >
           <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">Developer Metrics</p>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
-            GitHub <span className="font-serif italic bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Analytics</span>
+            GitHub <span className="font-serif italic bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">Analytics</span>
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto text-sm leading-relaxed">
             Code that lives, breathes, and contributes — open source and beyond.
@@ -78,7 +78,7 @@ export default function Stats() {
                 transformStyle: 'preserve-3d',
                 boxShadow: isHovered ? `0 25px 80px rgba(59, 130, 246, 0.1), 0 0 50px rgba(139, 92, 246, 0.05)` : '0 10px 40px rgba(0,0,0,0.05)',
               }}
-              className="relative bg-bg-secondary border border-border-main rounded-[2.5rem] px-8 py-10 overflow-hidden cursor-default group transition-colors duration-300"
+              className="relative bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-[2.5rem] px-8 py-10 overflow-hidden cursor-default group transition-colors duration-300"
             >
               {/* Spotlight Effect */}
               <div

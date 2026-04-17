@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
 
 const educationList = [
@@ -18,7 +18,7 @@ const educationList = [
 
 export default function Education() {
   return (
-    <section id="education" className="py-24 relative bg-bg-primary transition-colors">
+    <section id="education" className="py-24 relative transition-colors">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export default function Education() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">Education</h2>
-          <div className="w-20 h-1 bg-purple-500 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-[#C4521A] mx-auto rounded-full" />
         </motion.div>
 
         <div className="space-y-8">
@@ -41,18 +41,18 @@ export default function Education() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="relative pl-8 md:pl-0"
             >
-              <div className="md:flex items-center justify-between bg-bg-secondary border border-border-main p-6 rounded-2xl hover:border-purple-500/30 transition-all shadow-sm">
+              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-sm">
                 <div className="flex-grow">
                   <div className="flex items-center gap-2 mb-2">
-                    <GraduationCap className="text-purple-500 dark:text-purple-400" size={24} />
+                    <GraduationCap className="text-[#C4521A] dark:text-orange-400" size={24} />
                     <h3 className="text-xl font-semibold text-text-primary">{edu.degree}</h3>
                   </div>
                   <h4 className="text-lg text-text-secondary mb-2 font-medium">{edu.institution}</h4>
                   <p className="text-text-secondary text-sm opacity-80">{edu.description}</p>
                 </div>
                 
-                <div className="mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 bg-bg-primary border border-border-main rounded-full shrink-0">
-                  <Calendar size={16} className="text-purple-500 dark:text-purple-400" />
+                <div className="mt-4 md:mt-0 flex items-center gap-2 px-4 py-2 bg-white/[0.05] border border-border-main rounded-full shrink-0">
+                  <Calendar size={16} className="text-[#C4521A] dark:text-orange-400" />
                   <span className="text-sm font-medium text-text-secondary">{edu.duration}</span>
                 </div>
               </div>

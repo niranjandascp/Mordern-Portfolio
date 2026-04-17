@@ -293,7 +293,7 @@ export function TerminalWindow() {
             </div>
             <div>
               <span className="text-cyan-400">STATE:</span>{' '}
-              <span className="text-purple-400">
+              <span className="text-orange-400">
                 <Typewriter text="EVOLVING" delay={150} speed={10} />
               </span>
             </div>
@@ -521,11 +521,11 @@ export function TerminalWindow() {
                   ➜
                 </motion.span>
                 <span className="shrink-0 whitespace-nowrap">
-                  <span className="hidden text-cyan-600 dark:text-[#56b6c2] sm:inline">
+                  <span className="hidden text-orange-600 dark:text-[#56b6c2] sm:inline">
                     niranjandas
                   </span>
                   <span className="hidden text-text-secondary/50 sm:inline">:</span>
-                  <span className="hidden text-blue-600 dark:text-[#61afef] sm:inline">~</span>
+                  <span className="hidden text-amber-600 dark:text-[#61afef] sm:inline">~</span>
                   <span className="text-text-secondary">$</span>
                   <span className="text-text-secondary"> </span>
                 </span>

@@ -16,9 +16,9 @@ const projects = [
     ],
     github: "https://github.com/niranjandascp/react-ts-personal-portfolio",
     live: "https://www.niranjandas.in/",
-    gradient: "from-violet-600 via-purple-600 to-indigo-600",
-    glowColor: "rgba(139,92,246,0.3)",
-    accentColor: "#8b5cf6",
+    gradient: "from-[#C4521A] via-orange-500 to-amber-600",
+    glowColor: "rgba(196,82,26,0.3)",
+    accentColor: "#C4521A",
     icon: "🚀",
     featured: true,
   },
@@ -33,9 +33,9 @@ const projects = [
     ],
     github: "https://github.com/niranjandascp/rest-api-ts-docker",
     live: "#",
-    gradient: "from-cyan-600 via-blue-600 to-teal-600",
-    glowColor: "rgba(6,182,212,0.3)",
-    accentColor: "#06b6d4",
+    gradient: "from-orange-600 via-[#C4521A] to-red-600",
+    glowColor: "rgba(196,82,26,0.3)",
+    accentColor: "#C4521A",
     icon: "⚡",
     featured: false,
   },
@@ -121,7 +121,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           transformStyle: 'preserve-3d',
           boxShadow: isHovered ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25` : '0 10px 40px rgba(0,0,0,0.1)',
         }}
-        className="relative rounded-3xl overflow-hidden border border-border-main bg-bg-secondary h-full cursor-pointer shadow-sm transition-colors duration-300"
+        className="relative rounded-3xl overflow-hidden border border-border-main bg-white/[0.03] backdrop-blur-xl h-full cursor-pointer shadow-sm transition-colors duration-300"
       >
         {/* Animated Gradient Border */}
         <div
@@ -244,9 +244,9 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 relative bg-bg-primary overflow-hidden transition-colors">
+    <section id="projects" className="py-24 relative overflow-hidden transition-colors">
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#C4521A]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
 
@@ -263,7 +263,7 @@ export default function Projects() {
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-5">
             Featured{' '}
-            <span className="font-serif italic bg-gradient-to-r from-violet-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="font-serif italic bg-gradient-to-r from-orange-400 via-[#C4521A] to-amber-400 bg-clip-text text-transparent">
               Projects
             </span>
           </h2>
@@ -291,7 +291,7 @@ export default function Projects() {
             href="https://github.com/niranjandascp"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-border-main bg-bg-secondary hover:bg-bg-secondary/80 text-text-primary text-sm font-medium transition-all duration-300 hover:border-purple-500/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] group"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border border-border-main bg-white/[0.03] backdrop-blur-md hover:bg-white/[0.06] text-text-primary text-sm font-medium transition-all duration-300 hover:border-[#C4521A]/30 hover:shadow-[0_0_30px_rgba(139,92,246,0.15)] group"
           >
             <FaGithub size={16} />
             View All Projects on GitHub
