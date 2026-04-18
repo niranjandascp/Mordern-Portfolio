@@ -21,11 +21,11 @@ export default function Home() {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-[110vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Dynamic Background Noise/Pattern */}
       <Spotlight className="animate-[spotlight-right_2s_ease_0.75s_1_forwards] -top-40 right-[-10%] md:right-[-10vw] md:-top-60" fill="#f59e0b" />
-      <div className="absolute inset-0 opacity-15 z-0 select-none">
+      <div className="absolute inset-0 opacity-10 z-0 select-none">
         <InteractiveDots
           backgroundColor="transparent"
           dotColor="#f94b00ff"

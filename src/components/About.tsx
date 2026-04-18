@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { User, Target, Zap } from 'lucide-react';
+import TimelineAnimation from './ui/TimelineAnimation';
 
 export default function About() {
   const cards = [
@@ -21,7 +22,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-24 relative min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -36,12 +37,9 @@ export default function About() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {cards.map((card, idx) => (
-            <motion.div
+            <TimelineAnimation
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              animationNum={idx % 3}
               className="bg-white/[0.03] backdrop-blur-xl border border-border-main p-8 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-lg"
             >
               <div className="w-12 h-12 bg-[#C4521A]/20 rounded-xl flex items-center justify-center mb-6">
@@ -51,7 +49,7 @@ export default function About() {
               <p className="text-text-secondary leading-relaxed">
                 {card.description}
               </p>
-            </motion.div>
+            </TimelineAnimation>
           ))}
         </div>
       </div>

@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'framer-motion';
 import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
+import { useLenis } from 'lenis/react';
 
 const mainNav = [
-  { label: 'Home', id: 'Home' },
-  { label: 'About', id: 'About' },
-  { label: 'Skills', id: 'Skills' },
-  { label: 'Projects', id: 'Projects' },
-  { label: 'Stats', id: 'Stats' },
-  { label: 'Badges', id: 'Badges' },
-  { label: 'Education', id: 'Education' },
-  { label: 'Contact', id: 'Contact' }
+  { label: 'Home', id: 'home' },
+  { label: 'About', id: 'about' },
+  { label: 'Skills', id: 'skills' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Stats', id: 'stats' },
+  { label: 'Badges', id: 'badges' },
+  { label: 'Education', id: 'education' },
+  { label: 'Contact', id: 'contact' }
 ];
 
 // Magnetic component specifically for the 'Hire Me' button
@@ -57,7 +58,7 @@ function FlipLink({ children, href, isActive, onClick, onMouseEnter }: {
   children: string, 
   href: string, 
   isActive: boolean,
-  onClick: () => void,
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void,
   onMouseEnter: () => void
 }) {
   return (
@@ -110,10 +111,22 @@ const navItemVariants: Variants = {
 };
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState('Home');
+  const [activeTab, setActiveTab] = useState('home');
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const lenis = useLenis();
+
+  const handleNavClick = useCallback((id: string) => {
+    if (id === 'home') {
+      lenis?.scrollTo(0, { duration: 1.5 });
+    } else {
+      lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+    }
+    setActiveTab(id);
+    setIsMobileMenuOpen(false);
+  }, [lenis]);
+
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -135,31 +148,45 @@ export default function Navbar() {
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
+  // ELITE NAVIGATION TRACKING: Using IntersectionObserver for 100% accuracy
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      setIsScrolled(currentScroll > 50);
+    const observerOptions = {
+      root: null,
+      rootMargin: '-40% 0px -40% 0px', // Focus tracking on the screen center
+      threshold: 0,
+    };
 
-      let currentActive = 'Home';
-      mainNav.forEach((item) => {
-        const element = document.getElementById(item.id.toLowerCase());
-        if (element) {
-          const top = element.offsetTop - 150;
-          const height = element.offsetHeight;
-          if (currentScroll >= top && currentScroll < top + height) {
-            currentActive = item.id;
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          if (mainNav.find(n => n.id === sectionId)) {
+            setActiveTab(sectionId);
           }
         }
       });
-      if (currentScroll < 150) currentActive = 'Home';
-      if (mainNav.find(n => n.id === currentActive)) {
-        setActiveTab(currentActive);
-      } else {
-        setActiveTab('');
-      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+    mainNav.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 40);
+
+      // Force Home active at the absolute top
+      if (currentScrollY < 100) setActiveTab('home');
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -177,6 +204,7 @@ export default function Navbar() {
         animate={{
           scale: isScrolled ? 1.02 : 1,
         }}
+        transition={{ type: "spring", stiffness: 260, damping: 22 }}
         className={`pointer-events-auto flex items-center bg-bg-secondary/80 border border-border-main rounded-full p-1.5 shadow-2xl relative transition-all duration-300 ${
           isScrolled ? 'h-16' : 'h-14'
         }`}
@@ -193,8 +221,11 @@ export default function Navbar() {
             return (
               <motion.div key={item.id} variants={navItemVariants} className="h-full relative flex items-center">
                 <FlipLink
-                  href={`#${item.id.toLowerCase()}`}
-                  onClick={() => setActiveTab(item.id)}
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   onMouseEnter={() => setHoveredTab(item.id)}
                   isActive={isActive}
                 >
@@ -264,6 +295,10 @@ export default function Navbar() {
             <Magnetic>
               <motion.a
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('contact');
+                }}
                 whileHover="hover"
                 initial="initial"
                 className="relative h-10 lg:h-11 px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4521A] to-orange-500 text-white border border-white/20 text-[15px] font-bold transition-all whitespace-nowrap group z-30"
@@ -319,8 +354,11 @@ export default function Navbar() {
             {mainNav.map(item => (
               <a
                 key={item.id}
-                href={`#${item.id.toLowerCase()}`}
-                onClick={() => setIsMobileMenuOpen(false)}
+                href={`#${item.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }}
                 className={`px-4 py-3 rounded-2xl text-base font-medium transition-colors ${activeTab === item.id
                   ? 'bg-[#C4521A]/10 text-[#C4521A]'
                   : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary/50'

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress, } from 'react-icons/si';
+import TimelineAnimation from './ui/TimelineAnimation';
 
 const projects = [
   {
@@ -102,11 +103,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
+    <TimelineAnimation
+      animationNum={idx % 3}
       style={{ perspective: '1000px' }}
       className="group"
     >
@@ -238,7 +236,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </TimelineAnimation>
   );
 }
 

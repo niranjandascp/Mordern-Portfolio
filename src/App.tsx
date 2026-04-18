@@ -12,6 +12,7 @@ import { ReactLenis } from 'lenis/react';
 import LiquidEther from './components/ui/LiquidEther';
 import GSAPScrollSync from './components/GSAPScrollSync';
 import { useStackedPanels } from './hooks/useStackedPanels';
+import ScrollToTop from './components/ui/ScrollToTop';
 
 function App() {
   const mainRef = useRef<HTMLElement>(null);
@@ -20,6 +21,9 @@ function App() {
   return (
     <ReactLenis root>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+
+        {/* Smooth scroll-to-top button with progress ring */}
+        <ScrollToTop />
 
         {/* Lenis ↔ GSAP ScrollTrigger sync */}
         <GSAPScrollSync />

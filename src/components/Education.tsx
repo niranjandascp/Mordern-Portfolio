@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
+import TimelineAnimation from './ui/TimelineAnimation';
 
 const educationList = [
   {
@@ -33,12 +34,9 @@ export default function Education() {
 
         <div className="space-y-8">
           {educationList.map((edu, idx) => (
-            <motion.div 
+            <TimelineAnimation
               key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              animationNum={0}
               className="relative pl-8 md:pl-0"
             >
               <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
@@ -56,7 +54,7 @@ export default function Education() {
                   <span className="text-sm font-medium text-text-secondary">{edu.duration}</span>
                 </div>
               </div>
-            </motion.div>
+            </TimelineAnimation>
           ))}
         </div>
       </div>
