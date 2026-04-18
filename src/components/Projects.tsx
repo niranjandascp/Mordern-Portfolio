@@ -119,7 +119,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
           transformStyle: 'preserve-3d',
-          boxShadow: isHovered ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25` : '0 10px 40px rgba(0,0,0,0.1)',
+          boxShadow: isHovered ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25` : '0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.08)',
         }}
         className="relative rounded-3xl overflow-hidden border border-border-main bg-white/[0.03] backdrop-blur-xl h-full cursor-pointer shadow-sm transition-colors duration-300"
       >

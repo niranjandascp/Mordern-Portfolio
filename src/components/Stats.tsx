@@ -76,7 +76,7 @@ export default function Stats() {
                 transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
                 transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
                 transformStyle: 'preserve-3d',
-                boxShadow: isHovered ? `0 25px 80px rgba(59, 130, 246, 0.1), 0 0 50px rgba(139, 92, 246, 0.05)` : '0 10px 40px rgba(0,0,0,0.05)',
+                boxShadow: isHovered ? `0 25px 80px rgba(59, 130, 246, 0.1), 0 0 50px rgba(139, 92, 246, 0.05)` : '0 15px 35px rgba(0,0,0,0.12), 0 5px 15px rgba(0,0,0,0.05)',
               }}
               className="relative bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-[2.5rem] px-8 py-10 overflow-hidden cursor-default group transition-colors duration-300"
             >

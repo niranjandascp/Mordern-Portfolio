@@ -6,7 +6,6 @@ import Projects from './components/Projects';
 import Stats from './components/Stats';
 import Badges from './components/Badges';
 import Education from './components/Education';
-// unused import removed
 import Contact from './components/Contact';
 import { ReactLenis } from 'lenis/react';
 import LiquidEther from './components/ui/LiquidEther';
@@ -18,8 +17,8 @@ function App() {
         {/* Global Cinematic Background System */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           {/* Global Interactive LiquidEther */}
-          <div className="absolute inset-0 w-full h-full opacity-60 mix-blend-screen">
-            <LiquidEther 
+          <div className="absolute inset-0 w-full h-full opacity-100 mix-blend-screen">
+            <LiquidEther
               colors={['#C4521A', '#8b1e00', '#d97706']}
               isViscous={true}
               viscous={10}

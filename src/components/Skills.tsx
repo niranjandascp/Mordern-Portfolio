@@ -56,7 +56,7 @@ export default function Skills() {
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
           style={{ rotate }}
-          className="w-[950px] h-[950px] object-contain origin-center"
+          className="w-[1050px] h-[1050px] object-contain origin-center"
         />
       </div>
 
@@ -84,7 +84,7 @@ export default function Skills() {
             const Icon = skill.icon;
             // Handle icons that are white in dark mode but should be dark in light mode
             const iconColor = skill.color === '#ffffff' ? 'var(--text-primary)' : skill.color;
-            
+
             return (
               <motion.div
                 key={skill.name}

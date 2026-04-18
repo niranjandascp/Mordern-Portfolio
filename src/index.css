@@ -12,8 +12,32 @@
   --color-accent-orange: #C4521A;
   --color-cinematic-accent: #C4521A;
   --color-cinematic-glow: rgba(196, 82, 26, 0.4);
+
+  --animate-spotlight: spotlight 2s ease .75s 1 forwards;
+  --animate-spotlight-right: spotlight-right 2s ease .75s 1 forwards;
 }
 
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+@keyframes spotlight-right {
+  0% {
+    opacity: 0;
+    transform: translate(72%, -62%) scale(0.5) scaleX(-1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(50%, -40%) scale(1) scaleX(-1);
+  }
+}
 @layer base {
   .light {
     --color-bg-primary: #fcfcfc;

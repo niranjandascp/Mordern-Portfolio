@@ -41,7 +41,7 @@ export default function Education() {
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="relative pl-8 md:pl-0"
             >
-              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-sm">
+              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
                 <div className="flex-grow">
                   <div className="flex items-center gap-2 mb-2">
                     <GraduationCap className="text-[#C4521A] dark:text-orange-400" size={24} />

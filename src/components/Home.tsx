@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImg from '../assets/hero.png';
 import InteractiveDots from './InteractiveDots';
+import { Spotlight } from './ui/Spotlight';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ export default function Home() {
       className="relative min-h-[110vh] flex items-center justify-center overflow-hidden"
     >
       {/* Dynamic Background Noise/Pattern */}
+      <Spotlight className="animate-[spotlight-right_2s_ease_0.75s_1_forwards] -top-40 right-[-10%] md:right-[-10vw] md:-top-60" fill="#f59e0b" />
       <div className="absolute inset-0 opacity-15 z-0 select-none">
         <InteractiveDots
           backgroundColor="transparent"
@@ -38,7 +40,7 @@ export default function Home() {
           style={{ opacity: opacityText, y: yText }}
           className="relative flex items-center justify-center w-full mt-[-10vh]"
         >
-          <h1 className="text-[10vw] font-black text-white/[0.04] leading-none tracking-tighter uppercase whitespace-nowrap select-none">
+          <h1 className="text-[12vw] font-black text-white/[0.04] leading-none tracking-tighter uppercase whitespace-nowrap select-none">
             NIRANJAN DAS
           </h1>
         </motion.div>
@@ -70,8 +72,16 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Subtle Bottom Ambient Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent z-20" />
+      {/* Cinematic Bottom Blur Fade (Seamless transition while scrolling) */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-[25vh] min-h-[200px] z-20 pointer-events-none"
+        style={{
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)'
+        }}
+      />
     </section>
   );
 }
