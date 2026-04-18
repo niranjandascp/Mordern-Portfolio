@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -9,11 +10,20 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import { ReactLenis } from 'lenis/react';
 import LiquidEther from './components/ui/LiquidEther';
+import GSAPScrollSync from './components/GSAPScrollSync';
+import { useStackedPanels } from './hooks/useStackedPanels';
 
 function App() {
+  const mainRef = useRef<HTMLElement>(null);
+  useStackedPanels(mainRef);
+
   return (
     <ReactLenis root>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+
+        {/* Lenis ↔ GSAP ScrollTrigger sync */}
+        <GSAPScrollSync />
+
         {/* Global Cinematic Background System */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           {/* Global Interactive LiquidEther */}
@@ -41,22 +51,34 @@ function App() {
 
         <Navbar />
 
-        <main className="relative z-10 w-full">
-          <Home />
-          <About />
+        {/* Stacked Panel effect ONLY between Home → About.
+            Home pins and scales out; About is the landing panel (no exit).
+            All other sections scroll normally. */}
+        <main ref={mainRef} className="relative z-10 w-full">
+
+          <div className="panel-section relative overflow-hidden">
+            <div className="panel-inner"><Home /></div>
+          </div>
+
+          {/* Last stacked panel — Home fades into this, no exit animation */}
+          <div className="panel-section relative overflow-hidden">
+            <div className="panel-inner"><About /></div>
+          </div>
+
+          {/* Normal scroll sections — no stacking */}
           <Skills />
           <Projects />
           <Stats />
           <Badges />
           <Education />
-          {/* <Others1 /> */}
           <Contact />
+
         </main>
 
         {/* Footer */}
-        <footer className="border-t border-border-main py-8 text-center bg-bg-secondary/50">
+        <footer className="border-t border-border-main py-8 text-center bg-bg-secondary/50 relative z-10">
           <p className="text-text-secondary text-sm">
-            &copy; {new Date().getFullYear()} Niranjan das. Built with React & Tailwind CSS.
+            &copy; {new Date().getFullYear()} Niranjan das. Built with React &amp; Tailwind CSS.
           </p>
         </footer>
       </div>
