@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -13,6 +12,8 @@ import LiquidEther from './components/ui/LiquidEther';
 import GSAPScrollSync from './components/GSAPScrollSync';
 import { useStackedPanels } from './hooks/useStackedPanels';
 import ScrollToTop from './components/ui/ScrollToTop';
+import HomeDock from './components/HomeDock';
+import Navbar from './components/Navbar';
 
 function App() {
   const mainRef = useRef<HTMLElement>(null);
@@ -21,6 +22,9 @@ function App() {
   return (
     <ReactLenis root>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+        {/* Universal Navbar - Logic handles fading in/out based on scroll */}
+        <Navbar />
+
         {/* Smooth scroll-to-top button with progress ring */}
         <ScrollToTop />
 
@@ -56,7 +60,6 @@ function App() {
           />
         </div>
 
-        <Navbar />
 
         {/* Stacked Panel effect ONLY between Home → About.
             Home pins and scales out; About is the landing panel (no exit).
@@ -90,6 +93,7 @@ function App() {
             &copy; {new Date().getFullYear()} Niranjan das. Built with React &amp; Tailwind CSS.
           </p>
         </footer>
+        <HomeDock />
       </div>
     </ReactLenis>
   );

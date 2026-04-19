@@ -94,10 +94,19 @@ function FlipLink({
 }
 
 const navContainerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
+  hidden: { 
+    opacity: 0, 
+    y: -20,
+    pointerEvents: 'none',
+    transition: {
+      duration: 0.4,
+      ease: [0.22, 1, 0.36, 1],
+    }
+  },
   visible: {
     opacity: 1,
     y: 0,
+    pointerEvents: 'auto',
     transition: {
       staggerChildren: 0.08,
       delayChildren: 0.2,
@@ -184,10 +193,10 @@ export default function Navbar() {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 40);
+      setIsScrolled(currentScrollY > 100);
 
       // Force Home active at the absolute top
-      if (currentScrollY < 100) setActiveTab('home');
+      if (currentScrollY < 150) setActiveTab('home');
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -202,11 +211,11 @@ export default function Navbar() {
     <motion.nav
       variants={navContainerVariants}
       initial="hidden"
-      animate="visible"
-      style={{ perspective: '1000px' }}
-      className={`fixed left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ${
-        isScrolled ? 'top-3' : 'top-6'
+      animate={activeTab !== 'home' ? "visible" : "hidden"}
+      className={`fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 ${
+        activeTab !== 'home' ? 'top-3' : 'top-6'
       }`}
+      style={{ perspective: '1000px' }}
     >
       {/* Desktop & Tablet Pill */}
       <motion.div
