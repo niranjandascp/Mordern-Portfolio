@@ -52,7 +52,7 @@ export default function Home() {
           className="flex items-center justify-center w-full mt-[-10vh]"
         >
           <h1
-            className="text-[20vw] font-big-shoulders font-black text-white/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.5] scale-x-[0.6] tracking-tighter origin-center"
+            className="text-[22vw] font-big-shoulders font-black text-white/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.7] scale-x-[0.9] tracking-[-0.05em] origin-center"
             style={{
               maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'

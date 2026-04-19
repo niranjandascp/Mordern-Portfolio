@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Big+Shoulders+Display:wght@100..900&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Big+Shoulders+Display:wght@900&display=swap');
 
 @theme {
   --font-bebas: "Bebas Neue", sans-serif;
@@ -26,6 +26,7 @@
     opacity: 0;
     transform: translate(-72%, -62%) scale(0.5);
   }
+
   100% {
     opacity: 1;
     transform: translate(-50%, -40%) scale(1);
@@ -37,11 +38,13 @@
     opacity: 0;
     transform: translate(72%, -62%) scale(0.5) scaleX(-1);
   }
+
   100% {
     opacity: 1;
     transform: translate(50%, -40%) scale(1) scaleX(-1);
   }
 }
+
 @layer base {
   .light {
     --color-bg-primary: #fcfcfc;
@@ -80,13 +83,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-border-main);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-secondary);
 }
@@ -103,20 +109,20 @@
   0% {
     background-position: 200% center;
   }
+
   100% {
     background-position: -200% center;
   }
 }
+
 .animate-text-shimmer {
   background-size: 200% auto;
-  background-image: linear-gradient(
-    90deg,
-    #0891b2 0%,
-    #22d3ee 25%,
-    #67e8f9 50%,
-    #22d3ee 75%,
-    #0891b2 100%
-  );
+  background-image: linear-gradient(90deg,
+      #0891b2 0%,
+      #22d3ee 25%,
+      #67e8f9 50%,
+      #22d3ee 75%,
+      #0891b2 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

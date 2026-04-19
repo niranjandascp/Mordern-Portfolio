@@ -20,7 +20,7 @@ function App() {
 
   return (
     <ReactLenis root>
-      <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+      <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
         {/* Smooth scroll-to-top button with progress ring */}
         <ScrollToTop />
 
