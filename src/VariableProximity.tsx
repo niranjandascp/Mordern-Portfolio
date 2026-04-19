@@ -29,39 +29,39 @@ export default function VariableProximity({
   toFontVariationSettings,
   containerRef,
   radius = 100,
-  falloff = 'linear'
+  falloff = 'linear',
 }: VariableProximityProps) {
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  
+
   useEffect(() => {
     const fromSettings = parseSettings(fromFontVariationSettings);
     const toSettings = parseSettings(toFontVariationSettings);
-    
-    const calculateDistance = (x1: number, y1: number, x2: number, y2: number) => 
-      Math.sqrt((x2 - x1)**2 + (y2 - y1)**2);
-    
+
+    const calculateDistance = (x1: number, y1: number, x2: number, y2: number) =>
+      Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+
     let rafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (rafId) cancelAnimationFrame(rafId);
-      
+
       rafId = requestAnimationFrame(() => {
         const { clientX, clientY } = e;
-        
+
         letterRefs.current.forEach((letter) => {
           if (!letter) return;
           const rect = letter.getBoundingClientRect();
           const letterCenterX = rect.left + rect.width / 2;
           const letterCenterY = rect.top + rect.height / 2;
-          
+
           const distance = calculateDistance(clientX, clientY, letterCenterX, letterCenterY);
-          
+
           let progress = 0;
           if (distance < radius) {
-             progress = 1 - (distance / radius);
-             if (falloff === 'exponential') progress = progress ** 2;
+            progress = 1 - distance / radius;
+            if (falloff === 'exponential') progress = progress ** 2;
           }
-          
+
           // Interpolate current settings based on cursor distance
           const currentSettings: string[] = [];
           for (const [key, fromValue] of fromSettings.entries()) {
@@ -69,15 +69,15 @@ export default function VariableProximity({
             const value = fromValue + (toValue - fromValue) * progress;
             currentSettings.push(`'${key}' ${value}`);
           }
-          
+
           letter.style.fontVariationSettings = currentSettings.join(', ');
         });
       });
     };
-    
+
     const target = containerRef?.current || window;
     target.addEventListener('mousemove', handleMouseMove as any);
-    
+
     // Also reset on mouse leave
     const handleMouseLeave = () => {
       if (rafId) cancelAnimationFrame(rafId);
@@ -86,19 +86,19 @@ export default function VariableProximity({
         letter.style.fontVariationSettings = fromFontVariationSettings;
       });
     };
-    
+
     if (containerRef?.current) {
-        containerRef.current.addEventListener('mouseleave', handleMouseLeave);
+      containerRef.current.addEventListener('mouseleave', handleMouseLeave);
     } else {
-        document.addEventListener('mouseleave', handleMouseLeave);
+      document.addEventListener('mouseleave', handleMouseLeave);
     }
-    
+
     return () => {
       target.removeEventListener('mousemove', handleMouseMove as any);
       if (containerRef?.current) {
-          containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+        containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
       } else {
-          document.removeEventListener('mouseleave', handleMouseLeave);
+        document.removeEventListener('mouseleave', handleMouseLeave);
       }
       if (rafId) cancelAnimationFrame(rafId);
     };
@@ -107,14 +107,16 @@ export default function VariableProximity({
   return (
     <span className={className} style={{ display: 'inline-block' }}>
       {label.split('').map((char, i) => (
-        <motion.span 
-           key={i} 
-           ref={(el: HTMLSpanElement | null) => { letterRefs.current[i] = el; }}
-           style={{ 
-             display: 'inline-block',
-             fontVariationSettings: fromFontVariationSettings,
-             willChange: 'font-variation-settings'
-           }}
+        <motion.span
+          key={i}
+          ref={(el: HTMLSpanElement | null) => {
+            letterRefs.current[i] = el;
+          }}
+          style={{
+            display: 'inline-block',
+            fontVariationSettings: fromFontVariationSettings,
+            willChange: 'font-variation-settings',
+          }}
         >
           {char === ' ' ? '\u00A0' : char}
         </motion.span>

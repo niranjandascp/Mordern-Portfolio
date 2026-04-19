@@ -21,7 +21,6 @@ function App() {
   return (
     <ReactLenis root>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
-
         {/* Smooth scroll-to-top button with progress ring */}
         <ScrollToTop />
 
@@ -49,8 +48,12 @@ function App() {
           <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-orange-600/3 rounded-full blur-[120px]" />
 
           {/* Noise Texture Overlay */}
-          <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
-            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+          <div
+            className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            }}
+          />
         </div>
 
         <Navbar />
@@ -59,14 +62,17 @@ function App() {
             Home pins and scales out; About is the landing panel (no exit).
             All other sections scroll normally. */}
         <main ref={mainRef} className="relative z-10 w-full">
-
           <div className="panel-section relative overflow-hidden">
-            <div className="panel-inner"><Home /></div>
+            <div className="panel-inner">
+              <Home />
+            </div>
           </div>
 
           {/* Last stacked panel — Home fades into this, no exit animation */}
           <div className="panel-section relative overflow-hidden">
-            <div className="panel-inner"><About /></div>
+            <div className="panel-inner">
+              <About />
+            </div>
           </div>
 
           {/* Normal scroll sections — no stacking */}
@@ -76,7 +82,6 @@ function App() {
           <Badges />
           <Education />
           <Contact />
-
         </main>
 
         {/* Footer */}

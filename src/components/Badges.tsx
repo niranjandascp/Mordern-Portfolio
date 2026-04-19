@@ -2,24 +2,26 @@ import { motion } from 'framer-motion';
 import { Award } from 'lucide-react';
 
 const badges = [
-  { title: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services" },
-  { title: "Google Cloud Fundamentals", issuer: "Google" },
-  { title: "Frontend Web Development", issuer: "freeCodeCamp" },
-  { title: "JavaScript Algorithms", issuer: "HackerRank" }
+  { title: 'AWS Certified Cloud Practitioner', issuer: 'Amazon Web Services' },
+  { title: 'Google Cloud Fundamentals', issuer: 'Google' },
+  { title: 'Frontend Web Development', issuer: 'freeCodeCamp' },
+  { title: 'JavaScript Algorithms', issuer: 'HackerRank' },
 ];
 
 export default function Badges() {
   return (
     <section id="badges" className="py-24 relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">Badges & Certifications</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">
+            Badges & Certifications
+          </h2>
           <div className="w-20 h-1 bg-[#C4521A] mx-auto rounded-full" />
         </motion.div>
 

@@ -38,10 +38,10 @@ export default function GradualBlur({
 
   // Axis of the mask gradient
   const axis: Record<Direction, string> = {
-    top:    'to top',
+    top: 'to top',
     bottom: 'to bottom',
-    left:   'to left',
-    right:  'to right',
+    left: 'to left',
+    right: 'to right',
   };
 
   // Position the overlay at the correct edge
@@ -50,12 +50,20 @@ export default function GradualBlur({
     pointerEvents: 'none',
     zIndex: 20,
     ...(isVertical
-      ? { left: 0, right: 0, height: typeof size === 'number' ? `${size}px` : size }
-      : { top: 0, bottom: 0, width: typeof size === 'number' ? `${size}px` : size }),
+      ? {
+          left: 0,
+          right: 0,
+          height: typeof size === 'number' ? `${size}px` : size,
+        }
+      : {
+          top: 0,
+          bottom: 0,
+          width: typeof size === 'number' ? `${size}px` : size,
+        }),
     ...(direction === 'bottom' && { bottom: 0 }),
-    ...(direction === 'top'    && { top: 0 }),
-    ...(direction === 'left'   && { left: 0 }),
-    ...(direction === 'right'  && { right: 0 }),
+    ...(direction === 'top' && { top: 0 }),
+    ...(direction === 'left' && { left: 0 }),
+    ...(direction === 'right' && { right: 0 }),
   };
 
   return (

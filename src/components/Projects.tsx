@@ -2,59 +2,62 @@ import { useRef, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
-import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress, } from 'react-icons/si';
+import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
 import TimelineAnimation from './ui/TimelineAnimation';
 
 const projects = [
   {
-    title: "Personal Portfolio",
-    description: "My portfolio website, showcasing my professional background and more. Clean, responsive, and shows off my work while keeping things simple and professional.",
+    title: 'Personal Portfolio',
+    description:
+      'My portfolio website, showcasing my professional background and more. Clean, responsive, and shows off my work while keeping things simple and professional.',
     tags: [
-      { name: "React", icon: SiReact },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "Tailwind", icon: SiTailwindcss },
-      { name: "Vite", icon: SiVite }
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Tailwind', icon: SiTailwindcss },
+      { name: 'Vite', icon: SiVite },
     ],
-    github: "https://github.com/niranjandascp/react-ts-personal-portfolio",
-    live: "https://www.niranjandas.in/",
-    gradient: "from-[#C4521A] via-orange-500 to-amber-600",
-    glowColor: "rgba(196,82,26,0.3)",
-    accentColor: "#C4521A",
-    icon: "🚀",
+    github: 'https://github.com/niranjandascp/react-ts-personal-portfolio',
+    live: 'https://www.niranjandas.in/',
+    gradient: 'from-[#C4521A] via-orange-500 to-amber-600',
+    glowColor: 'rgba(196,82,26,0.3)',
+    accentColor: '#C4521A',
+    icon: '🚀',
     featured: true,
   },
   {
-    title: "rest-api-ts-docker",
-    description: "Production-grade REST API built with Node.js, TypeScript, Express, MongoDB, Redis and Docker. Includes Jest, Supertest, test Coverage and Docker Compose.",
+    title: 'rest-api-ts-docker',
+    description:
+      'Production-grade REST API built with Node.js, TypeScript, Express, MongoDB, Redis and Docker. Includes Jest, Supertest, test Coverage and Docker Compose.',
     tags: [
-      { name: "Express", icon: SiExpress },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "MongoDB", icon: SiMongodb },
-      { name: "Docker", icon: FaDocker }
+      { name: 'Express', icon: SiExpress },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'MongoDB', icon: SiMongodb },
+      { name: 'Docker', icon: FaDocker },
     ],
-    github: "https://github.com/niranjandascp/rest-api-ts-docker",
-    live: "#",
-    gradient: "from-orange-600 via-[#C4521A] to-red-600",
-    glowColor: "rgba(196,82,26,0.3)",
-    accentColor: "#C4521A",
-    icon: "⚡",
+    github: 'https://github.com/niranjandascp/rest-api-ts-docker',
+    live: '#',
+    gradient: 'from-orange-600 via-[#C4521A] to-red-600',
+    glowColor: 'rgba(196,82,26,0.3)',
+    accentColor: '#C4521A',
+    icon: '⚡',
     featured: false,
   },
   {
-    title: "Mini Torque Webapp",
-    description: "A full-stack e-commerce application built with Next.js, TypeScript and Tailwind CSS. It features real-time updates, a sleek UI, and a robust backend to handle all your shopping needs.",
+    title: 'Mini Torque Webapp',
+    description:
+      'A full-stack e-commerce application built with Next.js, TypeScript and Tailwind CSS. It features real-time updates, a sleek UI, and a robust backend to handle all your shopping needs.',
     tags: [
-      { name: "Next.js", icon: SiReact },
-      { name: "TypeScript", icon: SiTypescript },
-      { name: "Tailwind", icon: SiTailwindcss },
-      { name: "React", icon: SiReact }
+      { name: 'Next.js', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Tailwind', icon: SiTailwindcss },
+      { name: 'React', icon: SiReact },
     ],
-    github: "https://github.com/niranjandascp/Mini-Torque-Ecommerce",
-    live: "https://mini-torque.onrender.com/",
-    gradient: "from-pink-600 via-rose-600 to-orange-600",
-    glowColor: "rgba(244,63,94,0.3)",
-    accentColor: "#f43f5e",
-    icon: "🤖",
+    github: 'https://github.com/niranjandascp/Mini-Torque-Ecommerce',
+    live: 'https://mini-torque.onrender.com/',
+    gradient: 'from-pink-600 via-rose-600 to-orange-600',
+    glowColor: 'rgba(244,63,94,0.3)',
+    accentColor: '#f43f5e',
+    icon: '🤖',
     featured: false,
   },
 ];
@@ -98,16 +101,12 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
 
   const handleMouseLeave = () => {
     setTilt({ x: 0, y: 0 });
-    setSpotlight(prev => ({ ...prev, opacity: 0 }));
+    setSpotlight((prev) => ({ ...prev, opacity: 0 }));
     setIsHovered(false);
   };
 
   return (
-    <TimelineAnimation
-      animationNum={idx % 3}
-      style={{ perspective: '1000px' }}
-      className="group"
-    >
+    <TimelineAnimation animationNum={idx % 3} style={{ perspective: '1000px' }} className="group">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -117,7 +116,9 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
           transformStyle: 'preserve-3d',
-          boxShadow: isHovered ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25` : '0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.08)',
+          boxShadow: isHovered
+            ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25`
+            : '0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.08)',
         }}
         className="relative rounded-3xl overflow-hidden border border-border-main bg-white/[0.03] backdrop-blur-xl h-full cursor-pointer shadow-sm transition-colors duration-300"
       >
@@ -140,9 +141,12 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         />
 
         {/* Top Gradient Banner */}
-        <div className={`relative w-full h-44 bg-gradient-to-br ${project.gradient} overflow-hidden`}>
+        <div
+          className={`relative w-full h-44 bg-gradient-to-br ${project.gradient} overflow-hidden`}
+        >
           {/* Mesh texture overlay */}
-          <div className="absolute inset-0 opacity-20"
+          <div
+            className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)`,
               backgroundSize: '40px 40px',
@@ -153,7 +157,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             className="absolute inset-0 flex items-center justify-center"
             style={{ transform: `translateZ(30px)` }}
           >
-            <span className="text-7xl opacity-80 select-none drop-shadow-2xl"
+            <span
+              className="text-7xl opacity-80 select-none drop-shadow-2xl"
               style={{
                 transform: isHovered ? 'scale(1.15) translateY(-4px)' : 'scale(1)',
                 transition: 'transform 0.4s ease',
@@ -177,7 +182,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               href={project.github}
               target="_blank"
               rel="noreferrer"
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className="w-9 h-9 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-black/60 transition-all hover:scale-110"
             >
               <FaGithub size={15} />
@@ -186,7 +191,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               href={project.live}
               target="_blank"
               rel="noreferrer"
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               className="w-9 h-9 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-black/60 transition-all hover:scale-110"
             >
               <ExternalLink size={15} />
@@ -215,11 +220,13 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           {/* Divider */}
           <div
             className="h-px w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{ background: `linear-gradient(to right, transparent, ${project.accentColor}60, transparent)` }}
+            style={{
+              background: `linear-gradient(to right, transparent, ${project.accentColor}60, transparent)`,
+            }}
           />
 
           <div className="flex flex-wrap gap-2">
-            {project.tags.map(tag => (
+            {project.tags.map((tag) => (
               <span
                 key={tag.name}
                 className="flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full border transition-all duration-300"
@@ -247,7 +254,6 @@ export default function Projects() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#C4521A]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -293,10 +299,12 @@ export default function Projects() {
           >
             <FaGithub size={16} />
             View All Projects on GitHub
-            <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight
+              size={15}
+              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+            />
           </a>
         </motion.div>
-
       </div>
     </section>
   );

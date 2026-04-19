@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const DEFAULT_ABOUT_TEXT =
-  "Hey there! I’m Niranjan Das, a Full Stack Developer with a strong focus on backend development. I specialize in building scalable and secure applications using Node.js, Express.js, Nest.js, TypeScript, React.js, Next.js, MongoDB, and PostgreSQL. With hands-on experience in developing real-world projects, I focus on writing clean, efficient code and creating user-centric solutions, while continuously improving my skills to deliver impactful results.";
+  'Hey there! I’m Niranjan Das, a Full Stack Developer with a strong focus on backend development. I specialize in building scalable and secure applications using Node.js, Express.js, Nest.js, TypeScript, React.js, Next.js, MongoDB, and PostgreSQL. With hands-on experience in developing real-world projects, I focus on writing clean, efficient code and creating user-centric solutions, while continuously improving my skills to deliver impactful results.';
 
 const COMMAND_DELAY_MS = 400;
 
@@ -59,9 +59,7 @@ export function AboutTerminal({
         <div className="h-3 w-3 rounded-full bg-red-500" />
         <div className="h-3 w-3 rounded-full bg-yellow-500" />
         <div className="h-3 w-3 rounded-full bg-green-500" />
-        <span className="ml-4 font-mono text-xs text-[#00f0ff]/70">
-          niranjandas.bio
-        </span>
+        <span className="ml-4 font-mono text-xs text-[#00f0ff]/70">niranjandas.bio</span>
       </div>
       {/* Content area - fixed height, scroll inside so terminal size never changes */}
       <div className="flex min-h-0 flex-1 flex-col p-4 font-mono text-sm leading-relaxed sm:p-6">
@@ -69,9 +67,7 @@ export function AboutTerminal({
         <div className="mt-3 min-h-0 flex-1 overflow-y-auto text-text-primary/80">
           {commandExecuted && typedText.length > 0 ? typedText : '\u00A0'}
           {isTyping && <span className="animate-pulse text-[#00f0ff]">_</span>}
-          {isComplete && (
-            <span className="ml-1 animate-blink text-[#00f0ff]">█</span>
-          )}
+          {isComplete && <span className="ml-1 animate-blink text-[#00f0ff]">█</span>}
         </div>
       </div>
     </motion.div>

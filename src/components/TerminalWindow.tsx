@@ -72,9 +72,9 @@ export function TerminalWindow() {
 
   const placeholderPrompts = [
     "try me! type 'help' →",
-    "whoami • status • focus",
-    "click here & explore",
-    "type a command ↓",
+    'whoami • status • focus',
+    'click here & explore',
+    'type a command ↓',
   ];
 
   const getLocalTime = (date: Date = new Date()) => {
@@ -120,7 +120,7 @@ export function TerminalWindow() {
     bootLogs.forEach((log, i) => {
       const t = setTimeout(
         () => {
-          setHistory(prev => [...prev, log]);
+          setHistory((prev) => [...prev, log]);
           if (i === bootLogs.length - 1) setIsBooting(false);
         },
         400 * (i + 1)
@@ -137,19 +137,19 @@ export function TerminalWindow() {
     if (isDeleting) {
       t = setTimeout(() => {
         setPlaceholderText(current.slice(0, charIndex - 1));
-        setCharIndex(c => c - 1);
+        setCharIndex((c) => c - 1);
       }, 50);
     } else {
       t = setTimeout(() => {
         setPlaceholderText(current.slice(0, charIndex + 1));
-        setCharIndex(c => c + 1);
+        setCharIndex((c) => c + 1);
       }, 100);
     }
     if (!isDeleting && charIndex === current.length) {
       t = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
-      setPlaceholderIndex(p => (p + 1) % placeholderPrompts.length);
+      setPlaceholderIndex((p) => (p + 1) % placeholderPrompts.length);
     }
     return () => clearTimeout(t);
   }, [charIndex, isDeleting, placeholderIndex, isBooting]);
@@ -180,17 +180,17 @@ export function TerminalWindow() {
   const handleContainerClick = () => inputRef.current?.focus();
 
   const addResponse = (lines: (string | React.ReactNode)[]) => {
-    const newLogs: LogEntry[] = lines.map(line => ({
+    const newLogs: LogEntry[] = lines.map((line) => ({
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
       message: line,
       color: 'text-gray-300',
     }));
-    setHistory(prev => [...prev, ...newLogs]);
+    setHistory((prev) => [...prev, ...newLogs]);
   };
 
   const handleCommand = (cmd: string) => {
     const clean = cmd.trim().toLowerCase();
-    setHistory(prev => [
+    setHistory((prev) => [
       ...prev,
       {
         id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
@@ -209,10 +209,7 @@ export function TerminalWindow() {
         addResponse([
           <Typewriter key="h1" text="available commands:" speed={5} />,
           '',
-          <div
-            key="help-grid"
-            className="grid grid-cols-[100px_1fr] gap-x-2 gap-y-1"
-          >
+          <div key="help-grid" className="grid grid-cols-[100px_1fr] gap-x-2 gap-y-1">
             <span className="text-cyan-400">
               <Typewriter text="whoami" delay={50} speed={10} />
             </span>
@@ -259,11 +256,7 @@ export function TerminalWindow() {
               <Typewriter text="niranjandas.dev@workspace" speed={5} />
             </span>
             <span className="text-gray-300">
-              <Typewriter
-                text="Full Stack Developer (MERN, Nest.js)"
-                delay={50}
-                speed={5}
-              />
+              <Typewriter text="Full Stack Developer (MERN, Nest.js)" delay={50} speed={5} />
             </span>
             <span className="italic text-gray-400">
               <Typewriter
@@ -308,11 +301,7 @@ export function TerminalWindow() {
             </span>
             <span className="flex items-center gap-2">
               <span className="text-cyan-400">→</span>{' '}
-              <Typewriter
-                text="building scalable web applications"
-                delay={50}
-                speed={5}
-              />
+              <Typewriter text="building scalable web applications" delay={50} speed={5} />
             </span>
             <span className="flex items-center gap-2">
               <span className="text-cyan-400">→</span>{' '}
@@ -324,11 +313,7 @@ export function TerminalWindow() {
             </span>
             <span className="flex items-center gap-2">
               <span className="text-cyan-400">→</span>{' '}
-              <Typewriter
-                text="solving real-world problems with code"
-                delay={150}
-                speed={5}
-              />
+              <Typewriter text="solving real-world problems with code" delay={150} speed={5} />
             </span>
           </div>,
         ]);
@@ -339,31 +324,19 @@ export function TerminalWindow() {
             <span className="flex gap-2">
               <span className="text-cyan-400">[INFO]</span>{' '}
               <span className="text-gray-400">
-                <Typewriter
-                  text="delivering production-ready applications"
-                  delay={0}
-                  speed={5}
-                />
+                <Typewriter text="delivering production-ready applications" delay={0} speed={5} />
               </span>
             </span>
             <span className="flex gap-2">
               <span className="text-cyan-400">[INFO]</span>{' '}
               <span className="text-gray-400">
-                <Typewriter
-                  text="refining system design & APIs"
-                  delay={50}
-                  speed={5}
-                />
+                <Typewriter text="refining system design & APIs" delay={50} speed={5} />
               </span>
             </span>
             <span className="flex gap-2">
               <span className="text-cyan-400">[INFO]</span>{' '}
               <span className="text-gray-400">
-                <Typewriter
-                  text="learning through implementation"
-                  delay={100}
-                  speed={5}
-                />
+                <Typewriter text="learning through implementation" delay={100} speed={5} />
               </span>
             </span>
           </div>,
@@ -392,10 +365,7 @@ export function TerminalWindow() {
         setHistory([]);
         break;
       default:
-        if (clean !== '')
-          addResponse([
-            `Command not found: ${clean}. Type 'help' for options.`,
-          ]);
+        if (clean !== '') addResponse([`Command not found: ${clean}. Type 'help' for options.`]);
         break;
     }
     setInput('');
@@ -451,16 +421,13 @@ export function TerminalWindow() {
             <span className="sm:hidden">Type here</span>
           </span>
         </div>
-        <div
-          ref={scrollRef}
-          className="relative flex-1 overflow-auto p-3 scroll-smooth sm:p-6"
-        >
+        <div ref={scrollRef} className="relative flex-1 overflow-auto p-3 scroll-smooth sm:p-6">
           <pre className="mb-4 self-start whitespace-pre font-mono text-[5px] font-bold leading-[1.1] text-transparent selection:bg-transparent sm:mb-6 sm:text-[10px] bg-linear-to-b from-[#56b6c2] to-[#61afef] bg-clip-text">
             {ASCII_ART}
           </pre>
           <div className="space-y-1.5">
             <AnimatePresence mode="popLayout">
-              {history.map(log => (
+              {history.map((log) => (
                 <motion.div
                   key={log.id}
                   layout
@@ -484,11 +451,7 @@ export function TerminalWindow() {
                       )}
                     </>
                   )}
-                  <span
-                    className={
-                      log.isCommand ? '' : log.color || 'text-text-primary'
-                    }
-                  >
+                  <span className={log.isCommand ? '' : log.color || 'text-text-primary'}>
                     {log.message}
                   </span>
                 </motion.div>
@@ -500,15 +463,15 @@ export function TerminalWindow() {
                 animate={{ opacity: 1 }}
                 className="group relative flex items-center gap-2 pb-1 pt-2"
               >
-                  <motion.div
-                    animate={{ opacity: [0.1, 0.2, 0.1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    className="absolute -inset-x-2 inset-y-0 -z-10 rounded bg-cyan-500/5"
-                  />
+                <motion.div
+                  animate={{ opacity: [0.1, 0.2, 0.1] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  className="absolute -inset-x-2 inset-y-0 -z-10 rounded bg-cyan-500/5"
+                />
                 <motion.span
                   animate={{ x: [0, 3, 0] }}
                   transition={{
@@ -534,7 +497,7 @@ export function TerminalWindow() {
                     ref={inputRef}
                     type="text"
                     value={input}
-                    onChange={e => setInput(e.target.value)}
+                    onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     className="w-full border-none bg-transparent font-mono text-sm text-text-primary outline-none caret-cyan-500 placeholder:text-cyan-500/40"
                     autoComplete="off"

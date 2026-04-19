@@ -2,13 +2,29 @@ import { useRef } from 'react';
 // Stick to one entry point for the library
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
-  SiReact, SiNextdotjs, SiTypescript, SiTailwindcss,
-  SiNodedotjs, SiExpress, SiPostgresql, SiMongodb, SiPrisma, SiGit, SiGithub,
-  SiVercel, SiDocker, SiLinux, SiHtml5, SiNestjs, SiRedis,
-  SiBitbucket, SiPostman, SiFigma
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiMongodb,
+  SiPrisma,
+  SiGit,
+  SiGithub,
+  SiVercel,
+  SiDocker,
+  SiLinux,
+  SiHtml5,
+  SiNestjs,
+  SiRedis,
+  SiBitbucket,
+  SiPostman,
+  SiFigma,
 } from 'react-icons/si';
 import { FaAws } from 'react-icons/fa';
-import { IoLogoCss3 } from "react-icons/io";
+import { IoLogoCss3 } from 'react-icons/io';
 import { VscVscode } from 'react-icons/vsc';
 
 const techStack = [
@@ -41,15 +57,18 @@ export default function Skills() {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
   // Rotate from 0 to 180 degrees as user scrolls strictly past the section
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   return (
-    <section id="skills" ref={containerRef} className="py-24 relative overflow-hidden transition-colors">
-
+    <section
+      id="skills"
+      ref={containerRef}
+      className="py-24 relative overflow-hidden transition-colors"
+    >
       {/* Background Rotating Fan Image Layer */}
       <div className="absolute inset-0 w-full opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
         <motion.img
@@ -61,7 +80,6 @@ export default function Skills() {
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center pt-24">
-
         {/* Header Title Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -74,7 +92,10 @@ export default function Skills() {
             My Skillset
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-2">
-            The Magic <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-2">Behind</span>
+            The Magic{' '}
+            <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-2">
+              Behind
+            </span>
           </h2>
         </motion.div>
 
@@ -105,7 +126,6 @@ export default function Skills() {
             );
           })}
         </div>
-
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ const mainNav = [
   { label: 'Stats', id: 'stats' },
   { label: 'Badges', id: 'badges' },
   { label: 'Education', id: 'education' },
-  { label: 'Contact', id: 'contact' }
+  { label: 'Contact', id: 'contact' },
 ];
 
 // Magnetic component specifically for the 'Hire Me' button
@@ -54,12 +54,18 @@ function Magnetic({ children }: { children: React.ReactNode }) {
 }
 
 // FlipLink component for professional hover effects
-function FlipLink({ children, href, isActive, onClick, onMouseEnter }: { 
-  children: string, 
-  href: string, 
-  isActive: boolean,
-  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void,
-  onMouseEnter: () => void
+function FlipLink({
+  children,
+  href,
+  isActive,
+  onClick,
+  onMouseEnter,
+}: {
+  children: string;
+  href: string;
+  isActive: boolean;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onMouseEnter: () => void;
 }) {
   return (
     <motion.a
@@ -96,18 +102,18 @@ const navContainerVariants: Variants = {
       staggerChildren: 0.08,
       delayChildren: 0.2,
       duration: 0.6,
-      ease: [0.22, 1, 0.36, 1]
-    }
-  }
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
 const navItemVariants: Variants = {
   hidden: { opacity: 0, y: -10 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
-  }
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 export default function Navbar() {
@@ -117,15 +123,18 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lenis = useLenis();
 
-  const handleNavClick = useCallback((id: string) => {
-    if (id === 'home') {
-      lenis?.scrollTo(0, { duration: 1.5 });
-    } else {
-      lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
-    }
-    setActiveTab(id);
-    setIsMobileMenuOpen(false);
-  }, [lenis]);
+  const handleNavClick = useCallback(
+    (id: string) => {
+      if (id === 'home') {
+        lenis?.scrollTo(0, { duration: 1.5 });
+      } else {
+        lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+      }
+      setActiveTab(id);
+      setIsMobileMenuOpen(false);
+    },
+    [lenis]
+  );
 
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
@@ -146,7 +155,7 @@ export default function Navbar() {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
   // ELITE NAVIGATION TRACKING: Using IntersectionObserver for 100% accuracy
   useEffect(() => {
@@ -160,7 +169,7 @@ export default function Navbar() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
-          if (mainNav.find(n => n.id === sectionId)) {
+          if (mainNav.find((n) => n.id === sectionId)) {
             setActiveTab(sectionId);
           }
         }
@@ -190,7 +199,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav 
+    <motion.nav
       variants={navContainerVariants}
       initial="hidden"
       animate="visible"
@@ -200,26 +209,30 @@ export default function Navbar() {
       }`}
     >
       {/* Desktop & Tablet Pill */}
-      <motion.div 
+      <motion.div
         animate={{
           scale: isScrolled ? 1.02 : 1,
         }}
-        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 22 }}
         className={`pointer-events-auto flex items-center bg-bg-secondary/80 border border-border-main rounded-full p-1.5 shadow-2xl relative transition-all duration-300 ${
           isScrolled ? 'h-16' : 'h-14'
         }`}
       >
         {/* Navigation Items */}
-        <div 
+        <div
           className="hidden lg:flex items-center h-full px-2"
           onMouseLeave={() => setHoveredTab(null)}
         >
           {mainNav.map((item) => {
             const isActive = activeTab === item.id;
             const isHovered = hoveredTab === item.id;
-            
+
             return (
-              <motion.div key={item.id} variants={navItemVariants} className="h-full relative flex items-center">
+              <motion.div
+                key={item.id}
+                variants={navItemVariants}
+                className="h-full relative flex items-center"
+              >
                 <FlipLink
                   href={`#${item.id}`}
                   onClick={(e) => {
@@ -237,7 +250,7 @@ export default function Navbar() {
                   <motion.div
                     layoutId="topIndicator"
                     className="absolute top-[-6px] inset-x-0 mx-auto w-8 h-[3px] bg-[#C4521A] rounded-b-full shadow-[0_0_12px_2px_rgba(196,82,26,0.4)]"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   >
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-8 bg-[#C4521A]/20 blur-xl rounded-full pointer-events-none" />
                   </motion.div>
@@ -252,7 +265,7 @@ export default function Navbar() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
                       className="absolute inset-0 bg-text-primary/5 rounded-full -z-10"
-                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                     />
                   )}
                 </AnimatePresence>
@@ -287,8 +300,8 @@ export default function Navbar() {
             )}
           </motion.button>
 
-          <motion.div 
-            variants={navItemVariants} 
+          <motion.div
+            variants={navItemVariants}
             className="h-full flex items-center pr-2"
             style={{ transformStyle: 'preserve-3d' }}
           >
@@ -302,35 +315,35 @@ export default function Navbar() {
                 whileHover="hover"
                 initial="initial"
                 className="relative h-10 lg:h-11 px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4521A] to-orange-500 text-white border border-white/20 text-[15px] font-bold transition-all whitespace-nowrap group z-30"
-                style={{ 
+                style={{
                   boxShadow: '0 0 20px rgba(196, 82, 26, 0.3)',
                 }}
                 variants={{
-                  hover: { 
+                  hover: {
                     z: 50,
                     scale: 1.05,
-                    boxShadow: '0 0 35px rgba(196, 82, 26, 0.6)'
-                  }
+                    boxShadow: '0 0 35px rgba(196, 82, 26, 0.6)',
+                  },
                 }}
               >
                 {/* Aura Glow Effect - Pulsating background radiance */}
                 <motion.div
                   variants={{
                     initial: { scale: 0.8, opacity: 0.4 },
-                    hover: { scale: 1.5, opacity: 0.7 }
+                    hover: { scale: 1.5, opacity: 0.7 },
                   }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatType: 'mirror' }}
                   className="absolute inset-0 bg-gradient-to-r from-[#C4521A]/40 to-orange-500/40 blur-3xl -z-10 pointer-events-none"
                 />
-                
+
                 <span className="relative flex items-center gap-2 z-30">
                   Hire Me
                   <motion.span
                     variants={{
                       initial: { x: -10, opacity: 0, width: 0 },
-                      hover: { x: 0, opacity: 1, width: 'auto' }
+                      hover: { x: 0, opacity: 1, width: 'auto' },
                     }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   >
                     <ArrowRight size={18} />
                   </motion.span>
@@ -351,7 +364,7 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="absolute top-[85px] left-4 right-4 bg-bg-secondary/95 border border-border-main rounded-3xl p-4 shadow-2xl pointer-events-auto flex flex-col gap-2 lg:hidden origin-top"
           >
-            {mainNav.map(item => (
+            {mainNav.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
@@ -359,10 +372,11 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick(item.id);
                 }}
-                className={`px-4 py-3 rounded-2xl text-base font-medium transition-colors ${activeTab === item.id
-                  ? 'bg-[#C4521A]/10 text-[#C4521A]'
-                  : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary/50'
-                  }`}
+                className={`px-4 py-3 rounded-2xl text-base font-medium transition-colors ${
+                  activeTab === item.id
+                    ? 'bg-[#C4521A]/10 text-[#C4521A]'
+                    : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary/50'
+                }`}
               >
                 {item.label}
               </a>
@@ -370,7 +384,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </motion.nav>
   );
 }

@@ -16,7 +16,7 @@ export function useStackedPanels(containerRef: RefObject<HTMLElement | null>) {
     const timeoutId = setTimeout(() => {
       const ctx = gsap.context(() => {
         const panels = gsap.utils.toArray<HTMLElement>('.panel-section', containerRef.current!);
-        
+
         if (panels.length < 2) return;
 
         // Panel 1: Home
@@ -27,7 +27,7 @@ export function useStackedPanels(containerRef: RefObject<HTMLElement | null>) {
 
         // Ensure clean layout state before calc
         gsap.set([homePanel, aboutPanel], { clearProps: 'all' });
-        
+
         // Pin Home while scrolling into About
         ScrollTrigger.create({
           trigger: homePanel,
@@ -42,7 +42,7 @@ export function useStackedPanels(containerRef: RefObject<HTMLElement | null>) {
             if (self.progress === 0) {
               gsap.set(homePanel, { clearProps: 'transform' });
             }
-          }
+          },
         });
 
         // Animation for Home scaling/fading as we scroll
@@ -53,16 +53,15 @@ export function useStackedPanels(containerRef: RefObject<HTMLElement | null>) {
           scrollTrigger: {
             trigger: aboutPanel,
             start: 'top bottom', // Start animating as soon as About enters from bottom
-            end: 'top top',    // Complete when About covers the screen
+            end: 'top top', // Complete when About covers the screen
             scrub: true,
-          }
+          },
         });
-
       }, containerRef);
 
       // Refresh ScrollTrigger after a short wait to fix the reload position bug
       ScrollTrigger.refresh();
-      
+
       return () => ctx.revert();
     }, 200);
 

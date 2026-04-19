@@ -18,14 +18,12 @@ export default function ScrollToTop() {
   const updateRing = useCallback((scroll: number, limit: number) => {
     const ratio = limit > 0 ? Math.min(scroll / limit, 1) : 0;
     if (ringRef.current) {
-      ringRef.current.style.strokeDashoffset = String(
-        CIRCUMFERENCE * (1 - ratio)
-      );
+      ringRef.current.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - ratio));
     }
 
     // Only trigger a React re-render when crossing the visibility threshold
     const shouldShow = scroll > SHOW_AFTER_PX;
-    if (shouldShow !== (lastScrollRef.current > SHOW_AFTER_PX)) {
+    if (shouldShow !== lastScrollRef.current > SHOW_AFTER_PX) {
       setVisible(shouldShow);
     }
     lastScrollRef.current = scroll;
@@ -49,8 +47,8 @@ export default function ScrollToTop() {
     lenis?.scrollTo(0, {
       duration: 1.6,
       easing: easeOutQuart,
-      lock: true,        // prevent user interruption mid-scroll
-      force: true,       // scroll even if already at target
+      lock: true, // prevent user interruption mid-scroll
+      force: true, // scroll even if already at target
     });
   }, [lenis]);
 
@@ -91,7 +89,9 @@ export default function ScrollToTop() {
           >
             {/* Track */}
             <circle
-              cx="28" cy="28" r={RADIUS}
+              cx="28"
+              cy="28"
+              r={RADIUS}
               fill="none"
               stroke="rgba(255,255,255,0.05)"
               strokeWidth="2.5"
@@ -99,7 +99,9 @@ export default function ScrollToTop() {
             {/* Progress — driven directly by DOM ref */}
             <circle
               ref={ringRef}
-              cx="28" cy="28" r={RADIUS}
+              cx="28"
+              cy="28"
+              r={RADIUS}
               fill="none"
               stroke="url(#stt-gradient)"
               strokeWidth="2.5"

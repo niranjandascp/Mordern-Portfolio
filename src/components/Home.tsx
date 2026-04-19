@@ -10,7 +10,7 @@ export default function Home() {
   // Scroll Parallax Logic
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start'],
   });
 
   // Background text parallax (moves slightly vertically)
@@ -24,8 +24,13 @@ export default function Home() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Dynamic Background Noise/Pattern */}
-      <Spotlight className="animate-[spotlight-right_2s_ease_0.75s_1_forwards] -top-40 right-[-10%] md:right-[-10vw] md:-top-60" fill="#f59e0b" />
-      <div className="absolute inset-0 opacity-10 z-0 select-none">
+      <Spotlight
+        className="animate-[spotlight-right_2s_ease_0.75s_1_forwards] -top-40 right-[-10%] md:right-[-10vw] md:-top-60"
+        fill="#f59e0b"
+      />
+
+      {/* Dots — furthest back */}
+      <div className="absolute inset-0 z-1 select-none opacity-10 pointer-events-auto">
         <InteractiveDots
           backgroundColor="transparent"
           dotColor="#f94b00ff"
@@ -34,32 +39,39 @@ export default function Home() {
         />
       </div>
 
-      {/* Layer 1: Massive Background Cinematic Text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+      {/* Orange glows — above dots, below the ghost title */}
+      <div className="absolute inset-0 z-2 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] bg-[radial-gradient(circle,rgba(196,82,26,0.15)_0%,transparent_70%)] blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-[#C4521A]/30 blur-[150px] rounded-full" />
+      </div>
+
+      {/* Ghost title — in front of glows + dots, behind portrait */}
+      <div className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none select-none">
         <motion.div
           style={{ opacity: opacityText, y: yText }}
-          className="relative flex items-center justify-center w-full mt-[-10vh]"
+          className="flex items-center justify-center w-full mt-[-10vh]"
         >
-          <h1 className="text-[12vw] font-black text-white/[0.04] leading-none tracking-tighter uppercase whitespace-nowrap select-none">
+          <h1
+            className="text-[20vw] font-big-shoulders font-black text-white/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.5] scale-x-[0.6] tracking-tighter origin-center"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'
+            }}
+          >
             NIRANJAN DAS
           </h1>
         </motion.div>
       </div>
 
-      {/* Layer 2: Main Composition Container */}
+      {/* Portrait — front */}
       <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-
-        {/* The Central Cinematic Spotlight (Matched to Reference) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] bg-[radial-gradient(circle,rgba(196,82,26,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-[#C4521A]/30 blur-[150px] rounded-full pointer-events-none" />
-
         <div className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto">
           {/* Portrait Image (Static / No Effects) */}
           <div
             className="relative w-full aspect-[4/5]"
             style={{
               maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)'
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
             }}
           >
             <img
@@ -79,7 +91,7 @@ export default function Home() {
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           maskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)'
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
         }}
       />
     </section>
