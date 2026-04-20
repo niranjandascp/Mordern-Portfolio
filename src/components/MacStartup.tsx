@@ -37,9 +37,9 @@ export default function MacStartup() {
         >
           <div className="flex flex-col items-center gap-16 relative -top-10">
             {/* Liquid Glass Logo Wrapper */}
-            <div className="relative flex items-center justify-center p-6 sm:p-8 rounded-[2rem] bg-white/5 backdrop-blur-[25px] shadow-[inset_0_1px_1px_0_#ffffff33,0_15px_40px_-10px_#ffffff1a] border border-white/10 overflow-hidden">
+            <div >
               {/* Glass glare overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none rounded-[2rem]" />
+              <div />
               <img
                 src={nIcon}
                 alt="N Logo"
