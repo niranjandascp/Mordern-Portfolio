@@ -16,6 +16,7 @@ export default function MacTerminal() {
     initialMouseX: number;
     initialMouseY: number;
   } | null>(null);
+  const [dragPos, setDragPos] = useState({ x: 0, y: 0 });
   const dragControls = useDragControls();
   const windowRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +27,10 @@ export default function MacTerminal() {
     const handlePointerMove = (e: PointerEvent) => {
       const deltaX = e.clientX - resizingData.initialMouseX;
       const deltaY = e.clientY - resizingData.initialMouseY;
-      
-      const newWidth = Math.max(400, resizingData.initialWidth + deltaX * 2); 
+
+      const newWidth = Math.max(400, resizingData.initialWidth + deltaX * 2);
       const newHeight = Math.max(300, resizingData.initialHeight + deltaY * 2);
-      
+
       setSize({ width: newWidth, height: newHeight });
     };
 
@@ -80,26 +81,27 @@ export default function MacTerminal() {
               dragControls={dragControls}
               dragListener={false}
               dragMomentum={false}
+              onDragEnd={(_, info) => setDragPos(prev => ({ x: prev.x + info.offset.x, y: prev.y + info.offset.y }))}
               dragConstraints={{ left: -500, right: 500, top: -300, bottom: 300 }}
-              initial={{ 
-                opacity: 0, 
-                scaleX: 0, 
-                scaleY: 0, 
+              initial={{
+                opacity: 0,
+                scaleX: 0,
+                scaleY: 0,
                 x: 230, // Offset to align with Terminal icon in the dock
-                y: 450, 
+                y: 450,
                 filter: 'blur(30px)',
               }}
               animate={{
                 opacity: 1,
                 scaleX: 1,
                 scaleY: 1,
-                x: 0,
-                y: 0,
+                x: isMaximized ? 0 : dragPos.x,
+                y: isMaximized ? 0 : dragPos.y,
                 filter: 'blur(0px)',
-                width: isMaximized ? '100vw' : size.width,
-                height: isMaximized ? '100vh' : size.height,
-                maxWidth: isMaximized ? '100vw' : '90vw',
-                maxHeight: isMaximized ? '100vh' : '90vh',
+                width: isMaximized ? '100%' : size.width,
+                height: isMaximized ? '100%' : size.height,
+                maxWidth: isMaximized ? '100%' : '90vw',
+                maxHeight: isMaximized ? '100%' : '90vh',
                 borderRadius: isMaximized ? '0px' : '12px',
               }}
               exit={{
@@ -109,8 +111,8 @@ export default function MacTerminal() {
                 x: 230,
                 y: 550,
                 filter: 'blur(35px)',
-                transition: { 
-                  duration: 0.6, 
+                transition: {
+                  duration: 0.6,
                   ease: [0.85, 0, 0.15, 1], // Custom sine-in-out for 'suction' feel
                 }
               }}

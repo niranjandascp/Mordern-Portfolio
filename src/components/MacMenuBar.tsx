@@ -46,7 +46,7 @@ export default function MacMenuBar() {
       className={`fixed top-0 left-0 right-0 z-[51] select-none pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${visible ? 'translate-y-0 opacity-100' : '-translate-y-12 opacity-0'
         }`}
     >
-      <div 
+      <div
         className="relative flex h-9 items-center justify-between border-b border-white/10 bg-black/10 dark:bg-white/5 px-3 text-[12px] text-[var(--color-text-primary)] backdrop-blur-[40px] sm:px-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 0 rgba(0, 0, 0, 0.2)',
@@ -54,7 +54,7 @@ export default function MacMenuBar() {
       >
         {/* Subtle top edge highlight */}
         <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-        
+
         <div className="flex min-w-0 items-center gap-3 sm:gap-5">
           <span className="flex shrink-0 items-center gap-1.5 font-bold">
             <FaApple className="h-[15px] w-[15px] opacity-90" aria-hidden />
@@ -83,7 +83,7 @@ export default function MacMenuBar() {
           <BatteryCharging className="h-3.5 w-3.5" strokeWidth={2} />
           <Search className="h-3.5 w-3.5" strokeWidth={2} />
           <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={2} />
-          
+
           <div className="flex items-center gap-1.5 px-1.5 pointer-events-auto">
             <AnimatePresence mode="wait">
               <motion.div
@@ -100,8 +100,8 @@ export default function MacMenuBar() {
                 )}
               </motion.div>
             </AnimatePresence>
-            <Switch 
-              checked={isDark} 
+            <Switch
+              checked={isDark}
               onCheckedChange={toggleTheme}
               className="scale-90"
             />
