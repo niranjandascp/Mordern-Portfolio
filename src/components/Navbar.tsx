@@ -208,15 +208,16 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav
-      variants={navContainerVariants}
-      initial="hidden"
-      animate={activeTab !== 'home' ? "visible" : "hidden"}
-      className={`fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 ${
-        activeTab !== 'home' ? 'top-3' : 'top-6'
-      }`}
-      style={{ perspective: '1000px' }}
-    >
+    <AnimatePresence>
+      {activeTab !== 'home' && (
+        <motion.nav
+          variants={navContainerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className={`fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 top-3`}
+          style={{ perspective: '1000px' }}
+        >
       {/* Desktop & Tablet Pill */}
       <motion.div
         animate={{
@@ -394,5 +395,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.nav>
+    )}
+  </AnimatePresence>
   );
 }
