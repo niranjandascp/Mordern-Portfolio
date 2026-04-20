@@ -13,7 +13,10 @@ import GSAPScrollSync from './components/GSAPScrollSync';
 import { useStackedPanels } from './hooks/useStackedPanels';
 import ScrollToTop from './components/ui/ScrollToTop';
 import HomeDock from './components/HomeDock';
+import MacMenuBar from './components/MacMenuBar';
 import Navbar from './components/Navbar';
+import MacTerminal from './components/MacTerminal';
+import { HomeDockChromeProvider } from './context/HomeDockChromeContext';
 
 function App() {
   const mainRef = useRef<HTMLElement>(null);
@@ -21,7 +24,11 @@ function App() {
 
   return (
     <ReactLenis root>
+      <HomeDockChromeProvider>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+        {/* macOS-style top strip — same visibility as HomeDock (hero / near top only) */}
+        <MacMenuBar />
+
         {/* Universal Navbar - Logic handles fading in/out based on scroll */}
         <Navbar />
 
@@ -94,7 +101,9 @@ function App() {
           </p>
         </footer>
         <HomeDock />
+        <MacTerminal />
       </div>
+      </HomeDockChromeProvider>
     </ReactLenis>
   );
 }

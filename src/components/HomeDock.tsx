@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLenis } from 'lenis/react';
+import { useHomeDockChrome } from '../context/HomeDockChromeContext';
 
 // Asset Imports
 import homeIcon from '../assets/home-icon.png';
@@ -28,11 +29,11 @@ const mainDockItems: DockItemType[] = [
   { icon: notesIcon, label: 'About', id: 'about' },
   { icon: safariIcon, label: 'Skills', id: 'skills' },
   { icon: finderIcon, label: 'Projects', id: 'projects' },
-  { icon: githubIcon, label: 'GitHub', url: 'https://github.com' },
-  { icon: leetcodeIcon, label: 'LeetCode', url: 'https://leetcode.com' },
+  { icon: githubIcon, label: 'GitHub', url: 'https://github.com/niranjandascp' },
+  { icon: leetcodeIcon, label: 'LeetCode', url: 'https://leetcode.com/u/niranjandascp/' },
   { icon: booksIcon, label: 'Books', id: 'education' },
-  { icon: whatsappIcon, label: 'WhatsApp', url: 'https://whatsapp.com' },
-  { icon: mailIcon, label: 'Mail', id: 'contact' },
+  { icon: whatsappIcon, label: 'WhatsApp', url: 'https://wa.me/918921627502' },
+  { icon: mailIcon, label: 'Mail', url: 'mailto:niranjandas.dev@gmail.com' },
 ];
 
 const secondaryDockItems: DockItemType[] = [
@@ -41,101 +42,87 @@ const secondaryDockItems: DockItemType[] = [
   { icon: settingsIcon, label: 'Settings', url: '#' },
 ];
 
+const DOCK_HOVER_SCALE = 1.55;
+
 function DockItem({
   icon,
   label,
-  mouseX,
-  onClick
+  onClick,
 }: {
   icon: string | React.ReactNode;
   label: string;
-  mouseX: any;
-  onClick: () => void
+  onClick: () => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = React.useState(false);
-
-  const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-
-  const widthSync = useTransform(distance, [-150, 0, 150], [52, 82, 52]);
-  const width = useSpring(widthSync, { mass: 0.1, stiffness: 200, damping: 15 });
+  const [hovered, setHovered] = React.useState(false);
 
   return (
-    <div className="relative flex flex-col items-center">
-      {/* Glossy Label Tooltip */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.9 }}
-            animate={{ opacity: 1, y: -20, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.9 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute -top-16 px-4 py-1.5 bg-[#1C1C1E]/80 backdrop-blur-2xl text-white text-[13px] font-medium rounded-xl border border-white/10 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.6)] pointer-events-none whitespace-nowrap z-[60]"
-          >
-            {label}
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-[#1C1C1E]/80 rotate-45 border-r border-b border-white/10" />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <motion.div
-        ref={ref}
-        style={{ width }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={onClick}
-        className="aspect-square relative flex items-center justify-center cursor-pointer group origin-bottom"
-      >
-        <div className="w-full h-full p-2 flex items-center justify-center relative z-10 transition-transform duration-300 group-active:scale-90">
-          {typeof icon === 'string' ? (
-            <img
-              src={icon}
-              alt={label}
-              className="w-full h-full object-contain pointer-events-none drop-shadow-2xl transition-transform duration-300 group-hover:scale-110"
-            />
-          ) : (
-            <div className="group-hover:scale-110 transition-transform duration-300">
-              {icon}
-            </div>
+    <div className="relative flex w-[58px] shrink-0 flex-col items-center justify-end gap-0.5 pb-px">
+      <div className="relative flex flex-col items-center">
+        <AnimatePresence mode="popLayout">
+          {hovered && (
+            <motion.div
+              key="tooltip"
+              initial={{ opacity: 0, y: 6, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 4, scale: 0.96 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none absolute bottom-full left-1/2 z-[40] mb-1.5 flex -translate-x-1/2 flex-col items-center"
+            >
+              <div className="rounded-full border border-white/12 bg-[#2C2C2E]/95 px-3 py-1 text-center text-[12px] font-medium tracking-tight text-white/95 shadow-[0_8px_28px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+                {label}
+              </div>
+              <div
+                className="-mt-px h-0 w-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[#2C2C2E]/95 drop-shadow-sm"
+                aria-hidden
+              />
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
 
-        {/* Dynamic Reflection */}
-        <div className="absolute -bottom-[35%] inset-x-0 h-full pointer-events-none opacity-[0.15] blur-[2px] overflow-hidden scale-y-[-1] mask-gradient-to-t">
-          {typeof icon === 'string' ? (
-            <img src={icon} alt="" className="w-full h-full object-contain" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">{icon}</div>
-          )}
-        </div>
+        <motion.div
+          animate={{ scale: hovered ? DOCK_HOVER_SCALE : 1 }}
+          transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          style={{ transformOrigin: '50% 100%' }}
+          onClick={onClick}
+          aria-label={label}
+          className={`relative flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center will-change-transform group ${hovered ? 'z-20' : 'z-10'
+            }`}
+        >
+          <div className="flex h-full w-full items-center justify-center p-1 transition-transform duration-150 group-active:scale-95">
+            {typeof icon === 'string' ? (
+              <img
+                src={icon}
+                alt={label}
+                className="h-full w-full object-contain pointer-events-none drop-shadow-2xl"
+              />
+            ) : (
+              icon
+            )}
+          </div>
+        </motion.div>
+      </div>
 
-        {/* Active Application Dot */}
-        {label === 'VS Code' && (
-          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white/80 rounded-full blur-[0.5px] shadow-[0_0_10px_rgba(255,255,255,1)]" />
+      <div className="flex h-1.5 w-full shrink-0 items-center justify-center">
+        {label === 'Home' && (
+          <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-white/45" aria-hidden />
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }
 
 export default function HomeDock() {
-  const mouseX = useMotionValue(Infinity);
   const lenis = useLenis();
-  const [isVisible, setIsVisible] = React.useState(true);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY < 100);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { visible: isVisible, setTerminalOpen } = useHomeDockChrome();
 
   const handleNavClick = (item: DockItemType) => {
+    if (item.label === 'Terminal') {
+      setTerminalOpen(true);
+      return;
+    }
+
     if (item.url && item.url !== '#' && item.url !== '/') {
       window.open(item.url, '_blank');
       return;
@@ -150,40 +137,42 @@ export default function HomeDock() {
   };
 
   return (
-    <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
-    }`}>
+    <div
+      className={`fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
+        }`}
+    >
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto flex items-end gap-3 px-5 py-4 bg-white/[0.03] border border-white/20 backdrop-blur-[45px] rounded-[3rem] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] relative after:absolute after:inset-0 after:rounded-[3rem] after:bg-gradient-to-b after:from-white/10 after:to-transparent after:opacity-10 after:pointer-events-none"
+        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-3xl border border-white/20 bg-white/[0.03] px-2.5 py-1 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-[45px] after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl after:bg-gradient-to-b after:from-white/10 after:to-transparent after:opacity-10"
       >
-        <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent pointer-events-none border-t border-l border-white/20" />
+        <div className="pointer-events-none absolute inset-0 rounded-3xl border-t border-l border-white/20 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent" />
 
-        <div className="flex items-end gap-3.5">
+        <div className="relative z-[1] flex shrink-0 items-end gap-px">
           {mainDockItems.map((item, idx) => (
             <DockItem
               key={`main-${idx}`}
               icon={item.icon}
               label={item.label}
-              mouseX={mouseX}
               onClick={() => handleNavClick(item)}
             />
           ))}
         </div>
 
-        <div className="w-[1px] h-12 bg-white/10 mx-2 self-center opacity-40" />
+        <div
+          className="relative z-[1] mx-px flex shrink-0 self-center"
+          aria-hidden
+        >
+          <div className="h-7 w-px rounded-full bg-white/28" />
+        </div>
 
-        <div className="flex items-end gap-3.5">
+        <div className="relative z-[1] flex shrink-0 items-end gap-px">
           {secondaryDockItems.map((item, idx) => (
             <DockItem
               key={`secondary-${idx}`}
               icon={item.icon}
               label={item.label}
-              mouseX={mouseX}
               onClick={() => handleNavClick(item)}
             />
           ))}

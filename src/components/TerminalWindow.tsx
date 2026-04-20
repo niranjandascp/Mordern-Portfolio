@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { Terminal, Cpu, Wifi, Disc, Keyboard } from 'lucide-react';
 
 const ASCII_ART = `
 ███╗   ██╗██╗██████╗  █████╗ ███╗   ██╗     ██╗ █████╗ ███╗   ██╗
@@ -393,139 +392,99 @@ export function TerminalWindow() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 15 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-full max-w-[550px] font-mono text-xs leading-relaxed sm:text-sm"
+    <div
+      ref={containerRef}
+      onClick={handleContainerClick}
+      className="h-full flex flex-col"
     >
-      <div className="absolute -inset-1 rounded-xl bg-linear-to-b from-[#56b6c2]/20 to-[#c678dd]/20 opacity-10 dark:opacity-20 blur-xl" />
-      <div
-        ref={containerRef}
-        onClick={handleContainerClick}
-        className="relative flex h-[280px] cursor-text flex-col overflow-hidden rounded-lg border border-border-main bg-bg-primary shadow-2xl backdrop-blur-xl transition-all hover:border-cyan-500/20 sm:h-[360px]"
-      >
-        <div className="flex h-8 shrink-0 select-none items-center justify-between border-b border-border-main bg-bg-secondary px-4">
-          <div className="flex items-center gap-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#27c93f]" />
-          </div>
-          <div className="flex items-center gap-2 text-[10px] font-medium tracking-wider text-text-secondary opacity-60">
-            <Terminal className="h-3 w-3" />
-            <span>niranjandas:~/welcome</span>
-          </div>
-          <span className="flex shrink-0 items-center gap-1.5 rounded-md border border-cyan-500/30 bg-cyan-500/10 px-2 py-0.5 text-[9px] font-medium tracking-wide text-cyan-500 dark:text-cyan-400 sm:text-[10px]">
-            <Keyboard className="h-3 w-3 shrink-0" />
-            <span className="hidden sm:inline">Interactive Terminal</span>
-            <span className="sm:hidden">Type here</span>
-          </span>
-        </div>
-        <div ref={scrollRef} className="relative flex-1 overflow-auto p-3 scroll-smooth sm:p-6">
-          <pre className="mb-4 self-start whitespace-pre font-mono text-[5px] font-bold leading-[1.1] text-transparent selection:bg-transparent sm:mb-6 sm:text-[10px] bg-linear-to-b from-[#56b6c2] to-[#61afef] bg-clip-text">
-            {ASCII_ART}
-          </pre>
-          <div className="space-y-1.5">
-            <AnimatePresence mode="popLayout">
-              {history.map((log) => (
-                <motion.div
-                  key={log.id}
-                  layout
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex w-full flex-row items-baseline gap-2 font-medium leading-tight text-text-secondary wrap-break-word whitespace-pre-wrap"
-                >
-                  {!log.isCommand && (
-                    <>
-                      {log.timestamp && (
-                        <span className="shrink-0 select-none text-text-secondary/40">
-                          [{log.timestamp}]
-                        </span>
-                      )}
-                      {log.level && (
-                        <span
-                          className={`shrink-0 min-w-14 select-none ${getLevelColor(log.level)}`}
-                        >
-                          [{log.level}]
-                        </span>
-                      )}
-                    </>
-                  )}
-                  <span className={log.isCommand ? '' : log.color || 'text-text-primary'}>
-                    {log.message}
-                  </span>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-            {!isBooting && (
+      <div ref={scrollRef}>
+        <pre className="mb-4 self-start whitespace-pre font-mono text-[5px] font-bold leading-[1.1] text-transparent selection:bg-transparent sm:mb-6 sm:text-[10px] bg-linear-to-b from-[#56b6c2] to-[#61afef] bg-clip-text">
+          {ASCII_ART}
+        </pre>
+        <div className="space-y-1.5">
+          <AnimatePresence mode="popLayout">
+            {history.map((log) => (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="group relative flex items-center gap-2 pb-1 pt-2"
+                key={log.id}
+                layout
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="flex w-full flex-row items-baseline gap-2 font-medium leading-tight text-text-secondary wrap-break-word whitespace-pre-wrap"
               >
-                <motion.div
-                  animate={{ opacity: [0.1, 0.2, 0.1] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="absolute -inset-x-2 inset-y-0 -z-10 rounded bg-cyan-500/5"
-                />
-                <motion.span
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="shrink-0 text-green-500"
-                >
-                  ➜
-                </motion.span>
-                <span className="shrink-0 whitespace-nowrap">
-                  <span className="hidden text-orange-600 dark:text-[#56b6c2] sm:inline">
-                    niranjandas
-                  </span>
-                  <span className="hidden text-text-secondary/50 sm:inline">:</span>
-                  <span className="hidden text-amber-600 dark:text-[#61afef] sm:inline">~</span>
-                  <span className="text-text-secondary">$</span>
-                  <span className="text-text-secondary"> </span>
+                {!log.isCommand && (
+                  <>
+                    {log.timestamp && (
+                      <span className="shrink-0 select-none text-text-secondary/40">
+                        [{log.timestamp}]
+                      </span>
+                    )}
+                    {log.level && (
+                      <span
+                        className={`shrink-0 min-w-14 select-none ${getLevelColor(log.level)}`}
+                      >
+                        [{log.level}]
+                      </span>
+                    )}
+                  </>
+                )}
+                <span className={log.isCommand ? '' : log.color || 'text-text-primary'}>
+                  {log.message}
                 </span>
-                <div className="relative min-w-0 flex-1">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="w-full border-none bg-transparent font-mono text-sm text-text-primary outline-none caret-cyan-500 placeholder:text-cyan-500/40"
-                    autoComplete="off"
-                    spellCheck={false}
-                    placeholder={placeholderText}
-                  />
-                </div>
               </motion.div>
-            )}
-          </div>
-        </div>
-        <div className="flex h-7 shrink-0 items-center justify-between border-t border-border-main bg-bg-secondary px-3 font-mono text-[9px] text-text-secondary sm:text-[10px] opacity-80">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <Disc className={`h-3 w-3 ${isBooting ? 'animate-spin' : ''}`} />
-              <span>STATUS: READY</span>
-            </div>
-            <div className="hidden items-center gap-1.5 sm:flex">
-              <Cpu className="h-3 w-3" />
-              <span>MEM: {history.length * 2}KB</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 text-green-500">
-            <Wifi className="h-3 w-3" />
-            <span>ONLINE</span>
-          </div>
+            ))}
+          </AnimatePresence>
+          {!isBooting && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="group relative flex items-center gap-2 pb-1 pt-2"
+            >
+              <motion.div
+                animate={{ opacity: [0.1, 0.2, 0.1] }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="absolute -inset-x-2 inset-y-0 -z-10 rounded bg-cyan-500/5"
+              />
+              <motion.span
+                animate={{ x: [0, 3, 0] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className="shrink-0 text-green-500"
+              >
+                ➜
+              </motion.span>
+              <span className="shrink-0 whitespace-nowrap">
+                <span className="hidden text-orange-600 dark:text-[#56b6c2] sm:inline">
+                  niranjandas
+                </span>
+                <span className="hidden text-text-secondary/50 sm:inline">:</span>
+                <span className="hidden text-amber-600 dark:text-[#61afef] sm:inline">~</span>
+                <span className="text-text-secondary">$</span>
+                <span className="text-text-secondary"> </span>
+              </span>
+              <div className="relative min-w-0 flex-1">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="w-full border-none bg-transparent font-mono text-sm text-text-primary outline-none caret-cyan-500 placeholder:text-cyan-500/40"
+                  autoComplete="off"
+                  spellCheck={false}
+                  placeholder={placeholderText}
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
