@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'framer-motion';
 import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 import { useLenis } from 'lenis/react';
+import { useTheme } from '../context/ThemeContext';
+import { useHomeDockChrome } from '../context/HomeDockChromeContext';
 
 const mainNav = [
   { label: 'Home', id: 'home' },
@@ -126,45 +128,28 @@ const navItemVariants: Variants = {
 };
 
 export default function Navbar() {
-  const [activeTab, setActiveTab] = useState('home');
+  const { activeTab, setActiveTab } = useHomeDockChrome();
+  const { theme, toggleTheme } = useTheme();
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lenis = useLenis();
-
+  
   const handleNavClick = useCallback(
     (id: string) => {
       if (id === 'home') {
         lenis?.scrollTo(0, { duration: 1.5 });
       } else {
-        lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+        const target = document.getElementById(id);
+        if (target) {
+          lenis?.scrollTo(target, { offset: -20, duration: 1.5 });
+        }
       }
       setActiveTab(id);
       setIsMobileMenuOpen(false);
     },
-    [lenis]
+    [lenis, setActiveTab]
   );
-
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved) return saved as 'dark' | 'light';
-      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
-    return 'dark';
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.add('light');
-    } else {
-      root.classList.remove('light');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
   // ELITE NAVIGATION TRACKING: Using IntersectionObserver for 100% accuracy
   useEffect(() => {
@@ -224,9 +209,12 @@ export default function Navbar() {
           scale: isScrolled ? 1.02 : 1,
         }}
         transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-        className={`pointer-events-auto flex items-center bg-bg-secondary/80 border border-border-main rounded-full p-1.5 shadow-2xl relative transition-all duration-300 ${
+        className={`pointer-events-auto flex items-center bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 border border-white/10 [body.light_&]:border-black/5 rounded-full p-1.5 shadow-2xl relative transition-all duration-300 backdrop-blur-[50px] ${
           isScrolled ? 'h-16' : 'h-14'
         }`}
+        style={{
+          boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',
+        }}
       >
         {/* Navigation Items */}
         <div

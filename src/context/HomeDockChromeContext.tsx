@@ -4,6 +4,8 @@ type Value = {
   visible: boolean;
   terminalOpen: boolean;
   setTerminalOpen: (open: boolean) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 };
 
 const HomeDockChromeContext = createContext<Value | null>(null);
@@ -17,11 +19,10 @@ export function HomeDockChromeProvider({
 }) {
   const [visible, setVisible] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('home');
 
   useEffect(() => {
     const onScroll = () => {
-      // If terminal is open, we don't necessarily want to hide the dock, 
-      // but the original logic was about threshold.
       setVisible(window.scrollY < thresholdPx);
     };
     onScroll();
@@ -32,8 +33,10 @@ export function HomeDockChromeProvider({
   const value = useMemo(() => ({
     visible,
     terminalOpen,
-    setTerminalOpen
-  }), [visible, terminalOpen]);
+    setTerminalOpen,
+    activeTab,
+    setActiveTab
+  }), [visible, terminalOpen, activeTab]);
 
   return (
     <HomeDockChromeContext.Provider value={value}>

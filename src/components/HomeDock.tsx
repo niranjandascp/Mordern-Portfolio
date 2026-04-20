@@ -114,8 +114,8 @@ function DockItem({
 }
 
 export default function HomeDock() {
+  const { visible: isVisible, activeTab, setActiveTab, setTerminalOpen } = useHomeDockChrome();
   const lenis = useLenis();
-  const { visible: isVisible, setTerminalOpen } = useHomeDockChrome();
 
   const handleNavClick = (item: DockItemType) => {
     if (item.label === 'Terminal') {
@@ -145,9 +145,12 @@ export default function HomeDock() {
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-3xl border border-white/20 bg-white/[0.03] px-2.5 py-1 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-[45px] after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl after:bg-gradient-to-b after:from-white/10 after:to-transparent after:opacity-10"
+        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-2.5 py-1 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] [body.light_&]:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] backdrop-blur-[50px] transition-colors"
+        style={{
+          boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',
+        }}
       >
-        <div className="pointer-events-none absolute inset-0 rounded-3xl border-t border-l border-white/20 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 rounded-[24px] border-t border-white/10 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent" />
 
         <div className="relative z-[1] flex shrink-0 items-end gap-px">
           {mainDockItems.map((item, idx) => (

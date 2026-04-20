@@ -52,7 +52,7 @@ export function AboutTerminal({
         <div className="text-[#00f0ff] font-mono">$ cat about.txt</div>
         <div className="text-white/20 text-[10px]">niranjandas.bio</div>
       </div>
-      <div className="flex-1 overflow-y-auto text-text-primary/80 scrollbar-hide">
+      <div className="flex-1 overflow-y-auto text-white/90 scrollbar-hide">
         {commandExecuted && typedText.length > 0 ? typedText : '\u00A0'}
         {isTyping && <span className="animate-pulse text-[#00f0ff]">_</span>}
         {isComplete && <span className="ml-1 animate-blink text-[#00f0ff]">█</span>}

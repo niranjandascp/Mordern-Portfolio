@@ -409,12 +409,12 @@ export function TerminalWindow() {
                 layout
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="flex w-full flex-row items-baseline gap-2 font-medium leading-tight text-text-secondary wrap-break-word whitespace-pre-wrap"
+                className="flex w-full flex-row items-baseline gap-2 font-medium leading-tight text-white wrap-break-word whitespace-pre-wrap"
               >
                 {!log.isCommand && (
                   <>
                     {log.timestamp && (
-                      <span className="shrink-0 select-none text-text-secondary/40">
+                      <span className="shrink-0 select-none text-white/40">
                         [{log.timestamp}]
                       </span>
                     )}
@@ -427,7 +427,7 @@ export function TerminalWindow() {
                     )}
                   </>
                 )}
-                <span className={log.isCommand ? '' : log.color || 'text-text-primary'}>
+                <span className={log.isCommand ? '' : log.color || 'text-white'}>
                   {log.message}
                 </span>
               </motion.div>
@@ -460,13 +460,13 @@ export function TerminalWindow() {
                 ➜
               </motion.span>
               <span className="shrink-0 whitespace-nowrap">
-                <span className="hidden text-orange-600 dark:text-[#56b6c2] sm:inline">
+                <span className="hidden text-[#56b6c2] sm:inline">
                   niranjandas
                 </span>
-                <span className="hidden text-text-secondary/50 sm:inline">:</span>
-                <span className="hidden text-amber-600 dark:text-[#61afef] sm:inline">~</span>
-                <span className="text-text-secondary">$</span>
-                <span className="text-text-secondary"> </span>
+                <span className="hidden text-white/50 sm:inline">:</span>
+                <span className="hidden text-[#61afef] sm:inline">~</span>
+                <span className="text-white">$</span>
+                <span className="text-white"> </span>
               </span>
               <div className="relative min-w-0 flex-1">
                 <input
@@ -475,7 +475,7 @@ export function TerminalWindow() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="w-full border-none bg-transparent font-mono text-sm text-text-primary outline-none caret-cyan-500 placeholder:text-cyan-500/40"
+                  className="w-full border-none bg-transparent font-mono text-sm text-white outline-none caret-cyan-500 placeholder:text-cyan-500/40"
                   autoComplete="off"
                   spellCheck={false}
                   placeholder={placeholderText}

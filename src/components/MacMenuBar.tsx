@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { FaApple } from 'react-icons/fa6';
 import { useHomeDockChrome } from '../context/HomeDockChromeContext';
+import { useTheme } from '../context/ThemeContext';
 import { Switch } from './ui/interfaces-switch';
 
 const MENU_ITEMS = ['File', 'Edit', 'View', 'Go', 'Window', 'Help'] as const;
@@ -30,22 +31,15 @@ function formatMenuBarTime(d: Date) {
  */
 export default function MacMenuBar() {
   const { visible } = useHomeDockChrome();
+  const { theme, toggleTheme } = useTheme();
   const [now, setNow] = React.useState(() => new Date());
-  const [isDark, setIsDark] = React.useState(true);
 
   React.useEffect(() => {
     const id = window.setInterval(() => setNow(new Date()), 30_000);
     return () => window.clearInterval(id);
   }, []);
 
-  const toggleTheme = (checked: boolean) => {
-    setIsDark(checked);
-    if (!checked) {
-      document.body.classList.add('light');
-    } else {
-      document.body.classList.remove('light');
-    }
-  };
+  const isDark = theme === 'dark';
 
   return (
     <div

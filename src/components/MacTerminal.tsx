@@ -70,7 +70,6 @@ export default function MacTerminal() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setTerminalOpen(false)}
               className="absolute inset-0 bg-black/20 pointer-events-auto"
             />
 
@@ -105,24 +104,24 @@ export default function MacTerminal() {
               }}
               exit={{
                 opacity: 0,
-                scaleX: 0,
+                scaleX: 0.1,
                 scaleY: 0,
-                x: 230, // Return to Terminal icon position
-                y: 450,
-                filter: 'blur(30px)',
+                x: 230,
+                y: 550,
+                filter: 'blur(35px)',
                 transition: { 
-                  duration: 0.5, 
-                  ease: [0.33, 1, 0.68, 1],
+                  duration: 0.6, 
+                  ease: [0.85, 0, 0.15, 1], // Custom sine-in-out for 'suction' feel
                 }
               }}
               transition={{
                 duration: 0.7,
-                ease: [0.16, 1, 0.3, 1]
+                ease: [0.22, 1, 0.36, 1]
               }}
               style={{
                 zIndex: 61,
-                transformOrigin: 'calc(50% + 230px) 100%', // Anchor point matches icon position
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.1) inset, 0 30px 100px rgba(0,0,0,0.8)',
+                transformOrigin: 'calc(50% + 230px) 100%',
+                boxShadow: '0 0 0 1px rgba(255,255,255,0.1) inset, 0 30px 100px rgba(0,0,0,0.9)',
               }}
               className="relative flex flex-col overflow-hidden border border-white/20 bg-[#0c0c0e]/85 shadow-[0_30px_100px_rgba(0,0,0,1)] backdrop-blur-[50px] pointer-events-auto"
             >

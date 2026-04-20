@@ -17,6 +17,7 @@ import MacMenuBar from './components/MacMenuBar';
 import Navbar from './components/Navbar';
 import MacTerminal from './components/MacTerminal';
 import { HomeDockChromeProvider } from './context/HomeDockChromeContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   const mainRef = useRef<HTMLElement>(null);
@@ -24,7 +25,8 @@ function App() {
 
   return (
     <ReactLenis root>
-      <HomeDockChromeProvider>
+      <ThemeProvider>
+        <HomeDockChromeProvider>
       <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
         {/* macOS-style top strip — same visibility as HomeDock (hero / near top only) */}
         <MacMenuBar />
@@ -103,7 +105,8 @@ function App() {
         <HomeDock />
         <MacTerminal />
       </div>
-      </HomeDockChromeProvider>
+        </HomeDockChromeProvider>
+      </ThemeProvider>
     </ReactLenis>
   );
 }
