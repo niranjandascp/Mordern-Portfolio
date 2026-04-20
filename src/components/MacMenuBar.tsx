@@ -41,10 +41,26 @@ export default function MacMenuBar() {
 
   const isDark = theme === 'dark';
 
+  const [isInitialMount, setIsInitialMount] = React.useState(true);
+
+  React.useEffect(() => {
+    const t = setTimeout(() => setIsInitialMount(false), 3000);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
-    <div
-      className={`fixed top-0 left-0 right-0 z-[51] select-none pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${visible ? 'translate-y-0 opacity-100' : '-translate-y-12 opacity-0'
-        }`}
+    <motion.div
+      initial={{ y: -48, opacity: 0 }}
+      animate={{
+        y: visible ? 0 : -48,
+        opacity: visible ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+        delay: isInitialMount ? 2.8 : 0,
+      }}
+      className="fixed top-0 left-0 right-0 z-[101] select-none pointer-events-none"
     >
       <div
         className="relative flex h-9 items-center justify-between border-b border-white/10 bg-black/10 dark:bg-white/5 px-3 text-[12px] text-[var(--color-text-primary)] backdrop-blur-[40px] sm:px-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
@@ -115,6 +131,6 @@ export default function MacMenuBar() {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

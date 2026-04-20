@@ -6,6 +6,8 @@ type Value = {
   setTerminalOpen: (open: boolean) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  vscodeOpen: boolean;
+  setVscodeOpen: (open: boolean) => void;
 };
 
 const HomeDockChromeContext = createContext<Value | null>(null);
@@ -19,6 +21,7 @@ export function HomeDockChromeProvider({
 }) {
   const [visible, setVisible] = useState(true);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [vscodeOpen, setVscodeOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
 
   useEffect(() => {
@@ -35,8 +38,10 @@ export function HomeDockChromeProvider({
     terminalOpen,
     setTerminalOpen,
     activeTab,
-    setActiveTab
-  }), [visible, terminalOpen, activeTab]);
+    setActiveTab,
+    vscodeOpen,
+    setVscodeOpen
+  }), [visible, terminalOpen, activeTab, vscodeOpen]);
 
   return (
     <HomeDockChromeContext.Provider value={value}>

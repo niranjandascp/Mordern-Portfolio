@@ -15,15 +15,20 @@ import ScrollToTop from './components/ui/ScrollToTop';
 import HomeDock from './components/HomeDock';
 import MacMenuBar from './components/MacMenuBar';
 import Navbar from './components/Navbar';
+import MacStartup from './components/MacStartup';
 import MacTerminal from './components/MacTerminal';
+import VSCodeWindow from './components/VSCodeWindow';
 import { HomeDockChromeProvider } from './context/HomeDockChromeContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 
-function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement> }) {
+function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
   const { theme } = useTheme();
 
   return (
     <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+      {/* Intro Startup Animation */}
+      <MacStartup />
+
       {/* macOS-style top strip — same visibility as HomeDock (hero / near top only) */}
       <MacMenuBar />
 
@@ -108,6 +113,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement> }) {
       </footer>
       <HomeDock />
       <MacTerminal />
+      <VSCodeWindow />
     </div>
   );
 }

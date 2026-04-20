@@ -51,21 +51,31 @@ export default function Home() {
           style={{ opacity: opacityText, y: yText }}
           className="flex items-center justify-center w-full mt-[-10vh]"
         >
-          <h1
-            className="text-[22vw] font-big-shoulders font-black text-text-primary/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.1] scale-x-[0.9] tracking-[-0.05em] origin-center"
-            style={{
-              maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'
-            }}
+          <motion.div
+            initial={{ filter: 'blur(20px)', opacity: 0 }}
+            animate={{ filter: 'blur(0px)', opacity: 1 }}
+            transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            NIRANJAN DAS
-          </h1>
+            <h1
+              className="text-[22vw] font-big-shoulders font-black text-text-primary/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.1] scale-x-[0.9] tracking-[-0.05em] origin-center"
+              style={{
+                maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'
+              }}
+            >
+              NIRANJAN DAS
+            </h1>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Portrait — front */}
       <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-        <div className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto">
+        <motion.div 
+          className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto"
+          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
+        >
           {/* Portrait Image (Static / No Effects) */}
           <div
             className="relative w-full aspect-[4/5]"
@@ -81,7 +91,7 @@ export default function Home() {
               style={{ objectPosition: 'center 20%' }}
             />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Cinematic Bottom Blur Fade (Seamless transition while scrolling) */}

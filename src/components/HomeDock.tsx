@@ -48,11 +48,17 @@ function DockItem({
   icon,
   label,
   onClick,
+  terminalOpen,
+  vscodeOpen,
 }: {
   icon: string | React.ReactNode;
   label: string;
   onClick: () => void;
+  terminalOpen?: boolean;
+  vscodeOpen?: boolean;
 }) {
+  const itemIsTerminal = label === 'Terminal';
+  const itemIsVSCode = label === 'VS Code';
   const [hovered, setHovered] = React.useState(false);
 
   return (
@@ -105,8 +111,14 @@ function DockItem({
       </div>
 
       <div className="flex h-1.5 w-full shrink-0 items-center justify-center">
-        {label === 'Home' && (
+        {label === 'Home' && !itemIsTerminal && !itemIsVSCode && (
           <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-white/45" aria-hidden />
+        )}
+        {itemIsTerminal && terminalOpen && (
+          <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]" aria-hidden />
+        )}
+        {itemIsVSCode && vscodeOpen && (
+          <span className="h-[3px] w-[3px] shrink-0 rounded-full bg-[#007ACC] shadow-[0_0_8px_rgba(0,122,204,0.8)]" aria-hidden />
         )}
       </div>
     </div>
@@ -114,12 +126,16 @@ function DockItem({
 }
 
 export default function HomeDock() {
-  const { visible: isVisible, activeTab, setActiveTab, setTerminalOpen } = useHomeDockChrome();
+  const { visible: isVisible, setTerminalOpen, terminalOpen, setVscodeOpen, vscodeOpen } = useHomeDockChrome();
   const lenis = useLenis();
 
   const handleNavClick = (item: DockItemType) => {
     if (item.label === 'Terminal') {
       setTerminalOpen(true);
+      return;
+    }
+    if (item.label === 'VS Code') {
+      setVscodeOpen(true);
       return;
     }
 
@@ -144,7 +160,7 @@ export default function HomeDock() {
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: 2.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-2.5 py-1 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] [body.light_&]:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] backdrop-blur-[50px] transition-colors"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',
@@ -159,6 +175,8 @@ export default function HomeDock() {
               icon={item.icon}
               label={item.label}
               onClick={() => handleNavClick(item)}
+              terminalOpen={terminalOpen}
+              vscodeOpen={vscodeOpen}
             />
           ))}
         </div>
@@ -177,6 +195,8 @@ export default function HomeDock() {
               icon={item.icon}
               label={item.label}
               onClick={() => handleNavClick(item)}
+              terminalOpen={terminalOpen}
+              vscodeOpen={vscodeOpen}
             />
           ))}
         </div>

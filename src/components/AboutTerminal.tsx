@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+
 
 const DEFAULT_ABOUT_TEXT =
   'Hey there! I’m Niranjan Das, a Full Stack Developer with a strong focus on backend development. I specialize in building scalable and secure applications using Node.js, Express.js, Nest.js, TypeScript, React.js, Next.js, MongoDB, and PostgreSQL. With hands-on experience in developing real-world projects, I focus on writing clean, efficient code and creating user-centric solutions, while continuously improving my skills to deliver impactful results.';
