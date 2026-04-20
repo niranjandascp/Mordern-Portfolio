@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { X, Folder, Terminal, Minus, Maximize2 } from 'lucide-react';
 import { useHomeDockChrome } from '../context/HomeDockChromeContext';
@@ -9,7 +9,54 @@ export default function MacTerminal() {
   const { terminalOpen, setTerminalOpen } = useHomeDockChrome();
   const [activeTab, setActiveTab] = useState<'terminal' | 'about'>('terminal');
   const [isMaximized, setIsMaximized] = useState(false);
+  const [size, setSize] = useState({ width: 896, height: 600 }); // 896 is max-w-4xl
+  const [resizingData, setResizingData] = useState<{
+    initialWidth: number;
+    initialHeight: number;
+    initialMouseX: number;
+    initialMouseY: number;
+  } | null>(null);
   const dragControls = useDragControls();
+  const windowRef = useRef<HTMLDivElement>(null);
+
+  // Resize Logic
+  useEffect(() => {
+    if (!resizingData) return;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const deltaX = e.clientX - resizingData.initialMouseX;
+      const deltaY = e.clientY - resizingData.initialMouseY;
+      
+      const newWidth = Math.max(400, resizingData.initialWidth + deltaX * 2); 
+      const newHeight = Math.max(300, resizingData.initialHeight + deltaY * 2);
+      
+      setSize({ width: newWidth, height: newHeight });
+    };
+
+    const handlePointerUp = () => {
+      setResizingData(null);
+      document.body.style.cursor = 'default';
+      document.body.style.userSelect = 'auto';
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSize({ width: resizingData.initialWidth, height: resizingData.initialHeight });
+        handlePointerUp();
+      }
+    };
+
+    document.body.style.cursor = 'nwse-resize';
+    document.body.style.userSelect = 'none';
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [resizingData]);
 
   if (!terminalOpen) return null;
 
@@ -29,41 +76,55 @@ export default function MacTerminal() {
 
             {/* Terminal Window */}
             <motion.div
-              drag={!isMaximized}
+              ref={windowRef}
+              drag={!isMaximized && !resizingData}
               dragControls={dragControls}
               dragListener={false}
               dragMomentum={false}
               dragConstraints={{ left: -500, right: 500, top: -300, bottom: 300 }}
-              initial={{ opacity: 0, scale: 0.1, y: 100, filter: 'blur(10px)' }}
+              initial={{ 
+                opacity: 0, 
+                scaleX: 0, 
+                scaleY: 0, 
+                x: 230, // Offset to align with Terminal icon in the dock
+                y: 450, 
+                filter: 'blur(30px)',
+              }}
               animate={{
                 opacity: 1,
-                scale: 1,
+                scaleX: 1,
+                scaleY: 1,
+                x: 0,
                 y: 0,
                 filter: 'blur(0px)',
-                width: isMaximized ? '100vw' : '100%',
-                height: isMaximized ? '100vh' : '85vh',
-                maxWidth: isMaximized ? '100vw' : '896px',
+                width: isMaximized ? '100vw' : size.width,
+                height: isMaximized ? '100vh' : size.height,
+                maxWidth: isMaximized ? '100vw' : '90vw',
+                maxHeight: isMaximized ? '100vh' : '90vh',
                 borderRadius: isMaximized ? '0px' : '12px',
               }}
               exit={{
                 opacity: 0,
-                scale: 0.1,
-                y: 100,
-                filter: 'blur(10px)',
-                transition: { duration: 0.3, ease: [0.32, 0, 0.67, 0] }
+                scaleX: 0,
+                scaleY: 0,
+                x: 230, // Return to Terminal icon position
+                y: 450,
+                filter: 'blur(30px)',
+                transition: { 
+                  duration: 0.5, 
+                  ease: [0.33, 1, 0.68, 1],
+                }
               }}
               transition={{
-                type: 'spring',
-                damping: 25,
-                stiffness: 300,
-                mass: 0.8
+                duration: 0.7,
+                ease: [0.16, 1, 0.3, 1]
               }}
               style={{
                 zIndex: 61,
-                transformOrigin: 'bottom center', // Animates from/to the dock at the bottom
+                transformOrigin: 'calc(50% + 230px) 100%', // Anchor point matches icon position
                 boxShadow: '0 0 0 1px rgba(255,255,255,0.1) inset, 0 30px 100px rgba(0,0,0,0.8)',
               }}
-              className="relative flex flex-col overflow-hidden border border-white/20 bg-[#0c0c0e]/80 shadow-[0_30px_100px_rgba(0,0,0,1)] backdrop-blur-[50px] pointer-events-auto"
+              className="relative flex flex-col overflow-hidden border border-white/20 bg-[#0c0c0e]/85 shadow-[0_30px_100px_rgba(0,0,0,1)] backdrop-blur-[50px] pointer-events-auto"
             >
               {/* Liquid Glass Overlay Effect */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -85,7 +146,7 @@ export default function MacTerminal() {
                     <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                   <button
-                    onClick={() => setTerminalOpen(false)} // Minimizing just closes it in this context
+                    onClick={() => setTerminalOpen(false)}
                     className="h-3 w-3 rounded-full bg-[#ffbd2e] flex items-center justify-center group relative overflow-hidden"
                   >
                     <Minus className="h-2 w-2 text-black/60 opacity-0 group-hover:opacity-100 transition-opacity relative z-10" />
@@ -178,6 +239,27 @@ export default function MacTerminal() {
                   </div>
                 </div>
               </div>
+
+              {/* Resize Handle */}
+              {!isMaximized && (
+                <div
+                  onPointerDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                    setResizingData({
+                      initialWidth: size.width,
+                      initialHeight: size.height,
+                      initialMouseX: e.clientX,
+                      initialMouseY: e.clientY,
+                    });
+                  }}
+                  className="absolute bottom-0 right-0 w-6 h-6 cursor-nwse-resize z-30 flex items-end justify-end p-1"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/20 mr-0.5 mb-0.5" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+                </div>
+              )}
             </motion.div>
           </>
         )}
