@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImg from '../assets/hero.png';
 import InteractiveDots from './InteractiveDots';
 import { Spotlight } from './ui/Spotlight';
+import { LiquidMetalButton } from './ui/liquid-metal-button';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -104,6 +105,21 @@ export default function Home() {
           WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 80%)',
         }}
       />
+
+      {/* Call to Action */}
+      <motion.div 
+        className="absolute bottom-[15vh] max-sm:bottom-[20vh] left-1/2 -translate-x-1/2 z-[30] pointer-events-auto flex flex-col items-center"
+        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 1.5, delay: 3.1, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <LiquidMetalButton 
+          label="Explore Projects" 
+          onClick={() => {
+            document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+          }} 
+        />
+      </motion.div>
     </section>
   );
 }
