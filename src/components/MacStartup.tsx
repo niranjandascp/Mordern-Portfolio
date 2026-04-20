@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaApple } from 'react-icons/fa6';
+import nIcon from '../assets/N.png';
 
 export default function MacStartup() {
   const [show, setShow] = useState(true);
@@ -8,7 +8,7 @@ export default function MacStartup() {
   useEffect(() => {
     // Lock scrolling while the startup animation is playing
     document.body.style.overflow = 'hidden';
-    
+
     // Simulate the Mac loading time. After 2.3 seconds, trigger the fade out.
     const timer = setTimeout(() => {
       setShow(false);
@@ -36,8 +36,16 @@ export default function MacStartup() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
         >
           <div className="flex flex-col items-center gap-16 relative -top-10">
-            {/* Apple Logo */}
-            <FaApple className="text-white/90 w-20 h-20 sm:w-24 sm:h-24" />
+            {/* Liquid Glass Logo Wrapper */}
+            <div className="relative flex items-center justify-center p-6 sm:p-8 rounded-[2rem] bg-white/5 backdrop-blur-[25px] shadow-[inset_0_1px_1px_0_#ffffff33,0_15px_40px_-10px_#ffffff1a] border border-white/10 overflow-hidden">
+              {/* Glass glare overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none rounded-[2rem]" />
+              <img
+                src={nIcon}
+                alt="N Logo"
+                className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_0_20px_#ffffff66] relative z-10"
+              />
+            </div>
 
             {/* Loading Bar */}
             <div className="w-48 sm:w-56 h-[4px] bg-[#333333] rounded-full overflow-hidden">
