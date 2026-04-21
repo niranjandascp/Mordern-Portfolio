@@ -46,35 +46,26 @@ export default function About() {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.1 }
-    }
-  };
-
   const itemVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 80, 
-      scale: 0.85, 
-      rotateX: 25,
-      filter: 'blur(20px)' 
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+      filter: 'blur(10px)',
     },
-    show: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1, 
-      rotateX: 0,
-      filter: 'blur(0px)', 
-      transition: { 
-        type: 'spring', 
+    show: (idx: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      transition: {
+        type: 'spring',
         mass: 1.2,
-        damping: 22, 
-        stiffness: 90,
-      } 
-    }
+        damping: 22,
+        stiffness: 120,
+        delay: (idx % 3) * 0.08,
+      }
+    })
   };
 
   return (
@@ -93,12 +84,12 @@ export default function About() {
             <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter text-text-primary capitalize leading-[0.9]">
               About <span className="text-[#C4521A]">Me.</span>
             </h2>
-            <motion.div 
+            <motion.div
               initial={{ width: 0, opacity: 0 }}
               whileInView={{ width: 96, opacity: 1 }}
               transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
               viewport={{ once: true }}
-              className="h-2 bg-gradient-to-r from-[#C4521A] to-transparent mt-8 rounded-full" 
+              className="h-2 bg-gradient-to-r from-[#C4521A] to-transparent mt-8 rounded-full"
             />
           </div>
           <p className="text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-white/10 pl-6 hidden md:block">
@@ -107,20 +98,21 @@ export default function About() {
         </motion.div>
 
         {/* Professional Bento Box Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
+        <div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr"
+          style={{ perspective: 1500 }}
         >
           {cards.map((card, idx) => (
             <motion.div
               key={idx}
+              custom={idx}
               variants={itemVariants}
-              whileHover={{ 
-                scale: 1.02, 
-                y: -8, 
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: false, amount: 0.1 }}
+              whileHover={{
+                scale: 1.02,
+                y: -8,
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }}
               whileTap={{ scale: 0.98 }}
@@ -128,7 +120,7 @@ export default function About() {
               className={`group relative rounded-[2rem] overflow-hidden bg-white/[0.02] border border-white/10 p-8 md:p-10 flex flex-col gap-6 hover:bg-white/[0.04] transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
             >
               {/* ShapeBlur Effect as Border */}
-              <div 
+              <div
                 className="absolute inset-0 z-20 pointer-events-none rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                 style={{
                   padding: '2px', // Border width
@@ -172,7 +164,7 @@ export default function About() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
     </section>
