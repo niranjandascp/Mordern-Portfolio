@@ -117,6 +117,8 @@ void main() {
     } else if (VAR == 3) {
         sdf = sdPoly(st - vec2(0.5, 0.45), 0.3, 3);
         sdf = fill(sdf, 0.05, sdfCircle) * 1.4;
+    } else if (VAR == 4) {
+        sdf = sdfCircle * 1.5;
     }
 
     vec3 color = vec3(1.0);

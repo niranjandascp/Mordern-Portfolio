@@ -1,5 +1,6 @@
 import { motion, type Variants } from 'framer-motion';
 import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
+import ShapeBlur from './ui/ShapeBlur';
 
 export default function About() {
   const cards = [
@@ -95,6 +96,26 @@ export default function About() {
               variants={itemVariants}
               className={`group relative rounded-[2rem] overflow-hidden bg-white/[0.02] border border-white/10 p-8 md:p-10 flex flex-col gap-6 hover:bg-white/[0.04] transition-all duration-500 shadow-xl backdrop-blur-sm ${card.className} ${card.borderColor}`}
             >
+              {/* ShapeBlur Effect as Border */}
+              <div 
+                className="absolute inset-0 z-20 pointer-events-none rounded-[2rem] opacity-0 group-hover:opacity-[0.85] transition-opacity duration-700"
+                style={{
+                  padding: '2px', // Border width
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }}
+              >
+                <div className="absolute inset-0 w-full h-full rounded-[2rem]">
+                  <ShapeBlur
+                    variation={4}
+                    pixelRatioProp={2}
+                    circleSize={0.4}
+                    circleEdge={0.9}
+                  />
+                </div>
+              </div>
+
               {/* Subtle Gradient Glow in background */}
               <div className={`absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl ${card.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-[80px] pointer-events-none`} />
               <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${card.gradient} opacity-[0.15] pointer-events-none`} />
