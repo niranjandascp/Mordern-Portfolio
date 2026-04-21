@@ -70,9 +70,9 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none">
-        <motion.div 
-          className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto"
+      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
+        <motion.div
+          className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
@@ -107,17 +107,17 @@ export default function Home() {
       />
 
       {/* Call to Action */}
-      <motion.div 
-        className="absolute bottom-[15vh] max-sm:bottom-[20vh] left-1/2 -translate-x-1/2 z-[30] pointer-events-auto flex flex-col items-center"
+      <motion.div
+        className="absolute bottom-[18vh] sm:bottom-[15vh] right-[5vw] sm:right-[10vw] z-[30] pointer-events-auto flex flex-col items-center will-change-transform"
         initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.5, delay: 3.1, ease: [0.22, 1, 0.36, 1] }}
       >
-        <LiquidMetalButton 
-          label="Explore Projects" 
+        <LiquidMetalButton
+          label="Explore Projects"
           onClick={() => {
             document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-          }} 
+          }}
         />
       </motion.div>
     </section>
