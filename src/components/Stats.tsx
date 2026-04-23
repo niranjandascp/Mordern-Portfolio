@@ -120,12 +120,19 @@ export default function Stats() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="pt-12"
           >
-            <h3 className="text-lg font-semibold text-text-primary uppercase tracking-widest mb-6 flex items-center gap-3 opacity-60">
-              <span className="flex-1 h-px bg-border-main" />
-              LeetCode Journey
-              <span className="flex-1 h-px bg-border-main" />
-            </h3>
+            <div className="text-center mb-12">
+              <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">
+                Problem Solving
+              </p>
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
+                LeetCode{' '}
+                <span className="font-serif italic bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
+                  Journey
+                </span>
+              </h2>
+            </div>
             <div className="flex justify-center">
               <img
                 src={`https://leetcard.jacoblin.cool/${username}?theme=dark&font=Inter&ext=activity`}

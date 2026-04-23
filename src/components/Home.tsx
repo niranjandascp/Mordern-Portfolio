@@ -31,11 +31,11 @@ export default function Home() {
       />
 
       {/* Dots — furthest back */}
-      <div className="absolute inset-0 z-1 select-none opacity-10 pointer-events-auto">
+      <div className="absolute inset-0 z-1 select-none opacity-15 pointer-events-auto">
         <InteractiveDots
           backgroundColor="transparent"
           dotColor="#f94b00ff"
-          gridSpacing={35}
+          gridSpacing={30}
           animationSpeed={0.001}
         />
       </div>
