@@ -1,21 +1,21 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLenis } from 'lenis/react';
-import { useHomeDockChrome } from '../context/HomeDockChromeContext';
+import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
 
 // Asset Imports
-import homeIcon from '../assets/home-icon.png';
-import safariIcon from '../assets/safari.png';
-import whatsappIcon from '../assets/whatsapp.png';
-import notesIcon from '../assets/notes.png';
-import finderIcon from '../assets/finder.png';
-import githubIcon from '../assets/github.png';
-import leetcodeIcon from '../assets/leetcode.png';
-import booksIcon from '../assets/books.png';
-import mailIcon from '../assets/mail.png';
-import terminalIcon from '../assets/terminal.png';
-import vscodeIcon from '../assets/vscode.png';
-import settingsIcon from '../assets/setting.png';
+import homeIcon from '@/assets/home-icon.png';
+import safariIcon from '@/assets/safari.png';
+import whatsappIcon from '@/assets/whatsapp.png';
+import notesIcon from '@/assets/notes.png';
+import finderIcon from '@/assets/finder.png';
+import githubIcon from '@/assets/github.png';
+import leetcodeIcon from '@/assets/leetcode.png';
+import booksIcon from '@/assets/books.png';
+import mailIcon from '@/assets/mail.png';
+import terminalIcon from '@/assets/terminal.png';
+import vscodeIcon from '@/assets/vscode.png';
+import settingsIcon from '@/assets/setting.png';
 
 interface DockItemType {
   icon: string | React.ReactNode;

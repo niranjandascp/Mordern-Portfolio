@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import nIcon from '../assets/N.png';
+import nIcon from '@/assets/N.png';
 
 export default function MacStartup() {
   const [show, setShow] = useState(true);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { X, Minus, Maximize2, Files, Search, GitBranch, Settings } from 'lucide-react';
-import { useHomeDockChrome } from '../context/HomeDockChromeContext';
+import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
 
 export default function VSCodeWindow() {
   const { vscodeOpen, setVscodeOpen } = useHomeDockChrome();

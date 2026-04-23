@@ -1,6 +1,6 @@
 import { motion, type Variants } from 'framer-motion';
 import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
-import ShapeBlur from './ui/ShapeBlur';
+import ShapeBlur from '@/components/ui/ShapeBlur';
 
 export default function About() {
   const cards = [

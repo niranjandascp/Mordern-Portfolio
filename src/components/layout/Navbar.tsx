@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'framer-motion';
 import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 import { useLenis } from 'lenis/react';
-import { useTheme } from '../context/ThemeContext';
-import { useHomeDockChrome } from '../context/HomeDockChromeContext';
+import { useTheme } from '@/context/ThemeContext';
+import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
 
 const mainNav = [
   { label: 'Home', id: 'home' },

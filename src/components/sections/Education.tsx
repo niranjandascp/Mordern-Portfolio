@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
-import TimelineAnimation from './ui/TimelineAnimation';
+import TimelineAnimation from '@/components/ui/TimelineAnimation';
 
 const educationList = [
   {

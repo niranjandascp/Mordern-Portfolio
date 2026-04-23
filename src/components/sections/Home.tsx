@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import heroImg from '../assets/hero.png';
-import InteractiveDots from './InteractiveDots';
-import { Spotlight } from './ui/Spotlight';
-import { LiquidMetalButton } from './ui/liquid-metal-button';
+import heroImg from '@/assets/hero.png';
+import InteractiveDots from '@/components/animations/InteractiveDots';
+import { Spotlight } from '@/components/ui/Spotlight';
+import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);

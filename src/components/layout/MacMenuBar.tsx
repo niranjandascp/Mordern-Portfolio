@@ -10,9 +10,9 @@ import {
   Moon,
 } from 'lucide-react';
 import { FaApple } from 'react-icons/fa6';
-import { useHomeDockChrome } from '../context/HomeDockChromeContext';
-import { useTheme } from '../context/ThemeContext';
-import { Switch } from './ui/interfaces-switch';
+import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
+import { useTheme } from '@/context/ThemeContext';
+import { Switch } from '@/components/ui/interfaces-switch';
 
 const MENU_ITEMS = ['File', 'Edit', 'View', 'Go', 'Window', 'Help'] as const;
 

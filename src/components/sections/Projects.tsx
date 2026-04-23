@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
-import TimelineAnimation from './ui/TimelineAnimation';
+import TimelineAnimation from '@/components/ui/TimelineAnimation';
 
 const projects = [
   {

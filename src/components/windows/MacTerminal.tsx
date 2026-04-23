@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { X, Folder, Terminal, Minus, Maximize2 } from 'lucide-react';
-import { useHomeDockChrome } from '../context/HomeDockChromeContext';
-import { TerminalWindow } from './TerminalWindow';
-import { AboutTerminal } from './AboutTerminal';
+import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
+import { TerminalWindow } from '@/components/windows/TerminalWindow';
+import { AboutTerminal } from '@/components/windows/AboutTerminal';
 
 export default function MacTerminal() {
   const { terminalOpen, setTerminalOpen } = useHomeDockChrome();
