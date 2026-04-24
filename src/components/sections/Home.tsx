@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImg from '@/assets/hero.png';
-import InteractiveDots from '@/components/animations/InteractiveDots';
+// import InteractiveDots from '@/components/animations/InteractiveDots';
 import { Spotlight } from '@/components/ui/Spotlight';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 
@@ -58,7 +58,7 @@ export default function Home() {
             transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1
-              className="text-[22vw] font-big-shoulders font-black text-text-primary/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.1] scale-x-[0.9] tracking-[-0.05em] origin-center"
+              className="text-[22vw] font-big-shoulders font-black text-text-primary/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center"
               style={{
                 maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'
