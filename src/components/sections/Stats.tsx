@@ -1,5 +1,5 @@
 import { useRef, type MouseEvent } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
 import { SiGithub, SiLeetcode } from "react-icons/si";
@@ -47,15 +47,10 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
   };
 
   // Natural Realistic Lighting Template
-  const spotlightX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
-  const spotlightY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
+  // const spotlightX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
+  // const spotlightY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
 
-  // Multiple Lighting Layers for Realism
-  // const background = useMotionTemplate`
-  //   radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
-  //   radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(255, 255, 255, 0.08) 0%, transparent 15%),
-  //   rgba(255, 255, 255, 0.02)
-  // `;
+
 
   return (
     <motion.div
@@ -116,7 +111,7 @@ export default function Stats() {
             Developer Metrics
           </p>
           <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
-            Activity <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& Analytics</span>
+            GitHub <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& LeetCode</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
         </motion.div>

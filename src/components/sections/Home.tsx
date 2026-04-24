@@ -31,14 +31,14 @@ export default function Home() {
       />
 
       {/* Dots — furthest back */}
-      <div className="absolute inset-0 z-1 select-none opacity-15 pointer-events-auto">
+      {/* <div className="absolute inset-0 z-1 select-none opacity-15 pointer-events-auto">
         <InteractiveDots
           backgroundColor="transparent"
           dotColor="#f94b00ff"
           gridSpacing={30}
           animationSpeed={0.001}
         />
-      </div>
+      </div> */}
 
       {/* Orange glows — above dots, below the ghost title */}
       <div className="absolute inset-0 z-2 pointer-events-none overflow-hidden">

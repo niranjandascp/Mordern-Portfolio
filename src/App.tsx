@@ -12,6 +12,7 @@ import LiquidEther from '@/components/ui/LiquidEther';
 import GSAPScrollSync from '@/components/animations/GSAPScrollSync';
 import { useStackedPanels } from '@/hooks/useStackedPanels';
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import Particles from '@/components/ui/Particles';
 import HomeDock from '@/components/layout/HomeDock';
 import MacMenuBar from '@/components/layout/MacMenuBar';
 import Navbar from '@/components/layout/Navbar';
@@ -43,6 +44,15 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
       {/* Global Cinematic Background System */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Dynamic Global Particles - Deepest Layer */}
+        <Particles
+          className="absolute inset-0 opacity-50"
+          quantity={150}
+          ease={80}
+          color={theme === 'dark' ? '#ffffff' : '#000000'}
+          staticity={30}
+          refresh
+        />
         {/* Global Interactive LiquidEther - ONLY IN DARK MODE */}
         {theme === 'dark' && (
           <div className="absolute inset-0 w-full h-full opacity-100 mix-blend-screen">
@@ -76,6 +86,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
         />
+
       </div>
 
 
@@ -123,11 +134,11 @@ function App() {
   useStackedPanels(mainRef);
 
   return (
-    <ReactLenis 
-      root 
-      options={{ 
-        lerp: 0.08, 
-        duration: 1.5, 
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.08,
+        duration: 1.5,
         smoothWheel: true,
         wheelMultiplier: 1,
         touchMultiplier: 2,
