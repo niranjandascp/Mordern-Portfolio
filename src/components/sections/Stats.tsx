@@ -1,146 +1,275 @@
-import { useRef, useState, type MouseEvent } from 'react';
-import { motion } from 'framer-motion';
-import { GitHubCalendar } from 'react-github-calendar';
+import { useRef, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { GitHubCalendar } from "react-github-calendar";
+import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
+import { SiGithub, SiLeetcode } from "react-icons/si";
 
-export default function Stats() {
-  const username = 'niranjandascp';
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 50, opacity: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+const username = "niranjandascp";
+
+const LEETCODE_STATS = {
+  solved: { count: 286, total: 3907 },
+  rank: 484529,
+  difficulty: [
+    { label: "EASY", solved: 126, total: 938, color: "#22c55e", glow: "rgba(34, 197, 94, 0.3)" },
+    { label: "MEDIUM", solved: 138, total: 2045, color: "#eab308", glow: "rgba(234, 179, 8, 0.3)" },
+    { label: "HARD", solved: 22, total: 924, color: "#ef4444", glow: "rgba(239, 68, 68, 0.3)" },
+  ],
+  recent: [
+    { title: "Binary Tree Inorder Traversal", date: "10.03.26" },
+    { title: "Same Tree", date: "05.03.26" },
+    { title: "Reverse Linked List II", date: "02.03.26" },
+    { title: "Subsets II", date: "26.02.26" },
+  ],
+};
+
+function RealisticAppleCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { damping: 20, stiffness: 100 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { damping: 20, stiffness: 100 });
+  const scale = useSpring(1, { damping: 15, stiffness: 150 });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current;
-    if (!card) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-    const tiltX = ((y - cy) / cy) * -5;
-    const tiltY = ((x - cx) / cx) * 5;
-    setTilt({ x: tiltX, y: tiltY });
-    setSpotlight({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-      opacity: 1,
-    });
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
+  const handleMouseEnter = () => scale.set(1.03);
   const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-    setSpotlight((prev) => ({ ...prev, opacity: 0 }));
-    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+    scale.set(1);
   };
+
+  // Natural Realistic Lighting Template
+  const spotlightX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
+  const spotlightY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
+
+  // Multiple Lighting Layers for Realism
+  // const background = useMotionTemplate`
+  //   radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+  //   radial-gradient(circle at ${spotlightX} ${spotlightY}, rgba(255, 255, 255, 0.08) 0%, transparent 15%),
+  //   rgba(255, 255, 255, 0.02)
+  // `;
 
   return (
-    <section id="stats" className="py-24 relative overflow-hidden transition-colors">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-600/5 rounded-full blur-[120px] pointer-events-none" />
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        scale,
+        perspective: "1500px",
+        transformStyle: "preserve-3d",
+      }}
+      className={`relative group ${className}`}
+    >
+      {/* Dynamic Halo - More Subtle & Broad */}
+      <motion.div
+        className="absolute -inset-10 bg-gradient-to-br from-blue-500/5 via-amber-500/10 to-emerald-500/5 rounded-[4rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"
+        style={{
+          x: useTransform(mouseX, [-0.5, 0.5], [-30, 30]),
+          y: useTransform(mouseY, [-0.5, 0.5], [-30, 30]),
+        }}
+      />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Header */}
+      {/* Main Glass Shell */}
+      <motion.div
+        style={{}}
+        className="relative h-full backdrop-blur-[50px] rounded-[2.5rem] border border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)] group-hover:shadow-[0_60px_120px_rgba(0,0,0,0.6)] group-hover:border-white/20 transition-all duration-700"
+      >
+        {/* Specular Edge Catching */}
+        <div className="absolute inset-0 rounded-[2.5rem] border border-white/5 pointer-events-none z-10" />
+        <div className="absolute inset-[1px] rounded-[2.5rem] border border-white/[0.02] pointer-events-none z-10" />
+
+        {/* Content with Deep Parallax */}
+        <div style={{ transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-8">
+          {children}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export default function Stats() {
+  return (
+    <section id="stats" className="py-24 relative overflow-hidden transition-colors">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 space-y-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
         >
-          <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">
+          <p className="text-text-secondary uppercase tracking-[0.25em] text-xs font-semibold mb-4">
             Developer Metrics
           </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
-            GitHub{' '}
-            <span className="font-serif italic bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
-              Analytics
-            </span>
+          <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
+            Activity <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& Analytics</span>
           </h2>
-          <p className="text-text-secondary max-w-xl mx-auto text-sm leading-relaxed">
-            Code that lives, breathes, and contributes — open source and beyond.
-          </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
         </motion.div>
 
-        <div className="flex flex-col gap-16">
-          {/* GitHub Contributions Calendar */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            style={{ perspective: '1500px' }}
-          >
-            <div
-              ref={cardRef}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
-                transformStyle: 'preserve-3d',
-                boxShadow: isHovered
-                  ? `0 25px 80px rgba(59, 130, 246, 0.1), 0 0 50px rgba(139, 92, 246, 0.05)`
-                  : '0 15px 35px rgba(0,0,0,0.12), 0 5px 15px rgba(0,0,0,0.05)',
-              }}
-              className="relative bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-[2.5rem] px-8 py-10 overflow-hidden cursor-default group transition-colors duration-300"
-            >
-              {/* Spotlight Effect */}
-              <div
-                className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-                style={{
-                  background: `radial-gradient(circle 400px at ${spotlight.x}% ${spotlight.y}%, rgba(59, 130, 246, 0.1), transparent)`,
-                  opacity: spotlight.opacity,
+        {/* ================= GITHUB ================= */}
+        <div className="space-y-10">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+              <SiGithub className="text-white/70" size={20} />
+            </div>
+            <h3 className="text-xl font-bold text-white tracking-tight">GitHub Contributions</h3>
+          </div>
+
+          <RealisticAppleCard>
+            <div className="overflow-x-auto py-2 scrollbar-hide">
+              <GitHubCalendar
+                username={username}
+                colorScheme="dark"
+                theme={{
+                  dark: ['#1a2332', '#1e3a5f', '#1d4ed8', '#3b82f6', '#93c5fd'],
                 }}
+                fontSize={13}
+                blockSize={14}
+                blockMargin={5}
+                blockRadius={4}
               />
+            </div>
+          </RealisticAppleCard>
+        </div>
 
-              {/* Calendar content */}
-              <div
-                className="relative z-10 flex justify-center overflow-x-auto pb-2 scrollbar-hide"
-                style={{ transform: 'translateZ(20px)' }}
-              >
-                <GitHubCalendar
-                  username={username}
-                  colorScheme="dark"
-                  theme={{
-                    dark: ['#1a2332', '#1e3a5f', '#1d4ed8', '#3b82f6', '#93c5fd'],
-                  }}
-                  fontSize={13}
-                  blockSize={14}
-                  blockMargin={4}
-                  blockRadius={3}
-                />
+        {/* ================= LEETCODE ================= */}
+        <div className="space-y-10">
+          <div className="flex justify-between items-end">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/5 border border-amber-500/10 flex items-center justify-center">
+                <SiLeetcode className="text-amber-500" size={20} />
               </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">LeetCode Mastery</h3>
             </div>
-          </motion.div>
 
-          {/* LeetCode Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="pt-12"
-          >
-            <div className="text-center mb-12">
-              <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">
-                Problem Solving
-              </p>
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
-                LeetCode{' '}
-                <span className="font-serif italic bg-gradient-to-r from-orange-400 to-blue-400 bg-clip-text text-transparent">
-                  Journey
-                </span>
-              </h2>
-            </div>
-            <div className="flex justify-center">
-              <img
-                src={`https://leetcard.jacoblin.cool/${username}?theme=dark&font=Inter&ext=activity`}
-                alt="LeetCode Stats"
-                className="w-full max-w-lg rounded-2xl shadow-xl dark:shadow-[0_0_30px_rgba(255,161,22,0.08)]"
-              />
-            </div>
-          </motion.div>
+            <motion.a
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)" }}
+              href={`https://leetcode.com/${username}`}
+              target="_blank"
+              className="px-5 py-2.5 bg-white/5 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
+            >
+              <span className="text-xs font-bold text-white/60 uppercase tracking-widest">Profile</span>
+              <ExternalLink size={14} className="text-white/30" />
+            </motion.a>
+          </div>
+
+          {/* Staggered Natural Alignment Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+            {/* Primary Stat: Solved */}
+            <RealisticAppleCard className="md:col-span-4">
+              <div className="flex flex-col h-full justify-between gap-10">
+                <div className="flex justify-between items-start">
+                  <div className="p-3 bg-amber-500/10 rounded-2xl border border-amber-500/20">
+                    <Cpu className="text-amber-500" size={24} />
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Solved</p>
+                  <h4 className="text-6xl font-black text-white tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
+                </div>
+                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '45%' }}
+                    transition={{ duration: 1.5, ease: "circOut" }}
+                    className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
+                  />
+                </div>
+              </div>
+            </RealisticAppleCard>
+
+            {/* Secondary Stat: Rank */}
+            <RealisticAppleCard className="md:col-span-3">
+              <div className="flex flex-col h-full justify-between gap-6">
+                <div className="p-3 bg-blue-500/10 rounded-2xl border border-blue-500/20 self-start">
+                  <Trophy className="text-blue-400" size={24} />
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em]">Global Rank</p>
+                  <h4 className="text-3xl font-black text-white">#{LEETCODE_STATS.rank.toLocaleString()}</h4>
+                </div>
+                <div className="py-2 bg-white/5 rounded-lg border border-white/5 text-center">
+                  <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest text-center">Top Tier Active</span>
+                </div>
+              </div>
+            </RealisticAppleCard>
+
+            {/* Difficulty Breakdown */}
+            <RealisticAppleCard className="md:col-span-5">
+              <div className="flex flex-col h-full justify-between gap-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layout className="text-white/20" size={18} />
+                  <span className="text-[10px] font-black tracking-[0.2em] text-white/20 uppercase">Distribution</span>
+                </div>
+                <div className="space-y-5 flex-1 flex flex-col justify-center">
+                  {LEETCODE_STATS.difficulty.map((d) => (
+                    <div key={d.label} className="space-y-1.5">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[9px] font-black text-white/20 tracking-widest uppercase">{d.label}</span>
+                        <span className="text-xs font-bold text-white/80">{d.solved}</span>
+                      </div>
+                      <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(d.solved / d.total) * 100}%` }}
+                          transition={{ duration: 1.2 }}
+                          className="h-full rounded-full"
+                          style={{ background: d.color }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </RealisticAppleCard>
+
+            {/* Recent Activity - Full Width Bottom */}
+            <RealisticAppleCard className="md:col-span-12">
+              <div className="flex items-center justify-between mb-10">
+                <div className="flex items-center gap-3">
+                  <Activity className="text-emerald-400" size={20} />
+                  <h4 className="text-sm font-bold text-white tracking-wide">Live Stream Activity</h4>
+                </div>
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                {LEETCODE_STATS.recent.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ x: 10 }}
+                    className="flex items-center justify-between group/item cursor-pointer border-b border-white/5 pb-5 last:border-0 md:[&:nth-last-child(-n+2)]:border-0"
+                  >
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-sm font-bold text-white/90 group-hover/item:text-amber-500 transition-colors">
+                        {item.title}
+                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-[9px] font-black text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/5 border border-emerald-500/10 uppercase tracking-widest">Accepted</span>
+                        <span className="text-xs font-mono text-white/20">{item.date}</span>
+                      </div>
+                    </div>
+                    <ArrowUpRight className="text-white/10 group-hover/item:text-amber-500 transition-all opacity-0 group-hover/item:opacity-100" size={18} />
+                  </motion.div>
+                ))}
+              </div>
+            </RealisticAppleCard>
+          </div>
         </div>
       </div>
     </section>
