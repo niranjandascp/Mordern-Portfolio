@@ -75,8 +75,14 @@ export default function VariableProximity({
       });
     };
 
-    const target = containerRef?.current || window;
-    target.addEventListener('mousemove', handleMouseMove as any);
+    const target = containerRef?.current ?? window;
+    const container = containerRef?.current ?? null;
+
+    if (target instanceof Window) {
+      target.addEventListener('mousemove', handleMouseMove);
+    } else {
+      (target as HTMLElement).addEventListener('mousemove', handleMouseMove as EventListener);
+    }
 
     // Also reset on mouse leave
     const handleMouseLeave = () => {
@@ -87,16 +93,20 @@ export default function VariableProximity({
       });
     };
 
-    if (containerRef?.current) {
-      containerRef.current.addEventListener('mouseleave', handleMouseLeave);
+    if (container) {
+      container.addEventListener('mouseleave', handleMouseLeave);
     } else {
       document.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {
-      target.removeEventListener('mousemove', handleMouseMove as any);
-      if (containerRef?.current) {
-        containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+      if (target instanceof Window) {
+        target.removeEventListener('mousemove', handleMouseMove);
+      } else {
+        (target as HTMLElement).removeEventListener('mousemove', handleMouseMove as EventListener);
+      }
+      if (container) {
+        container.removeEventListener('mouseleave', handleMouseLeave);
       } else {
         document.removeEventListener('mouseleave', handleMouseLeave);
       }

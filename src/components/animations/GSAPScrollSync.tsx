@@ -8,7 +8,7 @@ import { useLenis } from 'lenis/react';
  */
 export default function GSAPScrollSync() {
   // Notify ScrollTrigger on every Lenis scroll tick
-  useLenis(({ scroll: _scroll }) => {
+  useLenis(() => {
     ScrollTrigger.update();
   });
 

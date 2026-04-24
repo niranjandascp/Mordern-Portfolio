@@ -9,6 +9,11 @@ interface LiquidMetalButtonProps {
   viewMode?: "text" | "icon";
 }
 
+interface ShaderMountInstance {
+  destroy?: () => void;
+  setSpeed?: (speed: number) => void;
+}
+
 export function LiquidMetalButton({
   label = "Get Started",
   onClick,
@@ -20,8 +25,7 @@ export function LiquidMetalButton({
     Array<{ x: number; y: number; id: number }>
   >([]);
   const shaderRef = useRef<HTMLDivElement>(null);
-  // biome-ignore lint/suspicious/noExplicitAny: External library without types
-  const shaderMount = useRef<any>(null);
+  const shaderMount = useRef<ShaderMountInstance | null>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const rippleId = useRef(0);
 

@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
 import ShapeBlur from '@/components/ui/ShapeBlur';
 

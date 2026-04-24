@@ -3,6 +3,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
+const PLACEHOLDER_PROMPTS = [
+  "try me! type 'help' →",
+  'whoami • status • focus',
+  'click here & explore',
+  'type a command ↓',
+];
+
 const ASCII_ART = `
 ███╗   ██╗██╗██████╗  █████╗ ███╗   ██╗     ██╗ █████╗ ███╗   ██╗
 ████╗  ██║██║██╔══██╗██╔══██╗████╗  ██║     ██║██╔══██╗████╗  ██║
@@ -69,12 +76,6 @@ export function TerminalWindow() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: '-30%' });
 
-  const placeholderPrompts = [
-    "try me! type 'help' →",
-    'whoami • status • focus',
-    'click here & explore',
-    'type a command ↓',
-  ];
 
   const getLocalTime = (date: Date = new Date()) => {
     const h = date.getHours().toString().padStart(2, '0');
@@ -131,7 +132,7 @@ export function TerminalWindow() {
 
   useEffect(() => {
     if (isBooting) return;
-    const current = placeholderPrompts[placeholderIndex];
+    const current = PLACEHOLDER_PROMPTS[placeholderIndex];
     let t: ReturnType<typeof setTimeout>;
     if (isDeleting) {
       t = setTimeout(() => {
@@ -148,7 +149,7 @@ export function TerminalWindow() {
       t = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
-      setPlaceholderIndex((p) => (p + 1) % placeholderPrompts.length);
+      setPlaceholderIndex((p) => (p + 1) % PLACEHOLDER_PROMPTS.length);
     }
     return () => clearTimeout(t);
   }, [charIndex, isDeleting, placeholderIndex, isBooting]);

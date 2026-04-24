@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useRef, useCallback } from 'react';
 
 interface InteractiveDotsProps {
   backgroundColor?: string;
@@ -32,6 +32,8 @@ const InteractiveDots = ({
     }>
   >([]);
   const dprRef = useRef<number>(1);
+  // Stable ref so the animate loop can call itself without ESLint immutability violations
+  const animateRef = useRef<() => void>(() => {});
 
   const getMouseInfluence = (x: number, y: number): number => {
     const dx = x - mouseRef.current.x;
@@ -233,8 +235,13 @@ const InteractiveDots = ({
       });
     }
 
-    animationFrameId.current = requestAnimationFrame(animate);
+    animationFrameId.current = requestAnimationFrame(() => animateRef.current());
   }, [backgroundColor, dotColor, removeWaveLine, animationSpeed]);
+
+  // Keep the ref in sync with the latest animate — must be in an effect, not during render
+  useLayoutEffect(() => {
+    animateRef.current = animate;
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;

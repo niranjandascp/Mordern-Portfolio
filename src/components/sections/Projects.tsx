@@ -1,4 +1,5 @@
 import { useRef, useState, type MouseEvent } from 'react';
+import type React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
@@ -65,7 +66,7 @@ const projects = [
 interface Project {
   title: string;
   description: string;
-  tags: { name: string; icon: any }[];
+  tags: { name: string; icon: React.ElementType }[];
   github: string;
   live: string;
   gradient: string;
