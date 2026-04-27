@@ -1,8 +1,106 @@
+import { useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
 import ShapeBlur from '@/components/ui/ShapeBlur';
+import { useTheme } from '@/context/ThemeContext';
 
-export default function About() {
+function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+      filter: 'blur(10px)',
+    },
+    show: (idx: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      transition: {
+        type: 'spring',
+        mass: 1.2,
+        damping: 22,
+        stiffness: 120,
+        delay: (idx % 3) * 0.08,
+      }
+    })
+  };
+
+  return (
+    <motion.div
+      custom={idx}
+      variants={itemVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{
+        scale: 1.02,
+        y: -8,
+        transition: { type: "spring", stiffness: 400, damping: 25 }
+      }}
+      whileTap={{ scale: 0.98 }}
+      style={{ transformPerspective: 1200, transformStyle: "preserve-3d", willChange: 'transform' }}
+      className={`group relative rounded-[2rem] overflow-hidden bg-white/[0.02] border border-white/10 p-8 md:p-10 flex flex-col gap-6 hover:bg-white/[0.04] transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
+    >
+      {/* ShapeBlur Effect as Border - ONLY MOUNTED ON HOVER */}
+      <div
+        className="absolute inset-0 z-20 pointer-events-none rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        style={{
+          padding: '2px',
+          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          WebkitMaskComposite: 'xor',
+          maskComposite: 'exclude',
+        }}
+      >
+        <div className="absolute inset-0 w-full h-full rounded-[2rem]">
+          {isHovered && (
+            <ShapeBlur
+              variation={4}
+              pixelRatioProp={1}
+              circleSize={0.4}
+              circleEdge={0.9}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Subtle Gradient Glow in background */}
+      <div className={`absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl ${card.gradient} opacity-0 group-hover:opacity-[0.8] transition-all duration-1000 blur-[80px] pointer-events-none group-hover:scale-125`} />
+      <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${card.gradient} opacity-[0.1] group-hover:opacity-[0.25] transition-all duration-1000 pointer-events-none`} />
+
+      {/* Content Wrapper for internal shifting */}
+      <div className="relative z-10 flex flex-col h-full transform transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
+        <div className="w-16 h-16 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.15] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
+          {card.icon}
+        </div>
+
+        <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight group-hover:text-white transition-colors duration-300">
+          {card.title}
+        </h3>
+
+        <p className="text-text-secondary leading-relaxed text-lg font-light flex-grow group-hover:text-white/90 transition-colors duration-300">
+          {card.description}
+        </p>
+      </div>
+
+      {/* Sophisticated Arrow icon entering on hover */}
+      <div className="absolute top-8 right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-white/50 group-hover:text-white">
+        <ArrowUpRight size={32} strokeWidth={1.5} />
+      </div>
+    </motion.div>
+  );
+}
+
+const AboutCardMemo = memo(AboutCard);
+
+export default memo(function About() {
+  const { theme } = useTheme();
   const cards = [
     {
       icon: <User className="text-[#C4521A]" size={36} />,
@@ -46,28 +144,6 @@ export default function About() {
     },
   ];
 
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-      scale: 0.95,
-      filter: 'blur(10px)',
-    },
-    show: (idx: number) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      filter: 'blur(0px)',
-      transition: {
-        type: 'spring',
-        mass: 1.2,
-        damping: 22,
-        stiffness: 120,
-        delay: (idx % 3) * 0.08,
-      }
-    })
-  };
-
   return (
     <section id="about" className="relative w-full min-h-screen bg-transparent py-24 sm:py-32 overflow-hidden flex items-center z-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
@@ -103,70 +179,11 @@ export default function About() {
           style={{ perspective: 1500 }}
         >
           {cards.map((card, idx) => (
-            <motion.div
-              key={idx}
-              custom={idx}
-              variants={itemVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: false, amount: 0.1 }}
-              whileHover={{
-                scale: 1.02,
-                y: -8,
-                transition: { type: "spring", stiffness: 400, damping: 25 }
-              }}
-              whileTap={{ scale: 0.98 }}
-              style={{ transformPerspective: 1200, transformStyle: "preserve-3d" }}
-              className={`group relative rounded-[2rem] overflow-hidden bg-white/[0.02] border border-white/10 p-8 md:p-10 flex flex-col gap-6 hover:bg-white/[0.04] transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
-            >
-              {/* ShapeBlur Effect as Border */}
-              <div
-                className="absolute inset-0 z-20 pointer-events-none rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{
-                  padding: '2px', // Border width
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                }}
-              >
-                <div className="absolute inset-0 w-full h-full rounded-[2rem]">
-                  <ShapeBlur
-                    variation={4}
-                    pixelRatioProp={2}
-                    circleSize={0.4}
-                    circleEdge={0.9}
-                  />
-                </div>
-              </div>
-
-              {/* Subtle Gradient Glow in background */}
-              <div className={`absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl ${card.gradient} opacity-0 group-hover:opacity-[0.8] transition-all duration-1000 blur-[80px] pointer-events-none group-hover:scale-125`} />
-              <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${card.gradient} opacity-[0.1] group-hover:opacity-[0.25] transition-all duration-1000 pointer-events-none`} />
-
-              {/* Content Wrapper for internal shifting */}
-              <div className="relative z-10 flex flex-col h-full transform transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
-                <div className="w-16 h-16 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.15] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
-                  {card.icon}
-                </div>
-
-                <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight group-hover:text-white transition-colors duration-300">
-                  {card.title}
-                </h3>
-
-                <p className="text-text-secondary leading-relaxed text-lg font-light flex-grow group-hover:text-white/90 transition-colors duration-300">
-                  {card.description}
-                </p>
-              </div>
-
-              {/* Sophisticated Arrow icon entering on hover */}
-              <div className="absolute top-8 right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-white/50 group-hover:text-white">
-                <ArrowUpRight size={32} strokeWidth={1.5} />
-              </div>
-            </motion.div>
+            <AboutCardMemo key={idx} card={card} idx={idx} theme={theme} />
           ))}
         </div>
 
       </div>
     </section>
   );
-}
+});

@@ -1,4 +1,4 @@
-import { useRef, useState, type MouseEvent } from 'react';
+import { useRef, useState, memo, type MouseEvent } from 'react';
 import type React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
@@ -117,11 +117,12 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.5s ease-out',
           transformStyle: 'preserve-3d',
+          willChange: 'transform',
           boxShadow: isHovered
             ? `0 25px 60px ${project.glowColor}, 0 0 80px ${project.glowColor}25`
             : '0 15px 35px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.08)',
         }}
-        className="relative rounded-3xl overflow-hidden border border-border-main bg-white/[0.03] backdrop-blur-xl h-full cursor-pointer shadow-sm transition-colors duration-300"
+        className="relative rounded-3xl overflow-hidden border border-border-main bg-white/[0.03] backdrop-blur-md h-full cursor-pointer shadow-sm transition-colors duration-300"
       >
         {/* Animated Gradient Border */}
         <div
@@ -248,7 +249,9 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
   );
 }
 
-export default function Projects() {
+const ProjectCardMemo = memo(ProjectCard);
+
+export default memo(function Projects() {
   return (
     <section id="projects" className="py-24 relative overflow-hidden transition-colors">
       {/* Background ambient glow */}
@@ -280,7 +283,7 @@ export default function Projects() {
         {/* Project Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, idx) => (
-            <ProjectCard key={project.title} project={project} idx={idx} />
+            <ProjectCardMemo key={project.title} project={project} idx={idx} />
           ))}
         </div>
 
@@ -309,4 +312,4 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+});

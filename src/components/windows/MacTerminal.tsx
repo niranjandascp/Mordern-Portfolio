@@ -125,7 +125,7 @@ export default function MacTerminal() {
                 transformOrigin: 'calc(50% + 230px) 100%',
                 boxShadow: '0 0 0 1px rgba(255,255,255,0.1) inset, 0 30px 100px rgba(0,0,0,0.9)',
               }}
-              className="relative flex flex-col overflow-hidden border border-white/20 bg-[#0c0c0e]/85 shadow-[0_30px_100px_rgba(0,0,0,1)] backdrop-blur-[50px] pointer-events-auto"
+              className="relative flex flex-col overflow-hidden border border-white/20 bg-[#0c0c0e]/85 shadow-[0_30px_100px_rgba(0,0,0,1)] backdrop-blur-[20px] pointer-events-auto"
             >
               {/* Liquid Glass Overlay Effect */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">

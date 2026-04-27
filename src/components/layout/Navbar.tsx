@@ -208,7 +208,7 @@ export default function Navbar() {
               scale: isScrolled ? 1.02 : 1,
             }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className={`pointer-events-auto flex items-center bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 border border-white/10 [body.light_&]:border-black/5 rounded-full p-1.5 shadow-2xl relative transition-all duration-300 backdrop-blur-[50px] ${isScrolled ? 'h-16' : 'h-14'
+            className={`pointer-events-auto flex items-center bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 border border-white/10 [body.light_&]:border-black/5 rounded-full p-1.5 shadow-2xl relative transition-all duration-300 backdrop-blur-[20px] ${isScrolled ? 'h-16' : 'h-14'
               }`}
             style={{
               boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',

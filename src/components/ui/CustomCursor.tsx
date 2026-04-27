@@ -1,47 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { useMouse } from '@/context/MouseContext';
 
-export const CustomCursor: React.FC = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
+export const CustomCursor: React.FC = memo(() => {
+  const { position, isHovering, isClicking } = useMouse();
 
   // Motion values for high-performance updates
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
+  const mouseX = useMotionValue(position.x);
+  const mouseY = useMotionValue(position.y);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const isInteractive = 
-        target.tagName === 'A' ||
-        target.tagName === 'BUTTON' ||
-        target.closest('button') ||
-        target.closest('a') ||
-        window.getComputedStyle(target).cursor === 'pointer';
-      
-      setIsHovered(isInteractive);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [mouseX, mouseY]);
+  // Sync motion values with context position
+  React.useEffect(() => {
+    mouseX.set(position.x);
+    mouseY.set(position.y);
+  }, [position.x, position.y, mouseX, mouseY]);
 
   const accentColor = '#C4521A';
 
@@ -63,13 +35,13 @@ export const CustomCursor: React.FC = () => {
         <motion.div
           className="w-full h-full relative flex items-center justify-center"
           style={{
-            backgroundColor: isHovered ? 'transparent' : accentColor,
-            boxShadow: !isHovered ? `0 0 15px ${accentColor}44` : 'none',
-            border: isHovered ? `1.5px solid ${accentColor}` : '0px solid transparent',
+            backgroundColor: isHovering ? 'transparent' : accentColor,
+            boxShadow: !isHovering ? `0 0 15px ${accentColor}44` : 'none',
+            border: isHovering ? `1.5px solid ${accentColor}` : '0px solid transparent',
           }}
           animate={{
-            scale: isHovered ? 2.8 : (isClicking ? 0.8 : 1),
-            rotate: isHovered ? 45 : 0,
+            scale: isHovering ? 2.8 : (isClicking ? 0.8 : 1),
+            rotate: isHovering ? 45 : 0,
           }}
           transition={{
             type: 'spring',
@@ -78,7 +50,7 @@ export const CustomCursor: React.FC = () => {
           }}
         >
           {/* Inner Core that appears on hover */}
-          {isHovered && (
+          {isHovering && (
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 0.3, opacity: 1 }}
@@ -88,7 +60,7 @@ export const CustomCursor: React.FC = () => {
         </motion.div>
 
         {/* Technical Corner Accents on Hover */}
-        {isHovered && (
+        {isHovering && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1.25 }}
@@ -98,4 +70,4 @@ export const CustomCursor: React.FC = () => {
       </motion.div>
     </div>
   );
-};
+});

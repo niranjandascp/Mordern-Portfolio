@@ -1,5 +1,5 @@
 import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
-import { useMemo, type ReactNode, type ElementType } from 'react';
+import { useMemo, memo, type ReactNode, type ElementType } from 'react';
 
 type HTMLMotionTag =
   | 'div'
@@ -46,7 +46,7 @@ interface TimelineContentProps<T extends HTMLMotionTag> {
  * Elite 3D Timeline Animation
  * Implements a high-end 3D perspective entrance.
  */
-export const TimelineAnimation = <T extends HTMLMotionTag = 'div'>({
+export const TimelineAnimation = memo(<T extends HTMLMotionTag = 'div'>({
   children,
   animationNum,
   className,
@@ -106,6 +106,6 @@ export const TimelineAnimation = <T extends HTMLMotionTag = 'div'>({
       </Component>
     </div>
   );
-};
+});
 
 export default TimelineAnimation;

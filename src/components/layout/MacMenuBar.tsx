@@ -63,7 +63,7 @@ export default function MacMenuBar() {
       className="fixed top-0 left-0 right-0 z-[101] select-none pointer-events-none"
     >
       <div
-        className="relative flex h-9 items-center justify-between border-b border-white/10 bg-black/10 dark:bg-white/5 px-3 text-[12px] text-[var(--color-text-primary)] backdrop-blur-[40px] sm:px-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+        className="relative flex h-9 items-center justify-between border-b border-white/10 bg-black/10 dark:bg-white/5 px-3 text-[12px] text-[var(--color-text-primary)] backdrop-blur-[20px] sm:px-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 0 rgba(0, 0, 0, 0.2)',
         }}

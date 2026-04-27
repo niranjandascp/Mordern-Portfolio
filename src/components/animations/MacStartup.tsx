@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import nIcon from '@/assets/N.png';
 
-export default function MacStartup() {
+export default memo(function MacStartup() {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -61,4 +61,4 @@ export default function MacStartup() {
       )}
     </AnimatePresence>
   );
-}
+});

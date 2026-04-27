@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+
 import Home from '@/components/sections/Home';
 import About from '@/components/sections/About';
 import Skills from '@/components/sections/Skills';
@@ -21,13 +22,30 @@ import MacTerminal from '@/components/windows/MacTerminal';
 import VSCodeWindow from '@/components/windows/VSCodeWindow';
 import { HomeDockChromeProvider } from '@/context/HomeDockChromeContext';
 import { ThemeProvider, useTheme } from '@/context/ThemeContext';
+import { MouseProvider } from '@/context/MouseContext';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
   const { theme } = useTheme();
+  const isAtTop = useRef(true);
+  const [_, setTick] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const atTop = window.scrollY < 1200;
+      if (atTop !== isAtTop.current) {
+        isAtTop.current = atTop;
+        setTick(t => t + 1); // Force re-render to mount/unmount heavy effects
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
   return (
+
     <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative cursor-none">
 
       {/* Intro Startup Animation */}
@@ -53,7 +71,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         {/* Dynamic Global Particles - Deepest Layer */}
         <Particles
           className="absolute inset-0 opacity-50"
-          quantity={150}
+          quantity={100} // Slightly reduced for better performance
           ease={80}
           color={theme === 'dark' ? '#ffffff' : '#000000'}
           staticity={30}
@@ -71,6 +89,8 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
             />
           </div>
         )}
+
+
 
         {/* Main Dramatic Spotlight - Softened in light mode */}
         <div
@@ -143,18 +163,21 @@ function App() {
     <ReactLenis
       root
       options={{
-        lerp: 0.08,
-        duration: 1.5,
+        lerp: 0.05,
+        duration: 1.8,
         smoothWheel: true,
-        wheelMultiplier: 1,
+        wheelMultiplier: 1.1,
         touchMultiplier: 2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
       }}
     >
+
       <ThemeProvider>
-        <HomeDockChromeProvider>
-          <MainContent mainRef={mainRef} />
-        </HomeDockChromeProvider>
+        <MouseProvider>
+          <HomeDockChromeProvider>
+            <MainContent mainRef={mainRef} />
+          </HomeDockChromeProvider>
+        </MouseProvider>
       </ThemeProvider>
     </ReactLenis>
   );

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, memo } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
 import TimelineAnimation from '@/components/ui/TimelineAnimation';
 
@@ -17,7 +17,7 @@ const educationList = [
   },
 ];
 
-export default function Education() {
+export default memo(function Education() {
   return (
     <section id="education" className="py-24 relative transition-colors">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
@@ -37,7 +37,7 @@ export default function Education() {
         <div className="space-y-8">
           {educationList.map((edu, idx) => (
             <TimelineAnimation key={idx} animationNum={0} className="relative pl-8 md:pl-0">
-              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
+              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-md border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
                 <div className="flex-grow">
                   <div className="flex items-center gap-2 mb-2">
                     <GraduationCap className="text-[#C4521A] dark:text-orange-400" size={24} />
@@ -60,4 +60,4 @@ export default function Education() {
       </div>
     </section>
   );
-}
+});

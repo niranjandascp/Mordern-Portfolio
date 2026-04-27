@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { cn } from '@/lib/utils';
 
 type SpotlightProps = {
@@ -5,7 +6,7 @@ type SpotlightProps = {
   fill?: string;
 };
 
-export const Spotlight = ({ className, fill }: SpotlightProps) => {
+export const Spotlight = memo(({ className, fill }: SpotlightProps) => {
   return (
     <svg
       className={cn(
@@ -52,6 +53,6 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
       </defs>
     </svg>
   );
-};
+});
 
 export default Spotlight;

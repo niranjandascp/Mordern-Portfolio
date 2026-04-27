@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, memo } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
 
-export default function Contact() {
+export default memo(function Contact() {
   return (
     <section id="contact" className="py-24 relative transition-colors">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -30,7 +30,7 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             className="space-y-8"
           >
-            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
               <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <Mail className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
@@ -47,7 +47,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
               <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <MapPin className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
@@ -98,4 +98,4 @@ export default function Contact() {
       </div>
     </section>
   );
-}
+});

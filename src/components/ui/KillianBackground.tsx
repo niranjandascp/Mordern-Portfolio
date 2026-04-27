@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
+import { useMouse } from '@/context/MouseContext';
 
-export const KillianBackground: React.FC = () => {
+export const KillianBackground: React.FC = memo(() => {
   const { theme } = useTheme();
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const { position } = useMouse();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(position.x);
+  const mouseY = useMotionValue(position.y);
 
   const springConfig = { damping: 30, stiffness: 200 };
   const smoothX = useSpring(mouseX, springConfig);
@@ -21,18 +22,16 @@ export const KillianBackground: React.FC = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [mouseX, mouseY]);
+  }, []);
+
+  // Sync motion values with context position
+  useEffect(() => {
+    mouseX.set(position.x);
+    mouseY.set(position.y);
+  }, [position.x, position.y, mouseX, mouseY]);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-[1]">
@@ -104,7 +103,7 @@ export const KillianBackground: React.FC = () => {
 
     </div>
   );
-};
+});
 
 
 

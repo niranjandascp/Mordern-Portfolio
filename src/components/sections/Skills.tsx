@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 // Stick to one entry point for the library
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
@@ -53,7 +53,7 @@ const techStack = [
   { name: 'Linux', icon: SiLinux, color: '#FCC624' },
 ];
 
-export default function Skills() {
+export default memo(function Skills() {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -119,9 +119,10 @@ export default function Skills() {
                   scale: { type: "spring", stiffness: 300, damping: 20 },
                   y: { type: "spring", stiffness: 300, damping: 20 }
                 }}
+                style={{ willChange: 'transform' }}
                 className="relative flex items-center gap-2.5 px-6 py-3 
                   bg-white/10 dark:bg-black/50 
-                  backdrop-blur-xl 
+                  backdrop-blur-md 
                   border border-white/20 dark:border-white/10 
                   rounded-full 
                   shadow-[0_8px_32px_rgba(0,0,0,0.5)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.9)]
@@ -150,4 +151,4 @@ export default function Skills() {
       </div>
     </section>
   );
-}
+});

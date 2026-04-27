@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback, memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface MousePosition {
@@ -15,11 +15,17 @@ function useMousePosition(): MousePosition {
   });
 
   useEffect(() => {
+    let lastUpdate = 0;
+    const throttleMs = 32; // ~30fps for particles (sufficient for visual effect)
+
     const handleMouseMove = (event: MouseEvent) => {
+      const now = performance.now();
+      if (now - lastUpdate < throttleMs) return;
+      lastUpdate = now;
       setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -69,9 +75,9 @@ function hexToRgb(hex: string): number[] {
   return [r, g, b];
 }
 
-const Particles: React.FC<ParticlesProps> = ({
+const Particles: React.FC<ParticlesProps> = memo(({
   className = "",
-  quantity = 100,
+  quantity = 60, // Reduced from 100 for better performance
   staticity = 50,
   ease = 50,
   size = 0.4,
@@ -87,7 +93,9 @@ const Particles: React.FC<ParticlesProps> = ({
   const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+  const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1; // Cap at 2x for performance
+  const isVisible = useRef(true);
+  const animationFrameId = useRef<number | null>(null);
 
   const circleParams = useCallback((): Circle => {
     const x = Math.floor(Math.random() * canvasSize.current.w);
@@ -166,6 +174,8 @@ const Particles: React.FC<ParticlesProps> = ({
   };
 
   const animate = useCallback(() => {
+    if (!isVisible.current) return; // Skip rendering if not visible
+
     clearContext();
     circles.current.forEach((circle: Circle, i: number) => {
       const edge = [
@@ -244,17 +254,35 @@ const Particles: React.FC<ParticlesProps> = ({
       context.current = canvasRef.current.getContext("2d");
     }
     initCanvas();
-    let animationFrameId: number;
+
+    // Intersection Observer for visibility detection
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (canvasContainerRef.current) {
+      observer.observe(canvasContainerRef.current);
+    }
+
     const render = () => {
       animate();
-      animationFrameId = window.requestAnimationFrame(render);
+      animationFrameId.current = window.requestAnimationFrame(render);
     };
     render();
+
     window.addEventListener("resize", initCanvas);
 
     return () => {
       window.removeEventListener("resize", initCanvas);
-      window.cancelAnimationFrame(animationFrameId);
+      if (animationFrameId.current) {
+        window.cancelAnimationFrame(animationFrameId.current);
+      }
+      observer.disconnect();
     };
   }, [initCanvas, animate]);
 
@@ -285,6 +313,6 @@ const Particles: React.FC<ParticlesProps> = ({
       <canvas ref={canvasRef} />
     </div>
   );
-};
+});
 
 export default Particles;

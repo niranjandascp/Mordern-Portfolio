@@ -1,12 +1,13 @@
-import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
+import { useRef, useEffect, useState, memo } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
+
 import heroImg from '@/assets/hero.png';
 import { Spotlight } from '@/components/ui/Spotlight';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 import { KillianBackground } from '@/components/ui/KillianBackground';
 import { useTheme } from '@/context/ThemeContext';
 
-export default function Home() {
+export default memo(function Home() {
   const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,16 +22,22 @@ export default function Home() {
   const yText = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacityText = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
-  // Spotlight Position
+  // Spotlight Position with Spring for organic smoothness
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
+  const springConfig = { damping: 30, stiffness: 200 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const maskImage = useMotionTemplate`radial-gradient(circle 400px at ${smoothX}px ${smoothY}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`;
+  const lightMaskImage = useMotionTemplate`radial-gradient(circle 300px at ${smoothX}px ${smoothY}px, rgba(0, 0, 0, 0.5) 0%, transparent 100%)`;
+
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      setMousePos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
@@ -71,7 +78,7 @@ export default function Home() {
       {/* Ghost title — in front of glows + dots, behind portrait */}
       <div className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none select-none">
         <motion.div
-          style={{ opacity: opacityText, y: yText }}
+          style={{ opacity: opacityText, y: yText, willChange: 'opacity, transform' }}
           className="flex items-center justify-center w-full mt-[-10vh]"
         >
           <motion.div
@@ -79,10 +86,11 @@ export default function Home() {
             initial={{ filter: 'blur(20px)', opacity: 0 }}
             animate={{ filter: 'blur(0px)', opacity: 1 }}
             transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
+            style={{ willChange: 'filter, opacity' }}
           >
             {/* Background version of the text (subtle) */}
             <h1
-              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/5' : 'text-black/[0.03]'
+              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/5' : 'text-black/[0.08]'
                 }`}
             >
               NIRANJAN DAS
@@ -93,32 +101,26 @@ export default function Home() {
               <motion.div
                 className="absolute inset-0 pointer-events-none z-[2] mix-blend-multiply opacity-10"
                 style={{
-                  background: `radial-gradient(circle 300px at ${mousePos.x}px ${mousePos.y}px, rgba(0, 0, 0, 0.5) 0%, transparent 100%)`,
+                  background: lightMaskImage,
                 }}
               />
             )}
 
             {/* Revealed version of the text */}
-            <h1
+            <motion.h1
               className={`absolute inset-0 text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-neutral-500'
                 }`}
-
               style={{
-                WebkitMaskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
-                maskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
+                WebkitMaskImage: maskImage,
+                maskImage: maskImage,
                 textShadow: theme === 'light'
                   ? '0 15px 45px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)'
                   : '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05)'
               }}
             >
               NIRANJAN DAS
-            </h1>
-
-
-
+            </motion.h1>
           </motion.div>
-
-
         </motion.div>
       </div>
 
@@ -129,6 +131,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
+          style={{ willChange: 'opacity, transform, filter' }}
         >
           {/* Portrait Image (Static / No Effects) */}
           <div
@@ -165,6 +168,7 @@ export default function Home() {
         initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.5, delay: 3.1, ease: [0.22, 1, 0.36, 1] }}
+        style={{ willChange: 'opacity, transform, filter' }}
       >
         <LiquidMetalButton
           label="Explore Projects"
@@ -175,4 +179,4 @@ export default function Home() {
       </motion.div>
     </section>
   );
-}
+});

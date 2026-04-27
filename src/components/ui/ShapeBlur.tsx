@@ -1,4 +1,4 @@
-import { type FC, useEffect, useRef } from 'react';
+import { type FC, useEffect, useRef, memo } from 'react';
 import * as THREE from 'three';
 
 const vertexShader = /* glsl */ `
@@ -138,7 +138,7 @@ interface ShapeBlurProps {
   circleEdge?: number;
 }
 
-const ShapeBlur: FC<ShapeBlurProps> = ({
+const ShapeBlur: FC<ShapeBlurProps> = memo(({
   className = '',
   variation = 0,
   pixelRatioProp = 2,
@@ -150,6 +150,7 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const materialRef = useRef<THREE.ShaderMaterial | null>(null);
+  const isVisible = useRef(true);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -230,6 +231,20 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
     resize();
     window.addEventListener('resize', resize);
 
+    // Intersection Observer for visibility detection
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (mount) {
+      observer.observe(mount);
+    }
+
     const ro = new ResizeObserver(() => {
       if (!active) return;
       resize();
@@ -237,7 +252,7 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
     ro.observe(mount);
 
     const update = () => {
-      if (!active) return;
+      if (!active || !isVisible.current) return; // Skip rendering if not visible
       time = performance.now() * 0.001;
       const dt = time - lastTime;
       lastTime = time;
@@ -255,6 +270,7 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
       ro.disconnect();
+      observer.disconnect();
       document.removeEventListener('mousemove', onPointerMove);
       document.removeEventListener('pointermove', onPointerMove);
       if (mount.contains(renderer.domElement)) {
@@ -266,6 +282,6 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
   }, [variation, pixelRatioProp, shapeSize, roundness, borderSize, circleSize, circleEdge]);
 
   return <div className={`w-full h-full ${className}`} ref={mountRef} />;
-};
+});
 
 export default ShapeBlur;

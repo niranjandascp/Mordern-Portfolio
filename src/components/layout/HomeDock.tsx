@@ -74,7 +74,7 @@ function DockItem({
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="pointer-events-none absolute bottom-full left-1/2 z-[40] mb-1.5 flex -translate-x-1/2 flex-col items-center"
             >
-              <div className="rounded-full border border-white/12 bg-[#2C2C2E]/95 px-3 py-1 text-center text-[12px] font-medium tracking-tight text-white/95 shadow-[0_8px_28px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+              <div className="rounded-full border border-white/12 bg-[#2C2C2E]/95 px-3 py-1 text-center text-[12px] font-medium tracking-tight text-white/95 shadow-[0_8px_28px_rgba(0,0,0,0.55)] backdrop-blur-md">
                 {label}
               </div>
               <div
@@ -161,7 +161,7 @@ export default function HomeDock() {
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 2.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-2.5 py-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[50px] transition-colors"
+        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-2.5 py-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 30px 60px -12px rgba(0,0,0,0.5)',
         }}
