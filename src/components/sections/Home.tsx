@@ -1,12 +1,15 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import heroImg from '@/assets/hero.png';
-// import InteractiveDots from '@/components/animations/InteractiveDots';
 import { Spotlight } from '@/components/ui/Spotlight';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
+import { KillianBackground } from '@/components/ui/KillianBackground';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Home() {
+  const { theme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
+
 
   // Scroll Parallax Logic
   const { scrollYProgress } = useScroll({
@@ -17,6 +20,22 @@ export default function Home() {
   // Background text parallax (moves slightly vertically)
   const yText = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacityText = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+
+  // Spotlight Position
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [mouseX, mouseY]);
+
 
   return (
     <section
@@ -46,6 +65,9 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[60%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-[#C4521A]/30 blur-[150px] rounded-full" />
       </div>
 
+      {/* Killian Herzer Background Effect */}
+      <KillianBackground />
+
       {/* Ghost title — in front of glows + dots, behind portrait */}
       <div className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none select-none">
         <motion.div
@@ -53,22 +75,38 @@ export default function Home() {
           className="flex items-center justify-center w-full mt-[-10vh]"
         >
           <motion.div
+            className="relative"
             initial={{ filter: 'blur(20px)', opacity: 0 }}
             animate={{ filter: 'blur(0px)', opacity: 1 }}
             transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
           >
+            {/* Background version of the text (subtle) */}
             <h1
-              className="text-[22vw] font-big-shoulders font-black text-text-primary/20 leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center"
+              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${
+                theme === 'dark' ? 'text-white/5' : 'text-black/[0.03]'
+              }`}
+            >
+              NIRANJAN DAS
+            </h1>
+
+            {/* Revealed version of the text */}
+            <h1
+              className={`absolute inset-0 text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${
+                theme === 'dark' ? 'text-white/40' : 'text-[#C4521A]'
+              }`}
               style={{
-                maskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%)'
+                WebkitMaskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
+                maskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
               }}
             >
               NIRANJAN DAS
             </h1>
           </motion.div>
+
+
         </motion.div>
       </div>
+
 
       <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
         <motion.div

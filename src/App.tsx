@@ -21,14 +21,20 @@ import MacTerminal from '@/components/windows/MacTerminal';
 import VSCodeWindow from '@/components/windows/VSCodeWindow';
 import { HomeDockChromeProvider } from '@/context/HomeDockChromeContext';
 import { ThemeProvider, useTheme } from '@/context/ThemeContext';
+import { CustomCursor } from '@/components/ui/CustomCursor';
+
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
   const { theme } = useTheme();
 
   return (
-    <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative">
+    <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative cursor-none">
+
       {/* Intro Startup Animation */}
       <MacStartup />
+
+      <CustomCursor />
+
 
       {/* macOS-style top strip — same visibility as HomeDock (hero / near top only) */}
       <MacMenuBar />
