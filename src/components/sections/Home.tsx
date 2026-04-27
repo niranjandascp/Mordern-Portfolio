@@ -41,7 +41,7 @@ export default function Home() {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className=""
     >
       {/* Dynamic Background Noise/Pattern */}
       <Spotlight
@@ -82,25 +82,40 @@ export default function Home() {
           >
             {/* Background version of the text (subtle) */}
             <h1
-              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${
-                theme === 'dark' ? 'text-white/5' : 'text-black/[0.03]'
-              }`}
+              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/5' : 'text-black/[0.03]'
+                }`}
             >
               NIRANJAN DAS
             </h1>
 
+            {/* Glassy Black Spotlight Glow - ONLY IN LIGHT MODE */}
+            {theme === 'light' && (
+              <motion.div
+                className="absolute inset-0 pointer-events-none z-[2] mix-blend-multiply opacity-10"
+                style={{
+                  background: `radial-gradient(circle 300px at ${mousePos.x}px ${mousePos.y}px, rgba(0, 0, 0, 0.5) 0%, transparent 100%)`,
+                }}
+              />
+            )}
+
             {/* Revealed version of the text */}
             <h1
-              className={`absolute inset-0 text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${
-                theme === 'dark' ? 'text-white/40' : 'text-[#C4521A]'
-              }`}
+              className={`absolute inset-0 text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-neutral-500'
+                }`}
+
               style={{
                 WebkitMaskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
                 maskImage: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, black 0%, rgba(0,0,0,0.6) 40%, transparent 100%)`,
+                textShadow: theme === 'light'
+                  ? '0 15px 45px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)'
+                  : '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05)'
               }}
             >
               NIRANJAN DAS
             </h1>
+
+
+
           </motion.div>
 
 
