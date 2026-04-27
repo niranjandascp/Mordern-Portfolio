@@ -90,11 +90,6 @@ export const KillianBackground: React.FC = () => {
           y: 25
         }}
       >
-        <div className={`flex flex-col border-l pl-2 ${theme === 'dark' ? 'border-orange-600/20' : 'border-black/10'}`}>
-          <span>X: {Math.round(mousePos.x)}</span>
-          <span>Y: {Math.round(mousePos.y)}</span>
-          <span className={`text-[7px] ${theme === 'dark' ? 'text-orange-600/30' : 'text-black/10'}`}></span>
-        </div>
       </motion.div>
 
       {/* Light Mode Black Vignette - Static Frame */}
