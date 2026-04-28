@@ -46,7 +46,7 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       }}
       whileTap={{ scale: 0.98 }}
       style={{ transformPerspective: 1200, transformStyle: "preserve-3d", willChange: 'transform' }}
-      className={`group relative rounded-[2rem] overflow-hidden bg-white/[0.02] border border-white/10 p-8 md:p-10 flex flex-col gap-6 hover:bg-white/[0.04] transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
+      className={`group relative rounded-[2rem] overflow-hidden bg-bg-secondary/50 border border-border-main p-8 md:p-10 flex flex-col gap-6 hover:bg-bg-secondary transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
     >
       {/* ShapeBlur Effect as Border - ONLY MOUNTED ON HOVER */}
       <div
@@ -76,21 +76,21 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
 
       {/* Content Wrapper for internal shifting */}
       <div className="relative z-10 flex flex-col h-full transform transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
-        <div className="w-16 h-16 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.15] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
+        <div className="w-16 h-16 rounded-2xl bg-bg-primary/40 border border-border-main flex items-center justify-center mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.15] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
           {card.icon}
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight group-hover:text-white transition-colors duration-300">
+        <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight group-hover:opacity-80 transition-colors duration-300">
           {card.title}
         </h3>
 
-        <p className="text-text-secondary leading-relaxed text-lg font-light flex-grow group-hover:text-white/90 transition-colors duration-300">
+        <p className="text-text-secondary leading-relaxed text-lg font-light flex-grow group-hover:opacity-80 transition-colors duration-300">
           {card.description}
         </p>
       </div>
 
       {/* Sophisticated Arrow icon entering on hover */}
-      <div className="absolute top-8 right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-white/50 group-hover:text-white">
+      <div className="absolute top-8 right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-text-secondary group-hover:text-text-primary">
         <ArrowUpRight size={32} strokeWidth={1.5} />
       </div>
     </motion.div>
@@ -168,7 +168,7 @@ export default memo(function About() {
               className="h-2 bg-gradient-to-r from-[#C4521A] to-transparent mt-8 rounded-full"
             />
           </div>
-          <p className="text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-white/10 pl-6 hidden md:block">
+          <p className="text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-border-main pl-6 hidden md:block">
             I don't just write code. I build digital experiences that merge high-end aesthetics with flawless engineering.
           </p>
         </motion.div>

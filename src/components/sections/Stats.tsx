@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
 import { SiGithub, SiLeetcode } from "react-icons/si";
+import { useTheme } from "@/context/ThemeContext";
 
 const username = "niranjandascp";
 
@@ -79,12 +80,10 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
 
       {/* Main Glass Shell */}
       <motion.div
-        style={{}}
-        className="relative h-full backdrop-blur-[20px] rounded-[2.5rem] border border-white/10 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)] group-hover:shadow-[0_60px_120px_rgba(0,0,0,0.6)] group-hover:border-white/20 transition-all duration-700"
+        className="relative h-full backdrop-blur-[20px] rounded-[2.5rem] border border-border-main overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] group-hover:shadow-[0_60px_120px_rgba(0,0,0,0.2)] transition-all duration-700 bg-bg-primary/30"
       >
-        {/* Specular Edge Catching */}
-        <div className="absolute inset-0 rounded-[2.5rem] border border-white/5 pointer-events-none z-10" />
-        <div className="absolute inset-[1px] rounded-[2.5rem] border border-white/[0.02] pointer-events-none z-10" />
+        <div className="absolute inset-0 rounded-[2.5rem] border border-border-main pointer-events-none z-10" />
+        <div className="absolute inset-[1px] rounded-[2.5rem] border border-border-main opacity-50 pointer-events-none z-10" />
 
         {/* Content with Deep Parallax */}
         <div style={{ transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-8">
@@ -98,6 +97,8 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
 const RealisticAppleCardMemo = memo(RealisticAppleCard);
 
 export default memo(function Stats() {
+  const { theme } = useTheme();
+  
   return (
     <section id="stats" className="py-24 relative overflow-hidden transition-colors">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />
@@ -122,19 +123,20 @@ export default memo(function Stats() {
         {/* ================= GITHUB ================= */}
         <div className="space-y-10">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <SiGithub className="text-white/70" size={20} />
+            <div className="w-10 h-10 rounded-xl bg-bg-secondary border border-border-main flex items-center justify-center">
+              <SiGithub className="text-text-primary opacity-70" size={20} />
             </div>
-            <h3 className="text-xl font-bold text-white tracking-tight">GitHub Contributions</h3>
+            <h3 className="text-xl font-bold text-text-primary tracking-tight">GitHub Contributions</h3>
           </div>
 
           <RealisticAppleCardMemo>
             <div className="overflow-x-auto py-2 scrollbar-hide">
               <GitHubCalendar
                 username={username}
-                colorScheme="dark"
+                colorScheme={theme === 'dark' ? "dark" : "light"}
                 theme={{
                   dark: ['#1a2332', '#1e3a5f', '#1d4ed8', '#3b82f6', '#93c5fd'],
+                  light: ['#f0fdf4', '#dcfce7', '#86efac', '#22c55e', '#16a34a'],
                 }}
                 fontSize={13}
                 blockSize={14}
@@ -152,7 +154,7 @@ export default memo(function Stats() {
               <div className="w-10 h-10 rounded-xl bg-amber-500/5 border border-amber-500/10 flex items-center justify-center">
                 <SiLeetcode className="text-amber-500" size={20} />
               </div>
-              <h3 className="text-xl font-bold text-white tracking-tight">LeetCode Mastery</h3>
+              <h3 className="text-xl font-bold text-text-primary tracking-tight">LeetCode Mastery</h3>
             </div>
 
             <motion.a
@@ -161,8 +163,8 @@ export default memo(function Stats() {
               target="_blank"
               className="px-5 py-2.5 bg-white/5 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
             >
-              <span className="text-xs font-bold text-white/60 uppercase tracking-widest">Profile</span>
-              <ExternalLink size={14} className="text-white/30" />
+              <span className="text-xs font-bold text-text-primary opacity-60 uppercase tracking-widest">Profile</span>
+              <ExternalLink size={14} className="text-text-primary opacity-30" />
             </motion.a>
           </div>
 
@@ -241,7 +243,7 @@ export default memo(function Stats() {
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-3">
                   <Activity className="text-emerald-400" size={20} />
-                  <h4 className="text-sm font-bold text-white tracking-wide">Live Stream Activity</h4>
+                  <h4 className="text-sm font-bold text-text-primary tracking-wide">Live Stream Activity</h4>
                 </div>
                 <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
               </div>
@@ -254,15 +256,15 @@ export default memo(function Stats() {
                     className="flex items-center justify-between group/item cursor-pointer border-b border-white/5 pb-5 last:border-0 md:[&:nth-last-child(-n+2)]:border-0"
                   >
                     <div className="flex flex-col gap-1.5">
-                      <span className="text-sm font-bold text-white/90 group-hover/item:text-amber-500 transition-colors">
+                      <span className="text-sm font-bold text-text-primary opacity-90 group-hover/item:text-amber-500 transition-colors">
                         {item.title}
                       </span>
                       <div className="flex items-center gap-3">
                         <span className="text-[9px] font-black text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/5 border border-emerald-500/10 uppercase tracking-widest">Accepted</span>
-                        <span className="text-xs font-mono text-white/20">{item.date}</span>
+                        <span className="text-xs font-mono text-text-secondary opacity-60">{item.date}</span>
                       </div>
                     </div>
-                    <ArrowUpRight className="text-white/10 group-hover/item:text-amber-500 transition-all opacity-0 group-hover/item:opacity-100" size={18} />
+                    <ArrowUpRight className="text-text-secondary opacity-30 group-hover/item:text-amber-500 transition-all opacity-0 group-hover/item:opacity-100" size={18} />
                   </motion.div>
                 ))}
               </div>
