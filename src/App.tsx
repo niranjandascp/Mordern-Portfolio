@@ -11,6 +11,7 @@ import Contact from '@/components/sections/Contact';
 import { ReactLenis } from 'lenis/react';
 import LiquidEther from '@/components/ui/LiquidEther';
 import WaterRippleBackground from '@/components/ui/WaterRipple';
+import CometBackground from '@/components/ui/CometBackground';
 import GSAPScrollSync from '@/components/animations/GSAPScrollSync';
 import { useStackedPanels } from '@/hooks/useStackedPanels';
 import ScrollToTop from '@/components/ui/ScrollToTop';
@@ -93,6 +94,9 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
         {/* Global Interactive Water Ripple */}
         <WaterRippleBackground />
+
+        {/* Global Ambient Comets */}
+        <CometBackground />
 
 
         {/* Main Dramatic Spotlight - Softened in light mode */}

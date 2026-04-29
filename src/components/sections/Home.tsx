@@ -144,7 +144,7 @@ export default memo(function Home() {
             <img
               src={heroImg}
               alt="Niranjan Das"
-              className="w-full h-full object-cover grayscale-[0.05] contrast-[1.1] brightness-[1.1]"
+              className="w-full h-full object-cover grayscale-[0.05] contrast-[1.1] brightness-[1.1] select-none pointer-events-none"
               style={{ objectPosition: 'center 20%' }}
             />
           </div>
