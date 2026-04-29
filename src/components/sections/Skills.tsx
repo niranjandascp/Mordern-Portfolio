@@ -103,8 +103,7 @@ export default memo(function Skills() {
         <div className="flex flex-wrap justify-center gap-4 md:gap-4 max-w-4xl mx-auto bg-black/5 dark:bg-black/40  rounded-[2rem] p-8 sm:p-12 ">
           {techStack.map((skill, idx) => {
             const Icon = skill.icon;
-            // Handle icons that are white in dark mode but should be dark in light mode
-            const iconColor = skill.color === '#ffffff' ? 'var(--text-primary)' : skill.color;
+            const iconColor = skill.color;
 
             return (
               <motion.div
@@ -121,27 +120,27 @@ export default memo(function Skills() {
                 }}
                 style={{ willChange: 'transform' }}
                 className="relative flex items-center gap-2.5 px-6 py-3 
-                  bg-white/10 dark:bg-black/50 
+                  bg-black/60 
                   backdrop-blur-md 
-                  border border-white/20 dark:border-white/10 
+                  border border-white/10 
                   rounded-full 
-                  shadow-[0_8px_32px_rgba(0,0,0,0.5)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.9)]
-                  hover:bg-white/20 dark:hover:bg-black/70 
-                  hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] dark:hover:shadow-[0_16px_40px_rgba(0,0,0,1)]
+                  shadow-[0_8px_32px_rgba(0,0,0,0.4)] 
+                  hover:bg-black/80 
+                  hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] 
                   transition-colors duration-500 
                   cursor-pointer group overflow-hidden z-10"
               >
                 {/* Liquid Glass Inner Highlight */}
-                <div className="absolute inset-0 rounded-full w-full h-full pointer-events-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]" />
+                <div className="absolute inset-0 rounded-full w-full h-full pointer-events-none shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]" />
 
                 {/* Sweeping Shine Hover Effect */}
-                <div className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent -translate-x-[150%] skew-x-[30deg] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out" />
+                <div className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-[30deg] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out" />
 
                 <Icon
                   className="text-xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out relative z-10 drop-shadow-md"
                   style={{ color: iconColor }}
                 />
-                <span className="text-[14px] font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 relative z-10">
+                <span className="text-[14px] font-bold text-[#a1a1aa] group-hover:text-white transition-colors duration-300 relative z-10">
                   {skill.name}
                 </span>
               </motion.div>
