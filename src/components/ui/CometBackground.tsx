@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useTheme } from '@/context/ThemeContext';
 
 type Comet = {
   x: number;
@@ -19,6 +20,7 @@ type Comet = {
 
 export default function CometBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,10 +40,14 @@ export default function CometBackground() {
     resize();
     window.addEventListener("resize", resize);
 
-    const COLORS = [
+    const COLORS = theme === 'dark' ? [
       { r: 255, g: 255, b: 255 },
       { r: 255, g: 210, b: 100 },
       { r: 255, g: 140, b: 42 },
+    ] : [
+      { r: 196, g: 82, b: 26 },
+      { r: 100, g: 116, b: 139 },
+      { r: 15, g: 23, b: 42 },
     ];
 
     function rand(a: number, b: number) { return a + Math.random() * (b - a); }
@@ -181,12 +187,14 @@ export default function CometBackground() {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none mix-blend-screen opacity-20 z-0"
+      className={`fixed inset-0 w-full h-full pointer-events-none z-0 ${
+        theme === 'dark' ? 'mix-blend-screen opacity-20' : 'mix-blend-multiply opacity-30'
+      }`}
     />
   );
 }
