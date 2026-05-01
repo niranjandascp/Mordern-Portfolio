@@ -90,7 +90,7 @@ export default memo(function Home() {
           >
             {/* Background version of the text (subtle) */}
             <h1
-              className={`text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/5' : 'text-black/[0.08]'
+              className={`text-[15vw] sm:text-[18vw] md:text-[20vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/5' : 'text-black/[0.08]'
                 }`}
             >
               NIRANJAN DAS
@@ -108,7 +108,7 @@ export default memo(function Home() {
 
             {/* Revealed version of the text */}
             <motion.h1
-              className={`absolute inset-0 text-[22vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-neutral-500'
+              className={`absolute inset-0 text-[15vw] sm:text-[18vw] md:text-[20vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-neutral-500'
                 }`}
               style={{
                 WebkitMaskImage: maskImage,
@@ -125,9 +125,9 @@ export default memo(function Home() {
       </div>
 
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
+      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px] px-4">
         <motion.div
-          className="relative w-full max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
+          className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.5, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
@@ -164,7 +164,7 @@ export default memo(function Home() {
 
       {/* Call to Action */}
       <motion.div
-        className="absolute bottom-[18vh] sm:bottom-[15vh] right-[5vw] sm:right-[10vw] z-[30] pointer-events-auto flex flex-col items-center will-change-transform"
+        className="absolute bottom-[12vh] sm:bottom-[15vh] md:bottom-[18vh] right-[5vw] sm:right-[8vw] md:right-[10vw] z-[30] pointer-events-auto flex flex-col items-center will-change-transform"
         initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
         animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.5, delay: 3.1, ease: [0.22, 1, 0.36, 1] }}

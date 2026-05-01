@@ -4,6 +4,7 @@ import { GitHubCalendar } from "react-github-calendar";
 import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
 import { SiGithub, SiLeetcode } from "react-icons/si";
 import { useTheme } from "@/context/ThemeContext";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const username = "niranjandascp";
 
@@ -130,7 +131,7 @@ export default memo(function Stats() {
           </div>
 
           <RealisticAppleCardMemo>
-            <div className="overflow-x-auto py-2 scrollbar-hide">
+            <ScrollReveal animationNum={0} direction="left" className="overflow-x-auto py-2 scrollbar-hide">
               <GitHubCalendar
                 username={username}
                 colorScheme={theme === 'dark' ? "dark" : "light"}
@@ -143,7 +144,7 @@ export default memo(function Stats() {
                 blockMargin={5}
                 blockRadius={4}
               />
-            </div>
+            </ScrollReveal>
           </RealisticAppleCardMemo>
         </div>
 
@@ -171,104 +172,112 @@ export default memo(function Stats() {
           {/* Staggered Natural Alignment Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
             {/* Primary Stat: Solved */}
-            <RealisticAppleCardMemo className="md:col-span-4">
-              <div className="flex flex-col h-full justify-between gap-10">
-                <div className="flex justify-between items-start">
-                  <div className="p-3 bg-amber-500/10 rounded-2xl border border-amber-500/20">
-                    <Cpu className="text-amber-500" size={24} />
+            <ScrollReveal animationNum={0} direction="left" className="md:col-span-4">
+              <RealisticAppleCardMemo>
+                <div className="flex flex-col h-full justify-between gap-10">
+                  <div className="flex justify-between items-start">
+                    <div className="p-3 bg-amber-500/10 rounded-2xl border border-amber-500/20">
+                      <Cpu className="text-amber-500" size={24} />
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Solved</p>
+                    <h4 className="text-6xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
+                  </div>
+                  <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '45%' }}
+                      transition={{ duration: 1.5, ease: "circOut" }}
+                      className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
+                    />
                   </div>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Solved</p>
-                  <h4 className="text-6xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
-                </div>
-                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: '45%' }}
-                    transition={{ duration: 1.5, ease: "circOut" }}
-                    className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"
-                  />
-                </div>
-              </div>
-            </RealisticAppleCardMemo>
+              </RealisticAppleCardMemo>
+            </ScrollReveal>
 
             {/* Secondary Stat: Rank */}
-            <RealisticAppleCardMemo className="md:col-span-3">
-              <div className="flex flex-col h-full justify-between gap-6">
-                <div className="p-3 bg-blue-500/10 rounded-2xl border border-blue-500/20 self-start">
-                  <Trophy className="text-blue-400" size={24} />
+            <ScrollReveal animationNum={1} direction="up" className="md:col-span-3">
+              <RealisticAppleCardMemo>
+                <div className="flex flex-col h-full justify-between gap-6">
+                  <div className="p-3 bg-blue-500/10 rounded-2xl border border-blue-500/20 self-start">
+                    <Trophy className="text-blue-400" size={24} />
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Global Rank</p>
+                    <h4 className="text-3xl font-black text-text-primary">#{LEETCODE_STATS.rank.toLocaleString()}</h4>
+                  </div>
+                  <div className="py-2 bg-white/5 rounded-lg border border-white/5 text-center">
+                    <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest text-center">Top Tier Active</span>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Global Rank</p>
-                  <h4 className="text-3xl font-black text-text-primary">#{LEETCODE_STATS.rank.toLocaleString()}</h4>
-                </div>
-                <div className="py-2 bg-white/5 rounded-lg border border-white/5 text-center">
-                  <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest text-center">Top Tier Active</span>
-                </div>
-              </div>
-            </RealisticAppleCardMemo>
+              </RealisticAppleCardMemo>
+            </ScrollReveal>
 
             {/* Difficulty Breakdown */}
-            <RealisticAppleCardMemo className="md:col-span-5">
-              <div className="flex flex-col h-full justify-between gap-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Layout className="text-text-secondary opacity-60" size={18} />
-                  <span className="text-[10px] font-black tracking-[0.2em] text-text-secondary opacity-60 uppercase">Distribution</span>
-                </div>
-                <div className="space-y-5 flex-1 flex flex-col justify-center">
-                  {LEETCODE_STATS.difficulty.map((d) => (
-                    <div key={d.label} className="space-y-1.5">
-                      <div className="flex justify-between items-center">
-                        <span className="text-[9px] font-black text-text-secondary opacity-80 tracking-widest uppercase">{d.label}</span>
-                        <span className="text-xs font-bold text-text-primary opacity-80">{d.solved}</span>
+            <ScrollReveal animationNum={2} direction="right" className="md:col-span-5">
+              <RealisticAppleCardMemo>
+                <div className="flex flex-col h-full justify-between gap-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Layout className="text-text-secondary opacity-60" size={18} />
+                    <span className="text-[10px] font-black tracking-[0.2em] text-text-secondary opacity-60 uppercase">Distribution</span>
+                  </div>
+                  <div className="space-y-5 flex-1 flex flex-col justify-center">
+                    {LEETCODE_STATS.difficulty.map((d) => (
+                      <div key={d.label} className="space-y-1.5">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[9px] font-black text-text-secondary opacity-80 tracking-widest uppercase">{d.label}</span>
+                          <span className="text-xs font-bold text-text-primary opacity-80">{d.solved}</span>
+                        </div>
+                        <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${(d.solved / d.total) * 100}%` }}
+                            transition={{ duration: 1.2 }}
+                            className="h-full rounded-full"
+                            style={{ background: d.color }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${(d.solved / d.total) * 100}%` }}
-                          transition={{ duration: 1.2 }}
-                          className="h-full rounded-full"
-                          style={{ background: d.color }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </RealisticAppleCardMemo>
+              </RealisticAppleCardMemo>
+            </ScrollReveal>
 
             {/* Recent Activity - Full Width Bottom */}
-            <RealisticAppleCardMemo className="md:col-span-12">
-              <div className="flex items-center justify-between mb-10">
-                <div className="flex items-center gap-3">
-                  <Activity className="text-emerald-400" size={20} />
-                  <h4 className="text-sm font-bold text-text-primary tracking-wide">Live Stream Activity</h4>
+            <ScrollReveal animationNum={3} direction="up" className="md:col-span-12">
+              <RealisticAppleCardMemo>
+                <div className="flex items-center justify-between mb-10">
+                  <div className="flex items-center gap-3">
+                    <Activity className="text-emerald-400" size={20} />
+                    <h4 className="text-sm font-bold text-text-primary tracking-wide">Live Stream Activity</h4>
+                  </div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
                 </div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.5)]" />
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                {LEETCODE_STATS.recent.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ x: 10 }}
-                    className="flex items-center justify-between group/item cursor-pointer border-b border-white/5 pb-5 last:border-0 md:[&:nth-last-child(-n+2)]:border-0"
-                  >
-                    <div className="flex flex-col gap-1.5">
-                      <span className="text-sm font-bold text-text-primary opacity-90 group-hover/item:text-amber-500 transition-colors">
-                        {item.title}
-                      </span>
-                      <div className="flex items-center gap-3">
-                        <span className="text-[9px] font-black text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/5 border border-emerald-500/10 uppercase tracking-widest">Accepted</span>
-                        <span className="text-xs font-mono text-text-secondary opacity-60">{item.date}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                  {LEETCODE_STATS.recent.map((item, i) => (
+                    <motion.div
+                      key={i}
+                      whileHover={{ x: 10 }}
+                      className="flex items-center justify-between group/item cursor-pointer border-b border-white/5 pb-5 last:border-0 md:[&:nth-last-child(-n+2)]:border-0"
+                    >
+                      <div className="flex flex-col gap-1.5">
+                        <span className="text-sm font-bold text-text-primary opacity-90 group-hover/item:text-amber-500 transition-colors">
+                          {item.title}
+                        </span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-[9px] font-black text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/5 border border-emerald-500/10 uppercase tracking-widest">Accepted</span>
+                          <span className="text-xs font-mono text-text-secondary opacity-60">{item.date}</span>
+                        </div>
                       </div>
-                    </div>
-                    <ArrowUpRight className="text-text-secondary opacity-30 group-hover/item:text-amber-500 transition-all opacity-0 group-hover/item:opacity-100" size={18} />
-                  </motion.div>
-                ))}
-              </div>
-            </RealisticAppleCardMemo>
+                      <ArrowUpRight className="text-text-secondary opacity-30 group-hover/item:text-amber-500 transition-all opacity-0 group-hover/item:opacity-100" size={18} />
+                    </motion.div>
+                  ))}
+                </div>
+              </RealisticAppleCardMemo>
+            </ScrollReveal>
           </div>
         </div>
       </div>

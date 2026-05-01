@@ -60,7 +60,7 @@ export default function MacMenuBar() {
         ease: [0.22, 1, 0.36, 1],
         delay: isInitialMount ? 2.8 : 0,
       }}
-      className="fixed top-0 left-0 right-0 z-[101] select-none pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-[101] select-none pointer-events-none hidden md:block"
     >
       <div
         className="relative flex h-9 items-center justify-between border-b border-white/10 bg-black/10 dark:bg-white/5 px-3 text-[12px] text-[var(--color-text-primary)] backdrop-blur-[20px] sm:px-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"

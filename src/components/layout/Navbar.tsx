@@ -130,9 +130,17 @@ export default function Navbar() {
   const { activeTab, setActiveTab } = useHomeDockChrome();
   const { theme, toggleTheme } = useTheme();
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lenis = useLenis();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleNavClick = useCallback(
     (id: string) => {
@@ -193,15 +201,14 @@ export default function Navbar() {
 
   return (
     <AnimatePresence>
-      {activeTab !== 'home' && (
-        <motion.nav
-          variants={navContainerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          className={`fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 top-3`}
-          style={{ perspective: '1000px' }}
-        >
+      <motion.nav
+        variants={navContainerVariants}
+        initial="hidden"
+        animate={(activeTab !== 'home' || isMobile) ? "visible" : "hidden"}
+        exit="hidden"
+        className="fixed left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 top-3"
+        style={{ perspective: '1000px' }}
+      >
           {/* Desktop & Tablet Pill */}
           <motion.div
             animate={{
@@ -380,7 +387,6 @@ export default function Navbar() {
             )}
           </AnimatePresence>
         </motion.nav>
-      )}
     </AnimatePresence>
   );
 }

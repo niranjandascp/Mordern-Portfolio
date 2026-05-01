@@ -1,5 +1,6 @@
 import { motion, memo } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 export default memo(function Contact() {
   return (
@@ -23,14 +24,8 @@ export default memo(function Contact() {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+          <div className="space-y-8">
+            <ScrollReveal animationNum={0} direction="left" className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
               <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <Mail className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
@@ -45,9 +40,9 @@ export default memo(function Contact() {
                   hello@example.com
                 </a>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+            <ScrollReveal animationNum={1} direction="left" className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
               <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <MapPin className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
@@ -57,16 +52,11 @@ export default memo(function Contact() {
                 </h4>
                 <p className="text-xl font-medium text-text-primary">India</p>
               </div>
-            </div>
-          </motion.div>
+            </ScrollReveal>
+          </div>
 
           {/* Contact Form Placeholder */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <ScrollReveal animationNum={0} direction="right">
             <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
               <div>
                 <input
@@ -93,7 +83,7 @@ export default memo(function Contact() {
                 Send Message <Send size={18} />
               </button>
             </form>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

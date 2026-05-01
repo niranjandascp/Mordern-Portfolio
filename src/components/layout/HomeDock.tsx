@@ -154,7 +154,7 @@ export default function HomeDock() {
 
   return (
     <div
-      className={`fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
+      className={`fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:block ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
         }`}
     >
       <motion.div

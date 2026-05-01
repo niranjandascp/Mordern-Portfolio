@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
-import TimelineAnimation from '@/components/ui/TimelineAnimation';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const projects = [
   {
@@ -107,7 +107,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
   };
 
   return (
-    <TimelineAnimation animationNum={idx % 3} style={{ perspective: '1000px' }} className="group">
+    <ScrollReveal animationNum={idx} direction="alternate" className="group">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -245,7 +245,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           </div>
         </div>
       </div>
-    </TimelineAnimation>
+    </ScrollReveal>
   );
 }
 

@@ -1,6 +1,6 @@
 import { motion, memo } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
-import TimelineAnimation from '@/components/ui/TimelineAnimation';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const educationList = [
   {
@@ -36,7 +36,7 @@ export default memo(function Education() {
 
         <div className="space-y-8">
           {educationList.map((edu, idx) => (
-            <TimelineAnimation key={idx} animationNum={0} className="relative pl-8 md:pl-0">
+            <ScrollReveal key={idx} animationNum={idx} direction="alternate" className="relative pl-8 md:pl-0">
               <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-md border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
                 <div className="flex-grow">
                   <div className="flex items-center gap-2 mb-2">
@@ -54,7 +54,7 @@ export default memo(function Education() {
                   <span className="text-sm font-medium text-text-secondary">{edu.duration}</span>
                 </div>
               </div>
-            </TimelineAnimation>
+            </ScrollReveal>
           ))}
         </div>
       </div>

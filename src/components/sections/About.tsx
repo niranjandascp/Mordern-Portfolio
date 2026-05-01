@@ -7,12 +7,12 @@ import { useTheme } from '@/context/ThemeContext';
 function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  
+
   const itemVariants = {
     hidden: {
       opacity: 0,
-      y: 40,
-      scale: 0.95,
+      y: 100, // Reduced from 600 to prevent excessive layout travel
+      scale: 0.9,
       filter: 'blur(10px)',
     },
     show: (idx: number) => ({
@@ -22,10 +22,10 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       filter: 'blur(0px)',
       transition: {
         type: 'spring',
-        mass: 1.2,
-        damping: 22,
-        stiffness: 120,
-        delay: (idx % 3) * 0.08,
+        mass: 1,
+        damping: 25, // Increased damping to prevent "shaking"
+        stiffness: 100,
+        delay: (idx % 3) * 0.1,
       }
     })
   };
@@ -36,7 +36,7 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       variants={itemVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.2 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{
@@ -46,7 +46,7 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       }}
       whileTap={{ scale: 0.98 }}
       style={{ transformPerspective: 1200, transformStyle: "preserve-3d", willChange: 'transform' }}
-      className={`group relative rounded-[2rem] overflow-hidden bg-bg-secondary/50 border border-border-main p-8 md:p-10 flex flex-col gap-6 hover:bg-bg-secondary transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
+      className={`group relative rounded-2xl overflow-hidden bg-bg-secondary/50 border border-border-main p-5 md:p-6 flex flex-col gap-4 hover:bg-bg-secondary transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
     >
       {/* ShapeBlur Effect as Border - ONLY MOUNTED ON HOVER */}
       <div
@@ -58,7 +58,7 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
           maskComposite: 'exclude',
         }}
       >
-        <div className="absolute inset-0 w-full h-full rounded-[2rem]">
+        <div className="absolute inset-0 w-full h-full rounded-2xl">
           {isHovered && (
             <ShapeBlur
               variation={4}
@@ -76,15 +76,15 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
 
       {/* Content Wrapper for internal shifting */}
       <div className="relative z-10 flex flex-col h-full transform transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
-        <div className="w-16 h-16 rounded-2xl bg-bg-primary/40 border border-border-main flex items-center justify-center mb-6 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.15] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
+        <div className="w-12 h-12 rounded-xl bg-bg-primary/40 border border-border-main flex items-center justify-center mb-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.1] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
           {card.icon}
         </div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight group-hover:opacity-80 transition-colors duration-300">
+        <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2 tracking-tight group-hover:opacity-80 transition-colors duration-300">
           {card.title}
         </h3>
 
-        <p className="text-text-secondary leading-relaxed text-lg font-light flex-grow group-hover:opacity-80 transition-colors duration-300">
+        <p className="text-text-secondary leading-relaxed text-xs md:text-sm font-light flex-grow group-hover:opacity-80 transition-colors duration-300">
           {card.description}
         </p>
       </div>
@@ -103,45 +103,45 @@ export default memo(function About() {
   const { theme } = useTheme();
   const cards = [
     {
-      icon: <User className="text-[#C4521A]" size={36} />,
+      icon: <User className="text-[#C4521A]" size={24} />,
       title: 'Who I am',
-      description: 'A passionate developer who loves transforming complex problems into elegant, intuitive, and scalable solutions. I focus on bridging the gap between design and sophisticated architecture.',
+      description: 'A passionate developer who loves transforming complex problems into elegant, intuitive, and scalable solutions.',
       gradient: 'from-[#C4521A]/40 to-transparent',
       borderColor: 'group-hover:border-[#C4521A]/60 hover:shadow-[0_10px_60px_-15px_rgba(196,82,26,0.3)]',
       className: 'md:col-span-2 md:row-span-1', // Wide
     },
     {
-      icon: <Code2 className="text-blue-500" size={36} />,
+      icon: <Code2 className="text-blue-500" size={24} />,
       title: 'What I do',
-      description: 'I build responsive front-end interfaces, robust backend APIs, and piece them together to create seamless full-stack applications. I ensure high performance, security, and scalability in every single deployment.',
+      description: 'I build responsive front-end interfaces, robust backend APIs, and seamless full-stack applications.',
       gradient: 'from-blue-500/40 to-transparent',
       borderColor: 'group-hover:border-blue-500/60 hover:shadow-[0_10px_60px_-15px_rgba(59,130,246,0.3)]',
       className: 'md:col-span-1 md:row-span-2 flex flex-col justify-between', // Tall
     },
     {
-      icon: <Zap className="text-emerald-500" size={36} />,
+      icon: <Zap className="text-emerald-500" size={24} />,
       title: 'My approach',
-      description: 'Clean code, modern architecture, and a constant drive to learn new technologies and workflows.',
+      description: 'Clean code, modern architecture, and a constant drive to learn.',
       gradient: 'from-emerald-500/40 to-transparent',
       borderColor: 'group-hover:border-emerald-500/60 hover:shadow-[0_10px_60px_-15px_rgba(16,185,129,0.3)]',
       className: 'md:col-span-1 md:row-span-1', // Square
     },
     {
-      icon: <Layout className="text-purple-500" size={36} />,
+      icon: <Layout className="text-purple-500" size={24} />,
       title: 'Design Philosophy',
-      description: 'Creating user interfaces that are not only functional but visually stunning with high attention to detail.',
+      description: 'Functionality meets stunning visuals with high attention to detail.',
       gradient: 'from-purple-500/40 to-transparent',
       borderColor: 'group-hover:border-purple-500/60 hover:shadow-[0_10px_60px_-15px_rgba(168,85,247,0.3)]',
       className: 'md:col-span-1 md:row-span-1', // Square
     },
-    {
-      icon: <Target className="text-pink-500" size={36} />,
-      title: 'Goal Oriented',
-      description: 'Every line of code and millimeter of design is entirely dedicated to achieving the core objectives of the product, maximizing both conversion rates and user accessibility.',
-      gradient: 'from-pink-500/40 to-transparent',
-      borderColor: 'group-hover:border-pink-500/60 hover:shadow-[0_10px_60px_-15px_rgba(236,72,153,0.3)]',
-      className: 'md:col-span-3 md:row-span-1', // Extra Wide Bottom
-    },
+    // {
+    //   icon: <Target className="text-pink-500" size={24} />,
+    //   title: 'Goal Oriented',
+    //   description: 'Dedicated to achieving product objectives and user accessibility.',
+    //   gradient: 'from-pink-500/40 to-transparent',
+    //   borderColor: 'group-hover:border-pink-500/60 hover:shadow-[0_10px_60px_-15px_rgba(236,72,153,0.3)]',
+    //   className: 'md:col-span-3 md:row-span-1', // Extra Wide Bottom
+    // },
   ];
 
   return (
@@ -175,7 +175,7 @@ export default memo(function About() {
 
         {/* Professional Bento Box Grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr"
           style={{ perspective: 1500 }}
         >
           {cards.map((card, idx) => (
@@ -186,4 +186,4 @@ export default memo(function About() {
       </div>
     </section>
   );
-});
+});

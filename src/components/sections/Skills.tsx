@@ -26,6 +26,7 @@ import {
 import { FaAws } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { VscVscode } from 'react-icons/vsc';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const techStack = [
   { name: 'Html5', icon: SiHtml5, color: '#E34F26' },
@@ -75,7 +76,7 @@ export default memo(function Skills() {
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
           style={{ rotate }}
-          className="w-[1050px] h-[1050px] object-contain origin-center"
+          className="w-[600px] h-[600px] md:w-[1050px] md:h-[1050px] object-contain origin-center"
         />
       </div>
 
@@ -106,28 +107,22 @@ export default memo(function Skills() {
             const iconColor = skill.color;
 
             return (
-              <motion.div
+              <ScrollReveal
                 key={skill.name}
-                initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                whileHover={{ scale: 1.08, y: -6 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.4,
-                  delay: (idx % 10) * 0.05,
-                  scale: { type: "spring", stiffness: 300, damping: 20 },
-                  y: { type: "spring", stiffness: 300, damping: 20 }
-                }}
-                style={{ willChange: 'transform' }}
-                className="relative flex items-center gap-2.5 px-6 py-3 
-                  bg-black/60 
-                  backdrop-blur-md 
-                  border border-white/10 
-                  rounded-full 
-                  shadow-[0_8px_32px_rgba(0,0,0,0.4)] 
-                  hover:bg-black/80 
-                  hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)] 
-                  transition-colors duration-500 
+                animationNum={idx}
+                direction="alternate"
+                staggerDelay={0.03}
+                duration={0.6}
+                distance={40}
+                className="relative flex items-center gap-2.5 px-6 py-3
+                  bg-black/60
+                  backdrop-blur-md
+                  border border-white/10
+                  rounded-full
+                  shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+                  hover:bg-black/80
+                  hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)]
+                  transition-colors duration-500
                   cursor-pointer group overflow-hidden z-10"
               >
                 {/* Liquid Glass Inner Highlight */}
@@ -143,7 +138,7 @@ export default memo(function Skills() {
                 <span className="text-[14px] font-bold text-[#a1a1aa] group-hover:text-white transition-colors duration-300 relative z-10">
                   {skill.name}
                 </span>
-              </motion.div>
+              </ScrollReveal>
             );
           })}
         </div>
