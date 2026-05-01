@@ -25,7 +25,7 @@ export default memo(function Home() {
   // Spotlight Position with Spring for organic smoothness
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
+
   const springConfig = { damping: 30, stiffness: 200 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
@@ -48,7 +48,7 @@ export default memo(function Home() {
     <section
       id="home"
       ref={containerRef}
-      className=""
+      className="min-h-[120vh] sm:min-h-[110vh] md:min-h-screen pt-24 sm:pt-14 md:pt-0"
     >
       {/* Dynamic Background Noise/Pattern */}
       <Spotlight
@@ -79,7 +79,7 @@ export default memo(function Home() {
       <div className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none select-none">
         <motion.div
           style={{ opacity: opacityText, y: yText, willChange: 'opacity, transform' }}
-          className="flex items-center justify-center w-full mt-[-10vh]"
+          className="flex items-center justify-center w-full mt-[-30vh] sm:mt-[-5vh] md:mt-[-10vh]"
         >
           <motion.div
             className="relative"
@@ -125,7 +125,7 @@ export default memo(function Home() {
       </div>
 
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px] px-4">
+      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px] px-4 pt-12 sm:pt-6 md:pt-0">
         <motion.div
           className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}

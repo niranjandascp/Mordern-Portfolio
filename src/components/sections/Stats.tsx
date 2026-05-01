@@ -104,7 +104,7 @@ export default memo(function Stats() {
     <section id="stats" className="py-24 relative overflow-hidden transition-colors">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 space-y-24 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16 sm:space-y-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ export default memo(function Stats() {
           <p className="text-text-secondary uppercase tracking-[0.25em] text-xs font-semibold mb-4">
             Developer Metrics
           </p>
-          <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
             GitHub <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& LeetCode</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
@@ -150,7 +150,7 @@ export default memo(function Stats() {
 
         {/* ================= LEETCODE ================= */}
         <div className="space-y-10">
-          <div className="flex justify-between items-end">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
             <div className="flex items-center gap-4">
               <div className="w-10 h-10 rounded-xl bg-amber-500/5 border border-amber-500/10 flex items-center justify-center">
                 <SiLeetcode className="text-amber-500" size={20} />
@@ -162,7 +162,7 @@ export default memo(function Stats() {
               whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)" }}
               href={`https://leetcode.com/${username}`}
               target="_blank"
-              className="px-5 py-2.5 bg-white/5 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
+              className="px-4 sm:px-5 py-2 sm:py-2.5 bg-white/5 rounded-xl border border-white/10 flex items-center gap-2 transition-all"
             >
               <span className="text-xs font-bold text-text-primary opacity-60 uppercase tracking-widest">Profile</span>
               <ExternalLink size={14} className="text-text-primary opacity-30" />
@@ -170,9 +170,9 @@ export default memo(function Stats() {
           </div>
 
           {/* Staggered Natural Alignment Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-4 sm:gap-6 md:gap-8 items-stretch">
             {/* Primary Stat: Solved */}
-            <ScrollReveal animationNum={0} direction="left" className="md:col-span-4">
+            <ScrollReveal animationNum={0} direction="left" className="sm:col-span-1 md:col-span-4">
               <RealisticAppleCardMemo>
                 <div className="flex flex-col h-full justify-between gap-10">
                   <div className="flex justify-between items-start">
@@ -182,7 +182,7 @@ export default memo(function Stats() {
                   </div>
                   <div className="space-y-1">
                     <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Solved</p>
-                    <h4 className="text-6xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
+                    <h4 className="text-4xl sm:text-5xl md:text-6xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
                   </div>
                   <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                     <motion.div
@@ -197,7 +197,7 @@ export default memo(function Stats() {
             </ScrollReveal>
 
             {/* Secondary Stat: Rank */}
-            <ScrollReveal animationNum={1} direction="up" className="md:col-span-3">
+            <ScrollReveal animationNum={1} direction="up" className="sm:col-span-1 md:col-span-3">
               <RealisticAppleCardMemo>
                 <div className="flex flex-col h-full justify-between gap-6">
                   <div className="p-3 bg-blue-500/10 rounded-2xl border border-blue-500/20 self-start">
@@ -215,7 +215,7 @@ export default memo(function Stats() {
             </ScrollReveal>
 
             {/* Difficulty Breakdown */}
-            <ScrollReveal animationNum={2} direction="right" className="md:col-span-5">
+            <ScrollReveal animationNum={2} direction="right" className="sm:col-span-2 md:col-span-5">
               <RealisticAppleCardMemo>
                 <div className="flex flex-col h-full justify-between gap-4">
                   <div className="flex items-center gap-2 mb-2">
@@ -246,7 +246,7 @@ export default memo(function Stats() {
             </ScrollReveal>
 
             {/* Recent Activity - Full Width Bottom */}
-            <ScrollReveal animationNum={3} direction="up" className="md:col-span-12">
+            <ScrollReveal animationNum={3} direction="up" className="sm:col-span-2 md:col-span-12">
               <RealisticAppleCardMemo>
                 <div className="flex items-center justify-between mb-10">
                   <div className="flex items-center gap-3">

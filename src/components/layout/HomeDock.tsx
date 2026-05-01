@@ -62,7 +62,7 @@ function DockItem({
   const [hovered, setHovered] = React.useState(false);
 
   return (
-    <div className="relative flex w-[58px] shrink-0 flex-col items-center justify-end gap-0.5 pb-px">
+    <div className="relative flex w-[48px] sm:w-[58px] shrink-0 flex-col items-center justify-end gap-0.5 pb-px">
       <div className="relative flex flex-col items-center">
         <AnimatePresence mode="popLayout">
           {hovered && (
@@ -93,7 +93,7 @@ function DockItem({
           style={{ transformOrigin: '50% 100%' }}
           onClick={onClick}
           aria-label={label}
-          className={`relative flex h-14 w-14 shrink-0 cursor-pointer items-center justify-center will-change-transform group ${hovered ? 'z-20' : 'z-10'
+          className={`relative flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 cursor-pointer items-center justify-center will-change-transform group ${hovered ? 'z-20' : 'z-10'
             }`}
         >
           <div className="flex h-full w-full items-center justify-center p-1 transition-transform duration-150 group-active:scale-95">
@@ -154,14 +154,14 @@ export default function HomeDock() {
 
   return (
     <div
-      className={`fixed bottom-6 left-1/2 z-50 max-w-[calc(100vw-1.5rem)] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:block ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
+      className={`fixed bottom-4 left-1/2 z-50 max-w-[calc(100vw-1rem)] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hidden md:block ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
         }`}
     >
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 2.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative box-border inline-flex h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-2.5 py-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
+        className="pointer-events-auto relative box-border inline-flex h-[64px] sm:h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-[20px] sm:rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-1.5 sm:px-2.5 py-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 30px 60px -12px rgba(0,0,0,0.5)',
         }}

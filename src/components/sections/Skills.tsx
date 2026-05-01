@@ -76,7 +76,7 @@ export default memo(function Skills() {
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
           style={{ rotate }}
-          className="w-[600px] h-[600px] md:w-[1050px] md:h-[1050px] object-contain origin-center"
+          className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] lg:w-[1050px] lg:h-[1050px] object-contain origin-center"
         />
       </div>
 

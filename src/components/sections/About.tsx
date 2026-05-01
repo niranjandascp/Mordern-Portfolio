@@ -46,7 +46,7 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       }}
       whileTap={{ scale: 0.98 }}
       style={{ transformPerspective: 1200, transformStyle: "preserve-3d", willChange: 'transform' }}
-      className={`group relative rounded-2xl overflow-hidden bg-bg-secondary/50 border border-border-main p-5 md:p-6 flex flex-col gap-4 hover:bg-bg-secondary transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
+      className={`group relative rounded-2xl overflow-hidden bg-bg-secondary/50 border border-border-main p-4 sm:p-5 md:p-6 flex flex-col gap-3 sm:gap-4 hover:bg-bg-secondary transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 ${card.className} ${card.borderColor}`}
     >
       {/* ShapeBlur Effect as Border - ONLY MOUNTED ON HOVER */}
       <div
@@ -76,11 +76,11 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
 
       {/* Content Wrapper for internal shifting */}
       <div className="relative z-10 flex flex-col h-full transform transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
-        <div className="w-12 h-12 rounded-xl bg-bg-primary/40 border border-border-main flex items-center justify-center mb-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.1] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-bg-primary/40 border border-border-main flex items-center justify-center mb-3 sm:mb-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] group-hover:scale-[1.1] group-hover:-rotate-[8deg] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-500 ease-out">
           {card.icon}
         </div>
 
-        <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2 tracking-tight group-hover:opacity-80 transition-colors duration-300">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-text-primary mb-1.5 sm:mb-2 tracking-tight group-hover:opacity-80 transition-colors duration-300">
           {card.title}
         </h3>
 
@@ -90,8 +90,8 @@ function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string
       </div>
 
       {/* Sophisticated Arrow icon entering on hover */}
-      <div className="absolute top-8 right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-text-secondary group-hover:text-text-primary">
-        <ArrowUpRight size={32} strokeWidth={1.5} />
+      <div className="absolute top-5 right-5 sm:top-8 sm:right-8 opacity-0 -translate-x-6 translate-y-6 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] text-text-secondary group-hover:text-text-primary">
+        <ArrowUpRight size={24} className="sm:w-8 sm:h-8" strokeWidth={1.5} />
       </div>
     </motion.div>
   );
@@ -145,8 +145,8 @@ export default memo(function About() {
   ];
 
   return (
-    <section id="about" className="relative w-full min-h-screen bg-transparent py-24 sm:py-32 overflow-hidden flex items-center z-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
+    <section id="about" className="relative w-full min-h-[auto] md:min-h-screen bg-transparent py-16 sm:py-24 md:py-32 overflow-hidden flex items-center z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full relative z-10">
 
         {/* Superior Header Layout */}
         <motion.div
@@ -154,10 +154,10 @@ export default memo(function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8"
+          className="mb-10 sm:mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8"
         >
           <div>
-            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter text-text-primary capitalize leading-[0.9]">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter text-text-primary capitalize leading-[0.9]">
               About <span className="text-[#C4521A]">Me.</span>
             </h2>
             <motion.div
@@ -168,14 +168,14 @@ export default memo(function About() {
               className="h-2 bg-gradient-to-r from-[#C4521A] to-transparent mt-8 rounded-full"
             />
           </div>
-          <p className="text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-border-main pl-6 hidden md:block">
+          <p className="text-base sm:text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-border-main pl-4 sm:pl-6">
             I don't just write code. I build digital experiences that merge high-end aesthetics with flawless engineering.
           </p>
         </motion.div>
 
         {/* Professional Bento Box Grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-fr"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 auto-rows-fr"
           style={{ perspective: 1500 }}
         >
           {cards.map((card, idx) => (

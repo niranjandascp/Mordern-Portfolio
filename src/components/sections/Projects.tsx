@@ -257,7 +257,7 @@ export default memo(function Projects() {
       {/* Background ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#C4521A]/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -269,7 +269,7 @@ export default memo(function Projects() {
           <p className="text-text-secondary uppercase tracking-[0.25em] text-xs font-semibold mb-4">
             What I've Built
           </p>
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-5">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-5">
             Featured{' '}
             <span className="font-serif italic bg-gradient-to-r from-orange-400 via-[#C4521A] to-amber-400 bg-clip-text text-transparent">
               Projects
@@ -281,7 +281,7 @@ export default memo(function Projects() {
         </motion.div>
 
         {/* Project Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, idx) => (
             <ProjectCardMemo key={project.title} project={project} idx={idx} />
           ))}

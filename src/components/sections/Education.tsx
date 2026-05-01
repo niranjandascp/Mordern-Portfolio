@@ -20,7 +20,7 @@ const educationList = [
 export default memo(function Education() {
   return (
     <section id="education" className="py-24 relative transition-colors">
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,11 +37,11 @@ export default memo(function Education() {
         <div className="space-y-8">
           {educationList.map((edu, idx) => (
             <ScrollReveal key={idx} animationNum={idx} direction="alternate" className="relative pl-8 md:pl-0">
-              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-md border border-border-main p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
+              <div className="md:flex items-center justify-between bg-white/[0.03] backdrop-blur-md border border-border-main p-4 sm:p-6 rounded-2xl hover:border-[#C4521A]/30 transition-all shadow-xl shadow-black/10 dark:shadow-none">
                 <div className="flex-grow">
                   <div className="flex items-center gap-2 mb-2">
                     <GraduationCap className="text-[#C4521A] dark:text-orange-400" size={24} />
-                    <h3 className="text-xl font-semibold text-text-primary">{edu.degree}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold text-text-primary">{edu.degree}</h3>
                   </div>
                   <h4 className="text-lg text-text-secondary mb-2 font-medium">
                     {edu.institution}

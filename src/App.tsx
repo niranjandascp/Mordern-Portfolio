@@ -48,7 +48,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
   return (
 
-    <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative cursor-none">
+    <div className="bg-bg-primary text-text-primary font-sans selection:bg-[#C4521A]/30 selection:text-orange-200 min-h-screen transition-colors duration-300 relative md:cursor-none">
 
       {/* Intro Startup Animation */}
       <MacStartup />
@@ -73,7 +73,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         {/* Dynamic Global Particles - Deepest Layer */}
         <Particles
           className="absolute inset-0 opacity-50"
-          quantity={100} // Slightly reduced for better performance
+          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100}
           ease={80}
           color={theme === 'dark' ? '#ffffff' : '#000000'}
           staticity={30}
@@ -81,7 +81,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         />
         {/* Global Interactive LiquidEther - ONLY IN DARK MODE */}
         {theme === 'dark' && (
-          <div className="absolute inset-0 w-full h-full opacity-100 mix-blend-screen">
+          <div className="absolute inset-0 w-full h-full opacity-70 mix-blend-screen">
             <LiquidEther
               colors={['#C4521A', '#8b1e00', '#d97706']}
               isViscous={true}

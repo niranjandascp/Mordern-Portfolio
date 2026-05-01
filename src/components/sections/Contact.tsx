@@ -5,7 +5,7 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 export default memo(function Contact() {
   return (
     <section id="contact" className="py-24 relative transition-colors">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -23,10 +23,10 @@ export default memo(function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-8">
-            <ScrollReveal animationNum={0} direction="left" className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
-              <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
+            <ScrollReveal animationNum={0} direction="left" className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <Mail className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
               <div>
@@ -35,15 +35,15 @@ export default memo(function Contact() {
                 </h4>
                 <a
                   href="mailto:hello@example.com"
-                  className="text-xl font-medium text-text-primary hover:text-[#C4521A] transition-colors"
+                  className="text-lg sm:text-xl font-medium text-text-primary hover:text-[#C4521A] transition-colors break-all"
                 >
                   hello@example.com
                 </a>
               </div>
             </ScrollReveal>
 
-            <ScrollReveal animationNum={1} direction="left" className="flex items-center gap-6 p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
-              <div className="w-14 h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
+            <ScrollReveal animationNum={1} direction="left" className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white/[0.03] backdrop-blur-md border border-border-main rounded-2xl shadow-sm hover:border-[#C4521A]/30 transition-all">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#C4521A]/20 rounded-full flex items-center justify-center shrink-0">
                 <MapPin className="text-[#C4521A] dark:text-orange-400" size={24} />
               </div>
               <div>
@@ -62,21 +62,21 @@ export default memo(function Contact() {
                 <input
                   type="text"
                   placeholder="Your Name"
-                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-6 py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors shadow-sm"
+                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors shadow-sm text-sm sm:text-base"
                 />
               </div>
               <div>
                 <input
                   type="email"
                   placeholder="Your Email"
-                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-6 py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors shadow-sm"
+                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors shadow-sm text-sm sm:text-base"
                 />
               </div>
               <div>
                 <textarea
                   placeholder="Your Message..."
                   rows={4}
-                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-6 py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors resize-none shadow-sm"
+                  className="w-full bg-white/[0.03] backdrop-blur-xl border border-border-main rounded-xl px-4 sm:px-6 py-3 sm:py-4 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-[#C4521A] transition-colors resize-none shadow-sm text-sm sm:text-base"
                 />
               </div>
               <button className="w-full bg-[#C4521A] hover:bg-purple-700 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-lg">

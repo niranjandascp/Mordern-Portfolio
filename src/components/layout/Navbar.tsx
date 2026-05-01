@@ -215,7 +215,7 @@ export default function Navbar() {
               scale: isScrolled ? 1.02 : 1,
             }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            className={`pointer-events-auto flex items-center bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 border border-white/10 [body.light_&]:border-black/5 rounded-full p-1.5 shadow-2xl relative transition-all duration-300 backdrop-blur-[20px] ${isScrolled ? 'h-16' : 'h-14'
+            className={`pointer-events-auto flex items-center bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 border border-white/10 [body.light_&]:border-black/5 rounded-full p-1 sm:p-1.5 shadow-2xl relative transition-all duration-300 backdrop-blur-[20px] ${isScrolled ? 'h-14 sm:h-16' : 'h-12 sm:h-14'
               }`}
             style={{
               boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',
@@ -280,20 +280,20 @@ export default function Navbar() {
             {/* Mobile Nav Button */}
             <motion.button
               variants={navItemVariants}
-              className="lg:hidden flex items-center justify-center w-12 h-10 text-text-secondary pl-2"
+              className="lg:hidden flex items-center justify-center w-10 h-10 sm:w-12 sm:h-10 text-text-secondary pl-1 sm:pl-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </motion.button>
 
             {/* Right Section: Theme Toggle & CTA */}
-            <div className="flex items-center gap-2 ml-2 lg:ml-4 pr-2 h-full">
+            <div className="flex items-center gap-1.5 sm:gap-2 ml-1.5 sm:ml-2 lg:ml-4 pr-1 sm:pr-2 h-full">
               <motion.button
                 variants={navItemVariants}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={toggleTheme}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-primary/50 border border-border-main text-text-secondary hover:text-text-primary transition-all hover:bg-bg-primary"
+                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-bg-primary/50 border border-border-main text-text-secondary hover:text-text-primary transition-all hover:bg-bg-primary"
                 aria-label="Toggle Theme"
               >
                 {theme === 'dark' ? (
@@ -317,7 +317,7 @@ export default function Navbar() {
                     }}
                     whileHover="hover"
                     initial="initial"
-                    className="relative h-10 lg:h-11 px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4521A] to-orange-500 text-white border border-white/20 text-[15px] font-bold transition-all whitespace-nowrap group z-30"
+                    className="relative h-9 sm:h-10 lg:h-11 px-4 sm:px-6 lg:px-8 flex items-center justify-center rounded-full bg-gradient-to-r from-[#C4521A] to-orange-500 text-white border border-white/20 text-[13px] sm:text-[15px] font-bold transition-all whitespace-nowrap group z-30"
                     style={{
                       boxShadow: '0 0 20px rgba(196, 82, 26, 0.3)',
                     }}
@@ -365,7 +365,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-[85px] left-4 right-4 bg-bg-secondary/95 border border-border-main rounded-3xl p-4 shadow-2xl pointer-events-auto flex flex-col gap-2 lg:hidden origin-top"
+                className="absolute top-[85px] left-2 right-2 sm:left-4 sm:right-4 bg-bg-secondary/95 border border-border-main rounded-3xl p-3 sm:p-4 shadow-2xl pointer-events-auto flex flex-col gap-1 lg:hidden origin-top backdrop-blur-xl"
               >
                 {mainNav.map((item) => (
                   <a
@@ -375,7 +375,7 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(item.id);
                     }}
-                    className={`px-4 py-3 rounded-2xl text-base font-medium transition-colors ${activeTab === item.id
+                    className={`px-4 py-2.5 sm:py-3 rounded-2xl text-sm sm:text-base font-medium transition-colors ${activeTab === item.id
                         ? 'bg-[#C4521A]/10 text-[#C4521A]'
                         : 'text-text-secondary hover:text-text-primary hover:bg-bg-primary/50'
                       }`}
