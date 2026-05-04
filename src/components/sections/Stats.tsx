@@ -99,7 +99,7 @@ const RealisticAppleCardMemo = memo(RealisticAppleCard);
 
 export default memo(function Stats() {
   const { theme } = useTheme();
-  
+
   return (
     <section id="stats" className="py-24 relative overflow-hidden transition-colors">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />

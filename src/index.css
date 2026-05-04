@@ -135,3 +135,13 @@
   -webkit-text-fill-color: transparent;
   animation: text-shimmer 2.5s linear infinite;
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
