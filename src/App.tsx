@@ -26,6 +26,8 @@ import { HomeDockChromeProvider } from '@/context/HomeDockChromeContext';
 import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 import { MouseProvider } from '@/context/MouseContext';
 import { CustomCursor } from '@/components/ui/CustomCursor';
+// import { Globe } from '@/components/ui/globe';
+import ScrollAnimatedObject from '@/components/animations/ScrollAnimatedObject';
 
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
@@ -67,6 +69,9 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
       {/* Lenis ↔ GSAP ScrollTrigger sync */}
       <GSAPScrollSync />
+
+      {/* 3D Global Object that follows scroll */}
+      <ScrollAnimatedObject />
 
       {/* Global Cinematic Background System */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
@@ -150,11 +155,6 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border-main py-8 text-center bg-bg-secondary/50 relative z-10">
-        <p className="text-text-secondary text-sm">
-          &copy; {new Date().getFullYear()} Niranjan das. Built with React &amp; Tailwind CSS.
-        </p>
-      </footer>
       <HomeDock />
       <MacTerminal />
       <VSCodeWindow />
