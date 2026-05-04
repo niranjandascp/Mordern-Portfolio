@@ -1,18 +1,13 @@
 import { motion, memo } from 'framer-motion';
 import { Mail, MapPin, Send } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import ScrollHeading from '@/components/ui/ScrollHeading';
 
 export default memo(function Contact() {
   return (
     <section id="contact" className="py-24 relative transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <ScrollHeading className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">
             Get In Touch
           </h2>
@@ -21,7 +16,7 @@ export default memo(function Contact() {
             I'm currently looking for new opportunities. Whether you have a question or just want to
             say hi, I'll try my best to get back to you!
           </p>
-        </motion.div>
+        </ScrollHeading>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="space-y-8">

@@ -83,8 +83,8 @@ export default memo(function Home() {
         >
           <motion.div
             className="relative"
-            initial={{ filter: 'blur(20px)', opacity: 0 }}
-            animate={{ filter: 'blur(0px)', opacity: 1 }}
+            initial={{ filter: 'blur(20px)', opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
             style={{ willChange: 'filter, opacity' }}
           >

@@ -2,6 +2,7 @@ import { useState, useRef, memo, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import ScrollHeading from '@/components/ui/ScrollHeading';
 
 function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -190,11 +191,7 @@ export default memo(function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full relative z-10">
 
         {/* Superior Header Layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <ScrollHeading
           className="mb-10 sm:mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8"
         >
           <div>
@@ -212,7 +209,7 @@ export default memo(function About() {
           <p className="text-base sm:text-lg md:text-xl text-text-secondary font-light max-w-md leading-relaxed border-l-2 border-border-main pl-4 sm:pl-6">
             I don't just write code. I build digital experiences that merge high-end aesthetics with flawless engineering.
           </p>
-        </motion.div>
+        </ScrollHeading>
 
         {/* Professional Bento Box Grid */}
         <div

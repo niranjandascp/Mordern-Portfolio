@@ -5,6 +5,7 @@ import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucid
 import { SiGithub, SiLeetcode } from "react-icons/si";
 import { useTheme } from "@/context/ThemeContext";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ScrollHeading from "@/components/ui/ScrollHeading";
 
 const username = "niranjandascp";
 
@@ -105,13 +106,7 @@ export default memo(function Stats() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[500px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16 sm:space-y-24 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
+        <ScrollHeading className="text-center mb-20">
           <p className="text-text-secondary uppercase tracking-[0.25em] text-xs font-semibold mb-4">
             Developer Metrics
           </p>
@@ -119,7 +114,7 @@ export default memo(function Stats() {
             GitHub <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& LeetCode</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
-        </motion.div>
+        </ScrollHeading>
 
         {/* ================= GITHUB ================= */}
         <div className="space-y-10">

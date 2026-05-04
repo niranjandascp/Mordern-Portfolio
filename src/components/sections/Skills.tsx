@@ -27,6 +27,7 @@ import { FaAws } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { VscVscode } from 'react-icons/vsc';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import ScrollHeading from '@/components/ui/ScrollHeading';
 
 const techStack = [
   { name: 'Html5', icon: SiHtml5, color: '#E34F26' },
@@ -82,13 +83,7 @@ export default memo(function Skills() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center pt-24">
         {/* Header Title Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <ScrollHeading className="text-center mb-16">
           <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">
             My Skillset
           </p>
@@ -98,7 +93,7 @@ export default memo(function Skills() {
               Behind
             </span>
           </h2>
-        </motion.div>
+        </ScrollHeading>
 
         {/* Skills Floating Cloud Grid */}
         <div className="flex flex-wrap justify-center gap-4 md:gap-4 max-w-4xl mx-auto bg-black/5 dark:bg-black/40  rounded-[2rem] p-8 sm:p-12 ">

@@ -1,9 +1,10 @@
 import { useRef, useState, memo, type MouseEvent, useEffect } from 'react';
 import type React from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { ExternalLink, ArrowUpRight, Search, Activity, Target } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
+import ScrollHeading from '@/components/ui/ScrollHeading';
 
 const projects = [
   {
@@ -139,20 +140,20 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{ 
-        opacity: 0, 
-        x: -150, 
-        y: 20, 
-        rotateY: -45, 
+      initial={{
+        opacity: 0,
+        x: -150,
+        y: 20,
+        rotateY: -45,
         rotateX: -5,
         scale: 0.9,
         filter: 'blur(15px)'
       }}
-      whileInView={{ 
-        opacity: 1, 
-        x: 0, 
-        y: 0, 
-        rotateY: 0, 
+      whileInView={{
+        opacity: 1,
+        x: 0,
+        y: 0,
+        rotateY: 0,
         rotateX: 0,
         scale: 1,
         filter: 'blur(0px)'
@@ -172,7 +173,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         delay: idx * 0.1,
         filter: { duration: 0.8, ease: "easeOut" }
       }}
-      style={{ 
+      style={{
         perspective: 1200,
         transformStyle: 'preserve-3d'
       }}
@@ -212,8 +213,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
 
           {/* Metadata Row */}
-          <motion.div 
-            animate={{ 
+          <motion.div
+            animate={{
               opacity: isHovered ? 1 : 0.4,
               z: isHovered ? 40 : 0
             }}
@@ -312,13 +313,7 @@ export default memo(function Projects() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-20"
-        >
+        <ScrollHeading className="text-center mb-20">
           <p className="text-text-secondary uppercase tracking-[0.25em] text-xs font-semibold mb-4">
             What I've Built
           </p>
@@ -331,7 +326,7 @@ export default memo(function Projects() {
           <p className="text-text-secondary max-w-xl mx-auto text-sm leading-relaxed">
             Crafted with care, shipped with pride — a selection of my most impactful work.
           </p>
-        </motion.div>
+        </ScrollHeading>
 
         {/* Horizontal Scroll Container */}
         <div className="relative group/slider">

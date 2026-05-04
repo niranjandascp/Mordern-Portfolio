@@ -1,6 +1,7 @@
 import { motion, memo } from 'framer-motion';
 import { GraduationCap, Calendar } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import ScrollHeading from '@/components/ui/ScrollHeading';
 
 const educationList = [
   {
@@ -21,18 +22,12 @@ export default memo(function Education() {
   return (
     <section id="education" className="py-24 relative transition-colors">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <ScrollHeading className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight text-text-primary">
             Education
           </h2>
           <div className="w-20 h-1 bg-[#C4521A] mx-auto rounded-full" />
-        </motion.div>
+        </ScrollHeading>
 
         <div className="space-y-8">
           {educationList.map((edu, idx) => (
