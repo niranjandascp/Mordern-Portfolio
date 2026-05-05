@@ -4,6 +4,7 @@ import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 import { useLenis } from 'lenis/react';
 import { useTheme } from '@/context/ThemeContext';
 import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
+import { AnimatedThemeToggler } from '@/components/ui/AnimatedThemeToggler';
 
 const mainNav = [
   { label: 'Home', id: 'home' },
@@ -288,20 +289,9 @@ export default function Navbar() {
 
             {/* Right Section: Theme Toggle & CTA */}
             <div className="flex items-center gap-1.5 sm:gap-2 ml-1.5 sm:ml-2 lg:ml-4 pr-1 sm:pr-2 h-full">
-              <motion.button
-                variants={navItemVariants}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={toggleTheme}
-                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-bg-primary/50 border border-border-main text-text-secondary hover:text-text-primary transition-all hover:bg-bg-primary"
-                aria-label="Toggle Theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun size={18} className="text-yellow-400" />
-                ) : (
-                  <Moon size={18} className="text-amber-600" />
-                )}
-              </motion.button>
+              <motion.div variants={navItemVariants}>
+                <AnimatedThemeToggler />
+              </motion.div>
 
               <motion.div
                 variants={navItemVariants}

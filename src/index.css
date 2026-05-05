@@ -145,3 +145,23 @@
     display: none;
   }
 }
+
+/* View Transitions for Animated Theme Toggler */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration);
+}
+
+/* Disable global transitions when theme transition is in flight to prevent jitters */
+html[data-magicui-theme-vt="active"],
+html[data-magicui-theme-vt="active"] body,
+html[data-magicui-theme-vt="active"] *,
+html[data-magicui-theme-vt="active"] *::before,
+html[data-magicui-theme-vt="active"] *::after {
+  transition: none !important;
+}

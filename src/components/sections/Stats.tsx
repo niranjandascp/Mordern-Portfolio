@@ -1,7 +1,7 @@
-import { useRef, memo, type MouseEvent, type ReactNode } from "react";
+import { useRef, memo, type MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
-import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
+import { Trophy, Cpu, Layout, ExternalLink } from "lucide-react";
 import { SiGithub, SiLeetcode } from "react-icons/si";
 import { useTheme } from "@/context/ThemeContext";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -25,7 +25,7 @@ const LEETCODE_STATS = {
   ],
 };
 
-function RealisticAppleCard({ children, className = "" }: { children: ReactNode, className?: string }) {
+function RealisticAppleCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
