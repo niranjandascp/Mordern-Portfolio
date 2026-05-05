@@ -1,5 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { executeThemeTransition } from '@/lib/theme-transition';
 import nIcon from '@/assets/N.png';
 
 export default memo(function MacStartup() {
@@ -9,13 +10,17 @@ export default memo(function MacStartup() {
     // Lock scrolling while the startup animation is playing
     document.body.style.overflow = 'hidden';
 
-    // Simulate the Mac loading time. After 2.3 seconds, trigger the fade out.
     const timer = setTimeout(() => {
-      setShow(false);
-      // Restore scrolling after fade out completes (approx 0.8s later)
+      executeThemeTransition(() => setShow(false), { 
+        coordinates: { x: window.innerWidth, y: 0 },
+        duration: 1000,
+        variant: "circle" 
+      });
+      
+      // Restore scrolling after fade out completes
       setTimeout(() => {
         document.body.style.overflow = '';
-      }, 800);
+      }, 1000);
     }, 2300);
 
     return () => {
@@ -31,7 +36,6 @@ export default memo(function MacStartup() {
           key="mac-startup"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
         >

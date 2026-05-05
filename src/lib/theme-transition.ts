@@ -118,9 +118,10 @@ export async function executeThemeTransition(
     duration?: number
     variant?: TransitionVariant
     fromCenter?: boolean
+    coordinates?: { x: number; y: number }
   } = {}
 ) {
-  const { element, duration = 600, variant = "circle", fromCenter = false } = options
+  const { element, duration = 600, variant = "circle", fromCenter = false, coordinates } = options
 
   // @ts-ignore
   if (typeof document.startViewTransition !== "function") {
@@ -133,7 +134,10 @@ export async function executeThemeTransition(
 
   let x: number
   let y: number
-  if (fromCenter) {
+  if (coordinates) {
+    x = coordinates.x
+    y = coordinates.y
+  } else if (fromCenter) {
     x = viewportWidth / 2
     y = viewportHeight / 2
   } else if (element) {
