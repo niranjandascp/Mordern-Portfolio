@@ -1,10 +1,10 @@
 import { useState, useRef, memo, type MouseEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { User, Target, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
+import { User, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import ScrollHeading from '@/components/ui/ScrollHeading';
 
-function AboutCard({ card, idx, theme }: { card: any, idx: number, theme: string }) {
+function AboutCard({ card, idx }: { card: any, idx: number, theme: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 

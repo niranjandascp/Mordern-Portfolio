@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { useMouse } from '@/context/MouseContext';
 
 export const CustomCursor: React.FC = memo(() => {
@@ -33,7 +33,7 @@ export const CustomCursor: React.FC = memo(() => {
       >
         {/* The Base Square */}
         <motion.div
-          className="w-full h-full relative flex items-center justify-center"
+          className="w-full h-full relative flex items-center justify-center rounded"
           style={{
             backgroundColor: isHovering ? 'transparent' : accentColor,
             boxShadow: !isHovering ? `0 0 15px ${accentColor}44` : 'none',
