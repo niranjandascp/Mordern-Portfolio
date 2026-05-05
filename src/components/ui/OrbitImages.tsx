@@ -39,6 +39,7 @@ interface OrbitImagesProps {
   paused?: boolean;
   centerContent?: ReactNode;
   responsive?: boolean;
+  baseHeight?: number;
 }
 
 interface OrbitItemProps {
@@ -169,12 +170,15 @@ export default function OrbitImages({
   paused = false,
   centerContent,
   responsive = false,
+  baseHeight,
 }: OrbitImagesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
+  const actualBaseHeight = baseHeight || baseWidth;
+
   const designCenterX = baseWidth / 2;
-  const designCenterY = baseWidth / 2;
+  const designCenterY = actualBaseHeight / 2;
 
   const path = useMemo(() => {
     switch (shape) {
@@ -248,7 +252,7 @@ export default function OrbitImages({
       style={{
         width: containerWidth,
         height: containerHeight,
-        aspectRatio: responsive ? '1 / 1' : undefined,
+        aspectRatio: responsive ? `${baseWidth} / ${actualBaseHeight}` : undefined,
       }}
       aria-hidden="true"
     >
@@ -256,7 +260,7 @@ export default function OrbitImages({
         className={responsive ? 'absolute left-1/2 top-1/2' : 'relative w-full h-full'}
         style={{
           width: responsive ? baseWidth : '100%',
-          height: responsive ? baseWidth : '100%',
+          height: responsive ? actualBaseHeight : '100%',
           transform: responsive ? `translate(-50%, -50%) scale(${scale})` : undefined,
           transformOrigin: 'center center',
         }}
@@ -272,7 +276,7 @@ export default function OrbitImages({
             <svg
               width="100%"
               height="100%"
-              viewBox={`0 0 ${baseWidth} ${baseWidth}`}
+              viewBox={`0 0 ${baseWidth} ${actualBaseHeight}`}
               className="absolute inset-0 pointer-events-none"
             >
               <path d={path} fill="none" stroke={pathColor} strokeWidth={pathWidth / scale} />

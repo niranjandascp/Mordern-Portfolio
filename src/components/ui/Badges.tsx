@@ -47,6 +47,7 @@ export default memo(function Badges() {
               radiusX={370}
               radiusY={130}
               baseWidth={800}
+              baseHeight={400}
               itemSize={80}
               duration={30}
               responsive={true}
