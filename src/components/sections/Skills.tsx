@@ -69,34 +69,34 @@ export default memo(function Skills() {
     <section
       id="skills"
       ref={containerRef}
-      className="py-24 relative overflow-hidden transition-colors"
+      className="py-12 sm:py-24 relative overflow-hidden transition-colors"
     >
       {/* Background Rotating Fan Image Layer */}
-      <div className="absolute inset-0 w-full opacity-20 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
+      <div className="absolute inset-0 w-full opacity-100 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
         <motion.img
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
           style={{ rotate }}
-          className="w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] lg:w-[1050px] lg:h-[1050px] object-contain origin-center"
+          className="w-[700px] h-[700px] sm:w-[450px] sm:h-[450px] md:w-[600px] md:h-[600px] lg:w-[1050px] lg:h-[1050px] object-contain origin-center"
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center pt-24">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 md:px-12 flex flex-col items-center pt-12 sm:pt-24">
         {/* Header Title Section */}
-        <ScrollHeading className="text-center mb-16">
-          <p className="text-text-secondary uppercase tracking-[0.2em] text-xs font-semibold mb-4">
+        <ScrollHeading className="text-center mb-8 sm:mb-16">
+          <p className="text-text-secondary uppercase tracking-[0.2em] text-[10px] sm:text-xs font-semibold mb-2 sm:mb-4">
             My Skillset
           </p>
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-2">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-2">
             The Magic{' '}
-            <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-2">
+            <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-1 sm:pr-2">
               Behind
             </span>
           </h2>
         </ScrollHeading>
 
         {/* Skills Floating Cloud Grid */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-4 max-w-4xl mx-auto bg-black/5 dark:bg-black/40  rounded-[2rem] p-8 sm:p-12 ">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 max-w-4xl mx-auto bg-black/5 dark:bg-black/40 rounded-2xl sm:rounded-[2rem] p-4 sm:p-12">
           {techStack.map((skill, idx) => {
             const Icon = skill.icon;
             const iconColor = skill.color;
@@ -108,16 +108,15 @@ export default memo(function Skills() {
                 direction="alternate"
                 staggerDelay={0.03}
                 duration={0.6}
-                distance={40}
-                className="relative flex items-center gap-2.5 px-6 py-3
+                distance={20}
+                className="relative flex items-center gap-1.5 sm:gap-2.5 px-3.5 py-1.5 sm:px-6 sm:py-3
                   bg-black/60
                   backdrop-blur-md
                   border border-white/10
                   rounded-full
-                  shadow-[0_8px_32px_rgba(0,0,0,0.4)]
+                  shadow-[0_4px_20px_rgba(0,0,0,0.3)]
                   hover:bg-black/80
-                  hover:shadow-[0_16px_40px_rgba(0,0,0,0.6)]
-                  transition-colors duration-500
+                  transition-all duration-500
                   cursor-pointer group overflow-hidden z-10"
               >
                 {/* Liquid Glass Inner Highlight */}
@@ -127,10 +126,10 @@ export default memo(function Skills() {
                 <div className="absolute inset-0 rounded-full pointer-events-none bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-[150%] skew-x-[30deg] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out" />
 
                 <Icon
-                  className="text-xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out relative z-10 drop-shadow-md"
+                  className="text-lg sm:text-xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out relative z-10 drop-shadow-md"
                   style={{ color: iconColor }}
                 />
-                <span className="text-[14px] font-bold text-[#a1a1aa] group-hover:text-white transition-colors duration-300 relative z-10">
+                <span className="text-[12px] sm:text-[14px] font-bold text-[#a1a1aa] group-hover:text-white transition-colors duration-300 relative z-10">
                   {skill.name}
                 </span>
               </ScrollReveal>
