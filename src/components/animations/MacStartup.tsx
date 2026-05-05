@@ -37,15 +37,27 @@ export default memo(function MacStartup() {
         >
           <div className="flex flex-col items-center gap-16 relative -top-10">
             {/* Liquid Glass Logo Wrapper */}
-            <div >
-              {/* Glass glare overlay */}
-              <div />
+            <motion.div
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))",
+                  "drop-shadow(0 0 35px rgba(255, 255, 255, 0.8))",
+                  "drop-shadow(0 0 15px rgba(255, 255, 255, 0.4))"
+                ]
+              }}
+              transition={{
+                duration: 3.0,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="relative"
+            >
               <img
                 src={nIcon}
                 alt="N Logo"
-                className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-[0_0_20px_#ffffff66] relative z-10"
+                className="w-28 h-28 sm:w-36 sm:h-36 object-contain relative z-10"
               />
-            </div>
+            </motion.div>
 
             {/* Loading Bar */}
             <div className="w-48 sm:w-56 h-[4px] bg-[#333333] rounded-full overflow-hidden">
