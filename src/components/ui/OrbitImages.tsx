@@ -1,5 +1,5 @@
-import { useMemo, useEffect, useRef, useState, ReactNode } from 'react';
-import { motion, useMotionValue, useTransform, animate, MotionValue } from 'motion/react';
+import { useMemo, useEffect, useRef, useState, type ReactNode } from 'react';
+import { motion, useMotionValue, useTransform, animate, type MotionValue } from 'motion/react';
 
 type OrbitShape =
   | 'ellipse'
