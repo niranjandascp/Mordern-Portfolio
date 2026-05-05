@@ -10,6 +10,7 @@ import {
   Moon,
 } from 'lucide-react';
 import { FaApple } from 'react-icons/fa6';
+import { executeThemeTransition } from '@/lib/theme-transition';
 import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
 import { useTheme } from '@/context/ThemeContext';
 import { Switch } from '@/components/ui/interfaces-switch';
@@ -33,6 +34,7 @@ export default function MacMenuBar() {
   const { visible } = useHomeDockChrome();
   const { theme, toggleTheme } = useTheme();
   const [now, setNow] = React.useState(() => new Date());
+  const switchRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const id = window.setInterval(() => setNow(new Date()), 30_000);
@@ -47,6 +49,13 @@ export default function MacMenuBar() {
     const t = setTimeout(() => setIsInitialMount(false), 3000);
     return () => clearTimeout(t);
   }, []);
+
+  const handleThemeToggle = () => {
+    executeThemeTransition(toggleTheme, {
+      element: switchRef.current || undefined,
+      duration: 600,
+    });
+  };
 
   return (
     <motion.div
@@ -116,11 +125,13 @@ export default function MacMenuBar() {
                 )}
               </motion.div>
             </AnimatePresence>
-            <Switch
-              checked={isDark}
-              onCheckedChange={toggleTheme}
-              className="scale-90"
-            />
+            <div ref={switchRef}>
+              <Switch
+                checked={isDark}
+                onCheckedChange={handleThemeToggle}
+                className="scale-90"
+              />
+            </div>
           </div>
 
           <span
