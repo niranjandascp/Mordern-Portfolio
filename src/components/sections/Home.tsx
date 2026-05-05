@@ -125,7 +125,7 @@ export default memo(function Home() {
       </div>
 
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px] px-4 pt-12 sm:pt-6 md:pt-0">
+      <div className="relative z-10 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px] px-4 pt-32 sm:pt-6 md:pt-0 mt-10 sm:mt-0">
         <motion.div
           className="relative w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
