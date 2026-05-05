@@ -126,13 +126,17 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
     });
   };
 
-  const isMobile = windowWidth < 640;
-  const narrowWidth = isMobile ? 80 : 130;
-  const expandedWidth = isMobile ? 280 : 420;
+  const isMobile = windowWidth < 768;
+  const narrowWidth = 130;
+  const expandedWidth = 420;
 
   // Calculate 3D tilt values based on mouse position
-  const tiltX = isHovered ? (mousePos.y - 50) * 0.15 : 0;
-  const tiltY = isHovered ? (mousePos.x - 50) * -0.15 : 0;
+  const tiltX = isHovered && !isMobile ? (mousePos.y - 50) * 0.15 : 0;
+  const tiltY = isHovered && !isMobile ? (mousePos.x - 50) * -0.15 : 0;
+
+  const isActive = isMobile || isHovered;
+  // Use a fixed numerical width for framer-motion rather than 'vw' string
+  const currentWidth = isMobile ? (windowWidth * 0.85) : (isHovered ? expandedWidth : narrowWidth);
 
   return (
     <motion.div
@@ -140,7 +144,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      initial={{
+      initial={isMobile ? { opacity: 0, y: 20 } : {
         opacity: 0,
         x: -150,
         y: 20,
@@ -149,7 +153,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         scale: 0.9,
         filter: 'blur(15px)'
       }}
-      whileInView={{
+      whileInView={isMobile ? { opacity: 1, y: 0 } : {
         opacity: 1,
         x: 0,
         y: 0,
@@ -158,26 +162,26 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         scale: 1,
         filter: 'blur(0px)'
       }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: isMobile ? "50px" : "-50px" }}
       animate={{
-        width: isHovered ? expandedWidth : narrowWidth,
+        width: currentWidth,
         rotateX: tiltX,
         rotateY: tiltY,
-        z: isHovered ? 50 : 0
+        z: isActive ? 50 : 0
       }}
       transition={{
         type: "spring",
         stiffness: 80,
         damping: 20,
         mass: 1,
-        delay: idx * 0.1,
+        delay: isMobile ? idx * 0.05 : idx * 0.1,
         filter: { duration: 0.8, ease: "easeOut" }
       }}
       style={{
         perspective: 1200,
         transformStyle: 'preserve-3d'
       }}
-      className="relative flex-none h-[450px] sm:h-[500px] group cursor-pointer snap-center overflow-visible"
+      className="relative flex-none h-[400px] sm:h-[450px] md:h-[500px] group cursor-pointer snap-start sm:snap-center overflow-visible"
     >
 
       {/* Vertical Side Text */}
@@ -196,8 +200,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             src={project.image}
             alt={project.title}
             animate={{
-              scale: isHovered ? 1.1 : 1.05,
-              filter: isHovered ? 'grayscale(0) brightness(0.8)' : 'grayscale(1) brightness(0.4)'
+              scale: isActive ? 1.1 : 1.05,
+              filter: isActive ? 'grayscale(0) brightness(0.8)' : 'grayscale(1) brightness(0.4)'
             }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-full h-full object-cover origin-center rounded-[2.5rem]"
@@ -215,8 +219,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           {/* Metadata Row */}
           <motion.div
             animate={{
-              opacity: isHovered ? 1 : 0.4,
-              z: isHovered ? 40 : 0
+              opacity: isActive ? 1 : 0.4,
+              z: isActive ? 40 : 0
             }}
             className="flex items-center gap-3 mb-4"
           >
@@ -229,9 +233,9 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           {/* Title - Serif Typography */}
           <motion.h3
             animate={{
-              opacity: isHovered ? 1 : 0,
-              y: isHovered ? 0 : 20,
-              z: isHovered ? 80 : 0
+              opacity: isActive ? 1 : 0,
+              y: isActive ? 0 : 20,
+              z: isActive ? 80 : 0
             }}
             className="text-2xl sm:text-3xl font-serif text-white mb-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500 whitespace-nowrap"
           >
@@ -241,9 +245,9 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           {/* Revealable Description */}
           <motion.div
             animate={{
-              height: isHovered ? 'auto' : 0,
-              opacity: isHovered ? 1 : 0,
-              y: isHovered ? 0 : 20
+              height: isActive ? 'auto' : 0,
+              opacity: isActive ? 1 : 0,
+              y: isActive ? 0 : 20
             }}
             className="overflow-hidden"
           >
@@ -276,7 +280,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           {/* Bottom HUD Line */}
           <div className="relative w-full h-px bg-white/10 overflow-hidden">
             <motion.div
-              animate={{ x: isHovered ? '100%' : '-100%' }}
+              animate={{ x: isActive ? '100%' : '-100%' }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 w-1/2 bg-gradient-to-r from-transparent via-[#C4521A] to-transparent"
             />
@@ -331,7 +335,7 @@ export default memo(function Projects() {
         {/* Horizontal Scroll Container */}
         <div className="relative group/slider">
           <div
-            className="flex gap-4 sm:gap-6 md:justify-center overflow-x-auto pb-12 pt-4 scrollbar-hide snap-x snap-mandatory px-4"
+            className="flex gap-4 sm:gap-6 md:justify-center overflow-x-auto pb-12 pt-4 scrollbar-hide snap-x snap-mandatory px-6"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {projects.map((project, idx) => (
@@ -339,7 +343,7 @@ export default memo(function Projects() {
             ))}
 
             {/* Significant Spacer for Scroll Alignment */}
-            <div className="flex-none w-20 sm:w-40 h-full pointer-events-none md:hidden" />
+            <div className="flex-none w-6 sm:w-40 h-full pointer-events-none md:hidden" />
           </div>
 
         </div>
