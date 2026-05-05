@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { motion } from 'motion/react';
 import ScrollHeading from '@/components/ui/ScrollHeading';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import OrbitImages from '@/components/ui/OrbitImages';
@@ -24,7 +25,7 @@ export default memo(function Badges() {
   return (
     <section id="badges" className="py-16 sm:py-24 relative transition-colors overflow-hidden">
       {/* Ambient background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-orange/10 dark:bg-accent-orange/5 rounded-full blur-[120px] pointer-events-none transition-colors" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* ─── Section Header ─── */}
@@ -52,23 +53,29 @@ export default memo(function Badges() {
               duration={30}
               responsive={true}
               showPath={true}
-              pathColor="rgba(196, 82, 26, 0.2)"
+              pathColor="rgba(196, 82, 26, 0.3)"
               pathWidth={2}
               centerContent={
-                <div className="flex flex-col items-center gap-3">
-                  <div className="flex gap-4">
-                    <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-xl shadow-xl">
-                      <SiGithub className="text-white opacity-80" size={32} />
+                <motion.div 
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, type: "spring", bounce: 0.5, delay: 0.3 }}
+                  className="flex flex-col items-center gap-2 sm:gap-3"
+                >
+                  <div className="flex gap-2 sm:gap-4">
+                    <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-full bg-bg-secondary border border-border-main flex items-center justify-center backdrop-blur-xl shadow-lg transition-all">
+                      <SiGithub className="text-text-primary opacity-90 w-4 h-4 sm:w-8 sm:h-8 transition-colors" />
                     </div>
-                    <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center backdrop-blur-xl shadow-xl">
-                      <SiLeetcode className="text-amber-500" size={32} />
+                    <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center backdrop-blur-xl shadow-lg transition-all">
+                      <SiLeetcode className="text-amber-500 w-4 h-4 sm:w-8 sm:h-8 transition-colors" />
                     </div>
                   </div>
-                  <div className="text-center mt-2">
-                    <h3 className="text-xl font-bold tracking-tight text-white">Top Achievements</h3>
-                    <p className="text-xs text-text-secondary uppercase tracking-[0.2em] mt-1">GitHub & LeetCode</p>
+                  <div className="text-center mt-1 sm:mt-2">
+                    <h3 className="text-xs sm:text-xl font-bold tracking-tight text-text-primary transition-colors">Top Achievements</h3>
+                    <p className="text-[8px] sm:text-xs text-text-secondary uppercase tracking-[0.2em] mt-0.5 sm:mt-1">GitHub & LeetCode</p>
                   </div>
-                </div>
+                </motion.div>
               }
             />
           </div>

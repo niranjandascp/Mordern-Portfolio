@@ -1,4 +1,4 @@
-import { useRef, memo, type MouseEvent } from "react";
+import { useRef, memo, type MouseEvent, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { ArrowUpRight, Trophy, Activity, Cpu, Layout, ExternalLink } from "lucide-react";
@@ -25,7 +25,7 @@ const LEETCODE_STATS = {
   ],
 };
 
-function RealisticAppleCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+function RealisticAppleCard({ children, className = "" }: { children: ReactNode, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
