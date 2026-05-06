@@ -60,8 +60,8 @@ function InteractiveCard({ children, className, delay = 0 }: { children: React.R
         }}
       />
 
-      <div className="relative z-10 h-full bg-white/95 dark:bg-black/40 backdrop-blur-xl border border-slate-200/60 dark:border-white/5 rounded-[2rem] overflow-hidden p-8 md:p-10 shadow-2xl transition-all duration-500 group-hover:border-slate-300 dark:group-hover:border-white/10 group-hover:bg-white dark:group-hover:bg-black/50 transform-gpu backface-hidden">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-300 dark:via-accent-orange/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="relative z-10 h-full bg-bg-secondary/50 backdrop-blur-xl border border-border-main rounded-[2rem] overflow-hidden p-8 md:p-10 shadow-2xl transition-all duration-500 group-hover:border-border-main group-hover:bg-bg-secondary/80 transform-gpu backface-hidden">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-border-main to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         {children}
       </div>
     </motion.div>
@@ -86,13 +86,13 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
     <Container
       {...containerProps}
       onClick={type === 'copy' ? handleAction : undefined}
-      className="relative flex items-center justify-between p-5 rounded-2xl border border-slate-100 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:bg-slate-50 dark:hover:bg-white/[0.05] transition-all duration-500 group/item cursor-pointer overflow-hidden transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
+      className="relative flex items-center justify-between p-5 rounded-2xl border border-border-main/50 bg-bg-primary/40 hover:bg-bg-secondary/60 transition-all duration-500 group/item cursor-pointer overflow-hidden transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-100 dark:via-white/[0.03] to-transparent translate-x-[-100%] group-hover/item:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border-main/30 to-transparent translate-x-[-100%] group-hover/item:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
 
       <div className="relative z-10 flex items-center gap-5 transform-gpu translate-z-0">
         <div
-          className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 dark:text-text-secondary transition-all duration-500 group-hover/item:scale-110 group-hover/item:bg-slate-100 dark:group-hover/item:bg-white/10 transform-gpu backface-hidden"
+          className="w-12 h-12 rounded-xl bg-bg-secondary/30 flex items-center justify-center text-text-secondary transition-all duration-500 group-hover/item:scale-110 group-hover/item:bg-bg-secondary/50 transform-gpu backface-hidden"
         >
           <div className="relative z-10 group-hover/item:text-[var(--hover-color)] transition-colors duration-500" style={{ '--hover-color': color } as any}>
             {icon}
@@ -103,12 +103,12 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
           />
         </div>
         <div className="transform-gpu translate-z-0">
-          <p className="text-[10px] font-black text-slate-400 dark:text-text-secondary uppercase tracking-[0.25em] mb-1 opacity-80 group-hover/item:opacity-100 transition-opacity subpixel-antialiased">{label}</p>
-          <p className="text-base font-bold text-slate-900 dark:text-text-primary tracking-tight group-hover/item:text-slate-950 dark:group-hover/item:text-white transition-colors subpixel-antialiased">{value}</p>
+          <p className="text-[10px] font-black text-text-secondary uppercase tracking-[0.25em] mb-1 opacity-80 group-hover/item:opacity-100 transition-opacity subpixel-antialiased">{label}</p>
+          <p className="text-base font-bold text-text-primary tracking-tight group-hover/item:text-text-primary transition-colors subpixel-antialiased">{value}</p>
         </div>
       </div>
 
-      <div className="relative z-10 text-slate-400 dark:text-text-secondary opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-500 pr-2 transform-gpu">
+      <div className="relative z-10 text-text-secondary opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-500 pr-2 transform-gpu">
         {type === 'copy' ? (
           <AnimatePresence mode="wait">
             {copied ? (
@@ -150,10 +150,10 @@ export default memo(function Contact() {
           {/* Card 1: Direct */}
           <InteractiveCard delay={0.1}>
             <div className="space-y-6 transform-gpu translate-z-0" style={{ transform: 'translateZ(40px)' }}>
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-4">
+              <div className="flex items-center justify-between border-b border-border-main pb-4">
                 <div className="flex items-center gap-3">
                   <Sparkles size={16} className="text-accent-orange" />
-                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-900 dark:text-text-primary transform-gpu translate-z-0">Direct Line</h3>
+                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-text-primary transform-gpu translate-z-0">Direct Line</h3>
                 </div>
                 <div className="w-1.5 h-1.5 bg-accent-orange rounded-full shadow-[0_0_12px_rgba(255,115,22,0.6)] animate-pulse" />
               </div>
@@ -191,14 +191,14 @@ export default memo(function Contact() {
           {/* Card 2: Socials */}
           <InteractiveCard delay={0.2}>
             <div className="space-y-6 transform-gpu translate-z-0" style={{ transform: 'translateZ(40px)' }}>
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-4">
+              <div className="flex items-center justify-between border-b border-border-main pb-4">
                 <div className="flex items-center gap-3">
                   <Globe size={16} className="text-accent-orange animate-spin-slow" />
-                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-900 dark:text-text-primary transform-gpu translate-z-0">Ecosystem</h3>
+                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-text-primary transform-gpu translate-z-0">Ecosystem</h3>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-bg-secondary/30 border border-border-main">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-text-secondary opacity-80 transform-gpu translate-z-0">Active</span>
+                  <span className="text-[9px] font-black uppercase tracking-wider text-text-secondary opacity-80 transform-gpu translate-z-0">Active</span>
                 </div>
               </div>
 
@@ -209,21 +209,21 @@ export default memo(function Contact() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-slate-100 dark:hover:border-white/5 hover:bg-white dark:hover:bg-white/[0.03] transition-all duration-500 group/soc overflow-hidden relative transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
+                    className="flex items-center gap-3 p-3 rounded-xl border border-transparent hover:border-border-main hover:bg-bg-secondary/30 transition-all duration-500 group/soc overflow-hidden relative transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-100 dark:via-white/[0.01] to-transparent translate-x-[-100%] group-hover/soc:translate-x-[100%] transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border-main/20 to-transparent translate-x-[-100%] group-hover/soc:translate-x-[100%] transition-transform duration-1000" />
 
-                    <div className="relative z-10 w-8 h-8 rounded-lg bg-slate-50 dark:bg-white/5 flex items-center justify-center text-slate-400 dark:text-text-secondary group-hover/soc:scale-110 transition-all duration-500 transform-gpu backface-hidden translate-z-0">
+                    <div className="relative z-10 w-8 h-8 rounded-lg bg-bg-secondary/30 flex items-center justify-center text-text-secondary group-hover/soc:scale-110 transition-all duration-500 transform-gpu backface-hidden translate-z-0">
                       <div className="relative z-10 group-hover/soc:text-[var(--icon-color)] transition-colors duration-500" style={{ '--icon-color': social.color } as any}>
                         {social.icon}
                       </div>
                       <div className="absolute inset-0 bg-[var(--icon-color)] opacity-0 group-hover/soc:opacity-10 blur-sm rounded-full transition-opacity duration-500" style={{ '--icon-color': social.color } as any} />
                     </div>
                     <div className="relative z-10 transform-gpu translate-z-0">
-                      <p className="text-xs font-bold text-slate-900 dark:text-text-primary group-hover/soc:text-slate-950 dark:group-hover/soc:text-white transition-colors leading-none mb-1 subpixel-antialiased">
+                      <p className="text-xs font-bold text-text-primary group-hover/soc:text-text-primary transition-colors leading-none mb-1 subpixel-antialiased">
                         {social.name}
                       </p>
-                      <p className="text-[10px] text-slate-400 dark:text-text-secondary opacity-80 group-hover/soc:opacity-100 transition-all truncate subpixel-antialiased">
+                      <p className="text-[10px] text-text-secondary opacity-80 group-hover/soc:opacity-100 transition-all truncate subpixel-antialiased">
                         {social.handle}
                       </p>
                     </div>
@@ -231,9 +231,9 @@ export default memo(function Contact() {
                 ))}
 
                 {/* Location Slotted in Grid */}
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-white/50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 opacity-80 transform-gpu translate-z-0 shadow-sm">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-bg-secondary/20 border border-border-main/50 opacity-80 transform-gpu translate-z-0 shadow-sm">
                   <MapPin size={14} className="text-accent-orange shrink-0" />
-                  <p className="text-[10px] font-bold text-slate-500 dark:text-text-secondary tracking-[0.1em] uppercase subpixel-antialiased">Kerala, IN</p>
+                  <p className="text-[10px] font-bold text-text-secondary tracking-[0.1em] uppercase subpixel-antialiased">Kerala, IN</p>
                 </div>
               </div>
             </div>

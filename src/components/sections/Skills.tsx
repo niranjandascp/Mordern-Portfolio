@@ -72,7 +72,7 @@ export default memo(function Skills() {
       className="py-12 sm:py-24 relative overflow-hidden transition-colors"
     >
       {/* Background Rotating Fan Image Layer */}
-      <div className="absolute inset-0 w-full opacity-100 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
+      <div className="absolute inset-0 w-full opacity-80 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
         <motion.img
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
@@ -96,7 +96,7 @@ export default memo(function Skills() {
         </ScrollHeading>
 
         {/* Skills Floating Cloud Grid */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 max-w-4xl mx-auto bg-black/5 dark:bg-black/40 rounded-2xl sm:rounded-[2rem] p-4 sm:p-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 max-w-4xl mx-auto bg-bg-secondary/30 border border-border-main rounded-2xl sm:rounded-[2rem] p-4 sm:p-12 shadow-2xl">
           {techStack.map((skill, idx) => {
             const Icon = skill.icon;
             const iconColor = skill.color;
@@ -110,12 +110,12 @@ export default memo(function Skills() {
                 duration={0.6}
                 distance={20}
                 className="relative flex items-center gap-1.5 sm:gap-2.5 px-3.5 py-1.5 sm:px-6 sm:py-3
-                  bg-black/60
+                  bg-bg-secondary/50
                   backdrop-blur-md
-                  border border-white/10
+                  border border-border-main
                   rounded-full
-                  shadow-[0_4px_20px_rgba(0,0,0,0.3)]
-                  hover:bg-black/80
+                  shadow-xl
+                  hover:bg-bg-secondary/80
                   transition-all duration-500
                   cursor-pointer group overflow-hidden z-10"
               >
@@ -127,9 +127,9 @@ export default memo(function Skills() {
 
                 <Icon
                   className="text-lg sm:text-xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out relative z-10 drop-shadow-md"
-                  style={{ color: iconColor }}
+                  style={{ color: (skill.color === '#ffffff' || skill.color === '#FFFFFF') ? undefined : skill.color }}
                 />
-                <span className="text-[12px] sm:text-[14px] font-bold text-[#a1a1aa] group-hover:text-white transition-colors duration-300 relative z-10">
+                <span className="text-[12px] sm:text-[14px] font-bold text-text-secondary group-hover:text-text-primary transition-colors duration-300 relative z-10">
                   {skill.name}
                 </span>
               </ScrollReveal>

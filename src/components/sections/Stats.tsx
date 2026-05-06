@@ -82,7 +82,7 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
 
       {/* Main Glass Shell */}
       <motion.div
-        className="relative h-full backdrop-blur-[20px] rounded-[2.5rem] border border-border-main overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] group-hover:shadow-[0_60px_120px_rgba(0,0,0,0.2)] transition-all duration-700 bg-bg-primary/30"
+        className="relative h-full backdrop-blur-[20px] rounded-[2.5rem] border border-border-main overflow-hidden shadow-2xl transition-all duration-700 bg-bg-primary/30"
       >
         <div className="absolute inset-0 rounded-[2.5rem] border border-border-main pointer-events-none z-10" />
         <div className="absolute inset-[1px] rounded-[2.5rem] border border-border-main opacity-50 pointer-events-none z-10" />

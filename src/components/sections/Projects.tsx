@@ -192,7 +192,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
       </div>
 
       {/* Main Container */}
-      <div className="relative w-full h-full overflow-hidden border border-white/10 transition-all duration-700 group-hover:border-[#C4521A]/30 bg-[#0c0c0e] rounded-[2.5rem]">
+      <div className="relative w-full h-full overflow-hidden border border-white/10 transition-all duration-700 group-hover:border-[#C4521A]/30 bg-[#0c0c0e] rounded-[2.5rem] shadow-2xl">
 
         {/* Background Image with Desaturation Effect */}
         <div className="absolute inset-0 z-0 rounded-[2.5rem]">

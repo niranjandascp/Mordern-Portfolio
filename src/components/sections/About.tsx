@@ -81,7 +81,7 @@ function AboutCard({ card, idx }: { card: any, idx: number, theme: string }) {
         transformPerspective: 1200,
         transformStyle: 'preserve-3d',
       }}
-      className={`group relative rounded-2xl overflow-hidden bg-bg-secondary/50 border border-border-main p-4 sm:p-5 md:p-6 flex flex-col gap-3 sm:gap-4 hover:bg-bg-secondary/80 transition-colors duration-500 shadow-xl backdrop-blur-sm z-10 hover:z-20 cursor-pointer ${card.className} ${card.borderColor}`}
+      className={`group relative rounded-2xl overflow-hidden bg-bg-secondary/50 border border-border-main p-4 sm:p-5 md:p-6 flex flex-col gap-3 sm:gap-4 hover:bg-bg-secondary/80 transition-colors duration-500 shadow-2xl backdrop-blur-sm z-10 hover:z-20 cursor-pointer ${card.className} ${card.borderColor}`}
     >
       {/* Cursor-Following Spotlight */}
       <motion.div
