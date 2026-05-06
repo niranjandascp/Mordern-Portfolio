@@ -3,17 +3,23 @@ import { motion, useMotionValue } from 'framer-motion';
 import { useMouse } from '@/context/MouseContext';
 
 export const CustomCursor: React.FC = memo(() => {
-  const { position, isHovering, isClicking } = useMouse();
+  const { positionRef, isHovering, isClicking } = useMouse();
 
   // Motion values for high-performance updates
-  const mouseX = useMotionValue(position.x);
-  const mouseY = useMotionValue(position.y);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  // Sync motion values with context position
+  // High-performance RAF loop to sync position without re-renders
   React.useEffect(() => {
-    mouseX.set(position.x);
-    mouseY.set(position.y);
-  }, [position.x, position.y, mouseX, mouseY]);
+    let rafId: number;
+    const update = () => {
+      mouseX.set(positionRef.current.x);
+      mouseY.set(positionRef.current.y);
+      rafId = requestAnimationFrame(update);
+    };
+    rafId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafId);
+  }, [positionRef, mouseX, mouseY]);
 
   const accentColor = '#C4521A';
 

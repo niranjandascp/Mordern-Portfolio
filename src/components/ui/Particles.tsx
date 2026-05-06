@@ -1,39 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback, memo } from "react";
+import React, { useEffect, useRef, useCallback, memo } from "react";
 import { cn } from "@/lib/utils";
-
-interface MousePosition {
-  x: number;
-  y: number;
-}
-
-function useMousePosition(): MousePosition {
-  const [mousePosition, setMousePosition] = useState<MousePosition>({
-    x: 0,
-    y: 0,
-  });
-
-  useEffect(() => {
-    let lastUpdate = 0;
-    const throttleMs = 32; // ~30fps for particles (sufficient for visual effect)
-
-    const handleMouseMove = (event: MouseEvent) => {
-      const now = performance.now();
-      if (now - lastUpdate < throttleMs) return;
-      lastUpdate = now;
-      setMousePosition({ x: event.clientX, y: event.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  return mousePosition;
-}
+import { globalMousePos } from "@/context/MouseContext";
 
 interface ParticlesProps {
   className?: string;
@@ -77,7 +46,7 @@ function hexToRgb(hex: string): number[] {
 
 const Particles: React.FC<ParticlesProps> = memo(({
   className = "",
-  quantity = 60, // Reduced from 100 for better performance
+  quantity = 60,
   staticity = 50,
   ease = 50,
   size = 0.4,
@@ -90,10 +59,9 @@ const Particles: React.FC<ParticlesProps> = memo(({
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
   const circles = useRef<Circle[]>([]);
-  const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1; // Cap at 2x for performance
+  const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1;
   const isVisible = useRef(true);
   const animationFrameId = useRef<number | null>(null);
 
@@ -174,7 +142,14 @@ const Particles: React.FC<ParticlesProps> = memo(({
   };
 
   const animate = useCallback(() => {
-    if (!isVisible.current) return; // Skip rendering if not visible
+    if (!isVisible.current) return;
+
+    // Sync mouse position directly from global state
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      mouse.current.x = globalMousePos.x - rect.left;
+      mouse.current.y = globalMousePos.y - rect.top;
+    }
 
     clearContext();
     circles.current.forEach((circle: Circle, i: number) => {
@@ -255,7 +230,6 @@ const Particles: React.FC<ParticlesProps> = memo(({
     }
     initCanvas();
 
-    // Intersection Observer for visibility detection
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -285,20 +259,6 @@ const Particles: React.FC<ParticlesProps> = memo(({
       observer.disconnect();
     };
   }, [initCanvas, animate]);
-
-  useEffect(() => {
-    if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const { w, h } = canvasSize.current;
-      const x = mousePosition.x - rect.left;
-      const y = mousePosition.y - rect.top;
-      const inside = x < w && x > 0 && y < h && y > 0;
-      if (inside) {
-        mouse.current.x = x;
-        mouse.current.y = y;
-      }
-    }
-  }, [mousePosition]);
 
   useEffect(() => {
     initCanvas();

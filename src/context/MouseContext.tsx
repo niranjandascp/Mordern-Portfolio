@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 
 interface MousePosition {
   x: number;
@@ -6,32 +6,27 @@ interface MousePosition {
 }
 
 interface MouseContextType {
-  position: MousePosition;
+  // We expose the ref for high-performance consumers (like Cursor/Particles)
+  positionRef: React.MutableRefObject<MousePosition>;
   isHovering: boolean;
   isClicking: boolean;
 }
 
 const MouseContext = createContext<MouseContextType | undefined>(undefined);
 
+// Global singleton for cases where context is tricky or for vanilla listeners
+export const globalMousePos = { x: 0, y: 0 };
+
 export function MouseProvider({ children }: { children: React.ReactNode }) {
-  const [position, setPosition] = useState<MousePosition>({ x: 0, y: 0 });
+  const positionRef = useRef<MousePosition>({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
 
-  // Throttled position update for performance
-  const updatePosition = useCallback((x: number, y: number) => {
-    setPosition({ x, y });
-  }, []);
-
   useEffect(() => {
-    let lastUpdate = 0;
-    const throttleMs = 16; // ~60fps
-
     const handleMouseMove = (e: MouseEvent) => {
-      const now = performance.now();
-      if (now - lastUpdate < throttleMs) return;
-      lastUpdate = now;
-      updatePosition(e.clientX, e.clientY);
+      positionRef.current = { x: e.clientX, y: e.clientY };
+      globalMousePos.x = e.clientX;
+      globalMousePos.y = e.clientY;
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -49,7 +44,6 @@ export function MouseProvider({ children }: { children: React.ReactNode }) {
     const handleMouseDown = () => setIsClicking(true);
     const handleMouseUp = () => setIsClicking(false);
 
-    // Use passive listeners for better performance
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseover', handleMouseOver, { passive: true });
     window.addEventListener('mousedown', handleMouseDown);
@@ -61,10 +55,10 @@ export function MouseProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [updatePosition]);
+  }, []);
 
   return (
-    <MouseContext.Provider value={{ position, isHovering, isClicking }}>
+    <MouseContext.Provider value={{ positionRef, isHovering, isClicking }}>
       {children}
     </MouseContext.Provider>
   );

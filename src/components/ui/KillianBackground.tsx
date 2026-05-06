@@ -5,15 +5,26 @@ import { useMouse } from '@/context/MouseContext';
 
 export const KillianBackground: React.FC = memo(() => {
   const { theme } = useTheme();
-  const { position } = useMouse();
+  const { positionRef } = useMouse();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  const mouseX = useMotionValue(position.x);
-  const mouseY = useMotionValue(position.y);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 30, stiffness: 200 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    let rafId: number;
+    const update = () => {
+      mouseX.set(positionRef.current.x);
+      mouseY.set(positionRef.current.y);
+      rafId = requestAnimationFrame(update);
+    };
+    rafId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafId);
+  }, [positionRef, mouseX, mouseY]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,11 +38,6 @@ export const KillianBackground: React.FC = memo(() => {
     };
   }, []);
 
-  // Sync motion values with context position
-  useEffect(() => {
-    mouseX.set(position.x);
-    mouseY.set(position.y);
-  }, [position.x, position.y, mouseX, mouseY]);
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-[1]">

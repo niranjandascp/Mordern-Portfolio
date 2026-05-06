@@ -85,42 +85,28 @@ const WaterRippleBackground: React.FC<WaterRippleProps> = ({
       }
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      addDrop(e.clientX, e.clientY, radius, strength);
-    };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches.length > 0) {
-        addDrop(e.touches[0].clientX, e.touches[0].clientY, radius, strength);
-      }
-    }
-
-    const handleClick = (e: MouseEvent) => {
-      addDrop(e.clientX, e.clientY, radius * 4, strength * 4);
-    }
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('click', handleClick);
-
-    let animationFrameId: number;
+    let isRunning = true;
+    let frameCount = 0;
 
     const render = () => {
+      if (!isRunning) return;
+
+      let anyActive = false;
       // 3. Each frame — propagate waves + dampen
       for (let y = 1; y < H - 1; y++) {
         for (let x = 1; x < W - 1; x++) {
           const i = y * W + x;
           buf2[i] = (buf1[i - 1] + buf1[i + 1] + buf1[i - W] + buf1[i + W]) / 2 - buf2[i];
-          buf2[i] *= damping; // damping — lower = dies faster
+          buf2[i] *= damping;
 
           const val = buf2[i];
-          const idx = i * 4;
+          if (Math.abs(val) > 0.01) anyActive = true;
 
+          const idx = i * 4;
           data[idx] = r;
           data[idx + 1] = g;
           data[idx + 2] = b;
-
-          // Visualize the wave by mapping amplitude to alpha
           let alpha = Math.max(0, Math.min(255, Math.abs(val) * 1.5));
           data[idx + 3] = alpha;
         }
@@ -133,9 +119,49 @@ const WaterRippleBackground: React.FC<WaterRippleProps> = ({
       buf1 = buf2;
       buf2 = temp;
 
+      // If nothing is moving for 60 frames, we can pause
+      if (!anyActive) {
+        frameCount++;
+        if (frameCount > 60) {
+          isRunning = false;
+        }
+      } else {
+        frameCount = 0;
+      }
+
       animationFrameId = requestAnimationFrame(render);
     };
 
+    const resumeAnimation = () => {
+      if (!isRunning) {
+        isRunning = true;
+        frameCount = 0;
+        render();
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      addDrop(e.clientX, e.clientY, radius, strength);
+      resumeAnimation();
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        addDrop(e.touches[0].clientX, e.touches[0].clientY, radius, strength);
+        resumeAnimation();
+      }
+    }
+
+    const handleClick = (e: MouseEvent) => {
+      addDrop(e.clientX, e.clientY, radius * 4, strength * 4);
+      resumeAnimation();
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('click', handleClick);
+
+    let animationFrameId: number;
     render();
 
     return () => {
