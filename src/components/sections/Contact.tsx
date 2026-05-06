@@ -131,7 +131,7 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
 
 export default memo(function Contact() {
   const copyEmail = () => {
-    navigator.clipboard.writeText('niranjandas.cp@gmail.com');
+    navigator.clipboard.writeText('niranjandascp@gmail.com');
   };
 
   return (
@@ -162,7 +162,7 @@ export default memo(function Contact() {
                 <ContactLink
                   icon={<Mail size={18} />}
                   label="Email"
-                  value="niranjandas.cp@gmail.com"
+                  value="niranjandascp@gmail.com"
                   type="copy"
                   color="#f97316"
                   onCopy={copyEmail}
