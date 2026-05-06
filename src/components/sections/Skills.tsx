@@ -28,6 +28,7 @@ import { IoLogoCss3 } from 'react-icons/io';
 import { VscVscode } from 'react-icons/vsc';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 const techStack = [
   { name: 'Html5', icon: SiHtml5, color: '#E34F26' },
@@ -72,7 +73,7 @@ export default memo(function Skills() {
       className="py-12 sm:py-24 relative overflow-hidden transition-colors"
     >
       {/* Background Rotating Fan Image Layer */}
-      <div className="absolute inset-0 w-full opacity-80 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
+      <div className="absolute inset-0 w-full opacity-60 mix-blend-multiply dark:mix-blend-screen pointer-events-none flex items-center justify-center transition-opacity">
         <motion.img
           src="/abstract-fan.png"
           alt="Abstract 3D Shape"
@@ -89,9 +90,7 @@ export default memo(function Skills() {
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-2">
             The Magic{' '}
-            <span className="font-serif italic bg-gradient-to-r from-orange-400 to-orange-400 bg-clip-text text-transparent pr-1 sm:pr-2">
-              Behind
-            </span>
+            <DiaTextReveal text="Behind" textColor="#C4521A" className="font-serif italic" duration={1.5} delay={0.3} />
           </h2>
         </ScrollHeading>
 

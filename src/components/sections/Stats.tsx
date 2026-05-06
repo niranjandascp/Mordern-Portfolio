@@ -6,6 +6,7 @@ import { SiGithub, SiLeetcode } from "react-icons/si";
 import { useTheme } from "@/context/ThemeContext";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ScrollHeading from "@/components/ui/ScrollHeading";
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 const username = "niranjandascp";
 
@@ -111,7 +112,7 @@ export default memo(function Stats() {
             Developer Metrics
           </p>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
-            GitHub <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">& LeetCode</span>
+            GitHub <DiaTextReveal text="& LeetCode" textColor="#C4521A" className="font-serif italic" duration={1.5} delay={0.3} />
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
         </ScrollHeading>

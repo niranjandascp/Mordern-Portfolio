@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { GraduationCap, Calendar, School, BookOpen } from 'lucide-react';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 const educationList = [
   {
@@ -133,7 +134,7 @@ export default memo(function Education() {
         <ScrollHeading className="text-center mb-24">
           <p className="text-accent-orange font-mono text-sm uppercase tracking-[0.3em] mb-4">Academic Journey</p>
           <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter text-text-primary">
-            Education
+            <DiaTextReveal text="Education" textColor="var(--color-text-primary)" duration={1.5} delay={0.2} />
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
         </ScrollHeading>

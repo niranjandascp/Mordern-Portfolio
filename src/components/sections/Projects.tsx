@@ -5,6 +5,7 @@ import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 const projects = [
   {
@@ -323,9 +324,7 @@ export default memo(function Projects() {
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight text-text-primary mb-5">
             Featured{' '}
-            <span className="font-serif italic bg-gradient-to-r from-orange-400 via-[#C4521A] to-amber-400 bg-clip-text text-transparent">
-              Projects
-            </span>
+            <DiaTextReveal text="Projects" textColor="#C4521A" className="font-serif italic" duration={1.5} delay={0.3} />
           </h2>
           <p className="text-text-secondary max-w-xl mx-auto text-sm leading-relaxed">
             Crafted with care, shipped with pride — a selection of my most impactful work.

@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { motion } from 'motion/react';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import OrbitImages from '@/components/ui/OrbitImages';
 import { SiGithub, SiLeetcode } from 'react-icons/si';
@@ -34,7 +35,7 @@ export default memo(function Badges() {
             Achievements Unlocked
           </p>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-text-primary mb-6">
-            Badges <span className="font-serif italic bg-gradient-to-r from-accent-orange to-accent-blue bg-clip-text text-transparent">&amp; Trophies</span>
+            Badges <DiaTextReveal text="& Trophies" textColor="#C4521A" className="font-serif italic" duration={1.5} delay={0.3} />
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-orange to-transparent mx-auto rounded-full" />
         </ScrollHeading>

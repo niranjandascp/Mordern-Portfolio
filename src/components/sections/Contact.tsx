@@ -4,6 +4,7 @@ import { Mail, MapPin, ExternalLink, Copy, Check, Phone, Globe, Sparkles } from 
 import { SiGithub, SiLeetcode, SiWhatsapp, SiInstagram, SiDevdotto } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 const SOCIAL_LINKS = [
   { name: 'LinkedIn', icon: <FaLinkedin size={22} />, url: 'https://linkedin.com/in/niranjandascp', handle: 'linkedin.com/in/niranjandascp', color: '#0077b5' },
@@ -141,8 +142,8 @@ export default memo(function Contact() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <ScrollHeading className="text-center mb-16">
           <p className="text-accent-orange font-mono text-[10px] font-black uppercase tracking-[0.5em] mb-6 opacity-80 transform-gpu translate-z-0">Get in Touch</p>
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 dark:text-text-primary leading-none transform-gpu translate-z-0">
-            Let's <span className="font-serif italic text-accent-orange">Connect</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-text-primary leading-none transform-gpu translate-z-0">
+            Let's <DiaTextReveal text="Connect" textColor="#C4521A" className="font-serif italic" duration={1.5} delay={0.3} />
           </h2>
         </ScrollHeading>
 

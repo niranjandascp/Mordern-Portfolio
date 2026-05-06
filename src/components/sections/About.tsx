@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { User, Zap, Layout, Code2, ArrowUpRight } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import ScrollHeading from '@/components/ui/ScrollHeading';
+import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 
 function AboutCard({ card, idx }: { card: any, idx: number, theme: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -196,7 +197,7 @@ export default memo(function About() {
         >
           <div>
             <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter text-text-primary capitalize leading-[0.9]">
-              About <span className="text-[#C4521A]">Me.</span>
+              About <DiaTextReveal text="Me." textColor="#C4521A" duration={1.5} delay={0.2} />
             </h2>
             <motion.div
               initial={{ width: 0, opacity: 0 }}
