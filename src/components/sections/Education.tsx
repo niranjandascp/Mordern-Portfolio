@@ -25,7 +25,7 @@ const educationList = [
   },
   {
     degree: 'Higher Secondary Education',
-    institution: 'St. Mary\`s HSS Irinjalakuda',
+    institution: 'St. Mary\'s HSS Irinjalakuda',
     duration: 'June 2022 – Mar 2023',
     // description: 'Secured 95% in Mathematics and Physics. Core focus on foundational computer science principles.',
     icon: <School size={28} />,
@@ -103,9 +103,7 @@ function ThreeDEducationCard({ edu, idx }: { edu: typeof educationList[0], idx: 
                 {edu.institution}
               </h4>
 
-              <p className="text-text-secondary text-sm md:text-base leading-relaxed opacity-70 max-w-3xl">
-                {edu.description}
-              </p>
+              {/* description removed */}
             </div>
 
             {/* Vertical Accent Line (Right side for desktop) */}
