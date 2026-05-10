@@ -6,6 +6,7 @@ import { FaDocker, FaGithub } from 'react-icons/fa';
 import { SiReact, SiTailwindcss, SiTypescript, SiVite, SiMongodb, SiExpress } from 'react-icons/si';
 import ScrollHeading from '@/components/ui/ScrollHeading';
 import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
+import { useTheme } from '@/context/ThemeContext';
 
 const projects = [
   {
@@ -107,6 +108,7 @@ interface Project {
 }
 
 function ProjectCard({ project, idx }: { project: Project; idx: number }) {
+  const { theme } = useTheme();
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -193,7 +195,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
       </div>
 
       {/* Main Container */}
-      <div className="relative w-full h-full overflow-hidden border border-white/10 transition-all duration-700 group-hover:border-[#C4521A]/30 bg-[#0c0c0e] rounded-[2.5rem] shadow-2xl">
+      <div className="relative w-full h-full overflow-hidden border border-border-main transition-all duration-700 group-hover:border-[#C4521A]/30 bg-bg-secondary rounded-[2.5rem] shadow-2xl">
 
         {/* Background Image with Desaturation Effect */}
         <div className="absolute inset-0 z-0 rounded-[2.5rem]">
@@ -202,12 +204,14 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             alt={project.title}
             animate={{
               scale: isActive ? 1.1 : 1.05,
-              filter: isActive ? 'grayscale(0) brightness(0.8)' : 'grayscale(1) brightness(0.4)'
+              filter: isActive 
+                ? (theme === 'dark' ? 'grayscale(0) brightness(0.8)' : 'grayscale(0) brightness(1)') 
+                : (theme === 'dark' ? 'grayscale(1) brightness(0.4)' : 'grayscale(1) brightness(0.9)')
             }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-full h-full object-cover origin-center rounded-[2.5rem]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0e] via-transparent to-transparent opacity-80 rounded-[2.5rem]" />
+          <div className={`absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-bg-secondary to-transparent rounded-b-[2.5rem] transition-opacity duration-700 ${theme === 'dark' ? 'opacity-80' : 'opacity-40'}`} />
         </div>
 
         {/* HUD Scanlines/Grain Overlay */}
@@ -238,7 +242,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               y: isActive ? 0 : 20,
               z: isActive ? 80 : 0
             }}
-            className="text-2xl sm:text-3xl font-serif text-white mb-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500 whitespace-nowrap"
+            className="text-2xl sm:text-3xl font-serif text-text-primary mb-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500 whitespace-nowrap"
           >
             {project.title}
           </motion.h3>
@@ -252,7 +256,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             }}
             className="overflow-hidden"
           >
-            <p className="text-[13px] text-white/60 leading-relaxed font-light mb-8 max-w-[280px]">
+            <p className="text-[13px] text-text-secondary leading-relaxed font-light mb-8 max-w-[280px]">
               {project.description}
             </p>
 
@@ -260,7 +264,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               <a
                 href={project.github}
                 target="_blank"
-                className="flex items-center gap-2 text-white/40 hover:text-[#C4521A] transition-all hover:scale-110"
+                className="flex items-center gap-2 text-text-secondary hover:text-[#C4521A] transition-all hover:scale-110"
                 title="GitHub Repository"
               >
                 <FaGithub size={20} />
@@ -269,7 +273,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               <a
                 href={project.live}
                 target="_blank"
-                className="flex items-center gap-2 text-white/40 hover:text-[#C4521A] transition-all hover:scale-110"
+                className="flex items-center gap-2 text-text-secondary hover:text-[#C4521A] transition-all hover:scale-110"
                 title="Live Demo"
               >
                 <ExternalLink size={18} />
@@ -279,7 +283,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
           </motion.div>
 
           {/* Bottom HUD Line */}
-          <div className="relative w-full h-px bg-white/10 overflow-hidden">
+          <div className="relative w-full h-px bg-border-main overflow-hidden">
             <motion.div
               animate={{ x: isActive ? '100%' : '-100%' }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
@@ -292,7 +296,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
         <div
           className="absolute inset-0 pointer-events-none z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
           style={{
-            background: `radial-gradient(circle 300px at ${mousePos.x}% ${mousePos.y}%, rgba(196, 82, 26, 0.08), transparent)`,
+            background: `radial-gradient(circle 200px at ${mousePos.x}% ${mousePos.y}%, rgba(196, 82, 26, 0.06), transparent)`,
           }}
         />
       </div>

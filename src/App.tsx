@@ -118,6 +118,14 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
           </>
         )}
 
+        {/* Global Vignette Overlay - Enhances depth in Light Mode */}
+        <div
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-700 ${theme === 'light' ? 'opacity-100' : 'opacity-0'}`}
+          style={{
+            background: 'radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.08) 100%)',
+          }}
+        />
+
         {/* Noise Texture Overlay */}
         <div
           className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
