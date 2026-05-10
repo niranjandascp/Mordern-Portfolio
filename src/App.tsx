@@ -8,6 +8,7 @@ import Stats from '@/components/sections/Stats';
 import Badges from '@/components/ui/Badges';
 import Education from '@/components/sections/Education';
 import Contact from '@/components/sections/Contact';
+import Footer from '@/components/sections/Footer';
 import { ReactLenis } from 'lenis/react';
 import LiquidEther from '@/components/ui/LiquidEther';
 import WaterRippleBackground from '@/components/ui/WaterRipple';
@@ -152,6 +153,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         <Badges />
         <Education />
         <Contact />
+        <Footer />
       </main>
 
       {/* Footer */}
