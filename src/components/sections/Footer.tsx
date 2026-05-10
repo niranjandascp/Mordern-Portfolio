@@ -7,8 +7,10 @@ import { Mail } from 'lucide-react';
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Stats", href: "#stats" },
+  { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -135,6 +137,7 @@ function ScrollTopBtn() {
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [btnHovered, setBtnHovered] = useState(false);
   const year = new Date().getFullYear();
 
   useEffect(() => {
@@ -203,11 +206,29 @@ export default function Footer() {
             Full-stack developer crafting cinematic, immersive digital experiences at the intersection of design and code.
           </p>
           <a href="#contact"
-            style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "13px 28px", borderRadius: 50, background: "linear-gradient(135deg,#ea580c,#f97316,#fb923c)", color: "#fff", fontSize: 13, fontWeight: 600, letterSpacing: "0.04em", textDecoration: "none", boxShadow: "0 0 32px rgba(234,88,12,.5),inset 0 1px 0 rgba(255,255,255,.2)", transition: "transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .25s" }}
-            onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.07) translateY(-3px)"; e.currentTarget.style.boxShadow = "0 0 56px rgba(234,88,12,.72),inset 0 1px 0 rgba(255,255,255,.2)"; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 0 32px rgba(234,88,12,.5),inset 0 1px 0 rgba(255,255,255,.2)"; }}>
+            onMouseEnter={() => setBtnHovered(true)}
+            onMouseLeave={() => setBtnHovered(false)}
+            style={{ 
+              display: "inline-flex", 
+              alignItems: "center", 
+              gap: 9, 
+              padding: "13px 28px", 
+              borderRadius: 50, 
+              background: "linear-gradient(135deg,#ea580c,#f97316,#fb923c)", 
+              color: "#fff", 
+              fontSize: 13, 
+              fontWeight: 600, 
+              letterSpacing: "0.04em", 
+              textDecoration: "none", 
+              boxShadow: btnHovered ? "0 0 56px rgba(234,88,12,.72),inset 0 1px 0 rgba(255,255,255,.2)" : "0 0 32px rgba(234,88,12,.5),inset 0 1px 0 rgba(255,255,255,.2)", 
+              transform: btnHovered ? "scale(1.07) translateY(-3px)" : "none",
+              transition: "transform .28s cubic-bezier(.34,1.56,.64,1), boxShadow .25s" 
+            }}>
             Let's work together
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} width={14} height={14}><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} width={14} height={14}
+              style={{ transform: btnHovered ? "translateX(2px)" : "none", transition: "transform .2s" }}>
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </a>
         </motion.div>
 
@@ -242,9 +263,10 @@ export default function Footer() {
           </motion.div>
 
           {/* Navigate */}
-          <motion.div variants={{ initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
+          <motion.div 
+            variants={{ initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
             <p style={{ fontFamily: "'Syne',sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: "var(--color-cinematic-accent)", opacity: 0.7, textTransform: "uppercase", marginBottom: 18 }}>Navigate</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
               {NAV_LINKS.map(l => <NavLink key={l.label} href={l.href} label={l.label} />)}
             </div>
           </motion.div>

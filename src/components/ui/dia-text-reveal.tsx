@@ -26,7 +26,7 @@ function buildGradient(pos: number, colors: string[], textColor: string) {
   const bandEnd = pos + BAND_HALF
 
   if (bandStart >= 100) {
-    return `linear-gradient(90deg, ${textColor}, ${textColor})`
+    return `linear-gradient(90deg, ${textColor} 0%, ${colors[0]} 50%, ${textColor} 100%)`
   }
   const n = colors.length
   const parts: string[] = []
@@ -235,28 +235,37 @@ export function DiaTextReveal({
       : undefined
 
   return (
-    <motion.span
-      ref={spanRef}
-      className={cn("align-bottom leading-[100%] text-inherit", className)}
-      style={{
-        display: "inline-block",
-        color: "transparent",
-        backgroundClip: "text",
-        WebkitBackgroundClip: "text",
-        backgroundSize: "100% 100%",
-        backgroundImage,
-        ...(isMulti && {
-          overflow: "hidden",
-          whiteSpace: "nowrap",
-          verticalAlign: "text-center",
-          ...(fixedW != null && { width: fixedW }),
-        }),
-      }}
-      animate={animatedW != null ? { width: animatedW } : undefined}
-      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      {...props}
-    >
-      {texts[activeIndex]}
-    </motion.span>
+    <>
+      <style>{`
+        @keyframes shimmer-sweep {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+      `}</style>
+      <motion.span
+        ref={spanRef}
+        className={cn("align-bottom leading-[100%] text-inherit", className)}
+        style={{
+          display: "inline-block",
+          color: "transparent",
+          backgroundClip: "text",
+          WebkitBackgroundClip: "text",
+          backgroundSize: "200% 100%",
+          backgroundImage,
+          animation: isInView ? `shimmer-sweep 4s linear infinite` : "none",
+          ...(isMulti && {
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            verticalAlign: "text-center",
+            ...(fixedW != null && { width: fixedW }),
+          }),
+        }}
+        animate={animatedW != null ? { width: animatedW } : undefined}
+        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+        {...props}
+      >
+        {texts[activeIndex]}
+      </motion.span>
+    </>
   )
 }
