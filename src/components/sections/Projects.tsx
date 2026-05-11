@@ -189,7 +189,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
 
       {/* Vertical Side Text */}
       <div className="absolute top-1/2 -right-4 -translate-y-1/2 rotate-90 origin-center z-20 hidden sm:block">
-        <span className="text-[10px] font-mono text-[#C4521A] tracking-[0.4em] uppercase whitespace-nowrap opacity-40 group-hover:opacity-100 transition-opacity">
+        <span className={`text-[10px] font-mono font-bold tracking-[0.4em] uppercase whitespace-nowrap transition-opacity ${theme === 'light' ? 'text-gray-900 opacity-60' : 'text-white opacity-40'} group-hover:opacity-100`}>
           {project.category} •
         </span>
       </div>
@@ -211,7 +211,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             className="w-full h-full object-cover origin-center rounded-[2.5rem]"
           />
-          <div className={`absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-bg-secondary to-transparent rounded-b-[2.5rem] transition-opacity duration-700 ${theme === 'dark' ? 'opacity-80' : 'opacity-40'}`} />
+          <div className={`absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-bg-secondary to-transparent rounded-b-[2.5rem] transition-opacity duration-700 ${theme === 'dark' ? 'opacity-80' : 'opacity-95'}`} />
         </div>
 
         {/* HUD Scanlines/Grain Overlay */}
@@ -229,8 +229,8 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             }}
             className="flex items-center gap-3 mb-4"
           >
-            <div className="w-8 h-px bg-[#C4521A]" />
-            <span className="text-[10px] font-mono text-[#C4521A] tracking-[0.3em] uppercase">
+            <div className={`w-8 h-px ${theme === 'light' ? 'bg-gray-900' : 'bg-white'}`} />
+            <span className={`text-[10px] font-mono font-bold tracking-[0.3em] uppercase ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
               PROJECTS #{project.id}
             </span>
           </motion.div>
@@ -242,7 +242,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               y: isActive ? 0 : 20,
               z: isActive ? 80 : 0
             }}
-            className="text-2xl sm:text-3xl font-serif text-text-primary mb-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500 whitespace-nowrap"
+            className="text-2xl sm:text-3xl font-serif font-bold text-text-primary mb-4 tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500 whitespace-nowrap"
           >
             {project.title}
           </motion.h3>
@@ -256,7 +256,7 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             }}
             className="overflow-hidden"
           >
-            <p className="text-[13px] text-text-secondary leading-relaxed font-light mb-8 max-w-[280px]">
+            <p className={`text-[13px] leading-relaxed font-semibold mb-8 max-w-[280px] ${theme === 'light' ? 'text-gray-800' : 'text-white/80'}`}>
               {project.description}
             </p>
 
@@ -264,20 +264,20 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
               <a
                 href={project.github}
                 target="_blank"
-                className="flex items-center gap-2 text-text-secondary hover:text-[#C4521A] transition-all hover:scale-110"
+                className={`flex items-center gap-2 transition-all hover:scale-110 hover:text-[#C4521A] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}
                 title="GitHub Repository"
               >
                 <FaGithub size={20} />
-                <span className="text-[10px] font-mono tracking-[0.1em] uppercase">GitHub</span>
+                <span className="text-[10px] font-mono font-bold tracking-[0.1em] uppercase">GitHub</span>
               </a>
               <a
                 href={project.live}
                 target="_blank"
-                className="flex items-center gap-2 text-text-secondary hover:text-[#C4521A] transition-all hover:scale-110"
+                className={`flex items-center gap-2 transition-all hover:scale-110 hover:text-[#C4521A] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}
                 title="Live Demo"
               >
                 <ExternalLink size={18} />
-                <span className="text-[10px] font-mono tracking-[0.1em] uppercase">Live Demo</span>
+                <span className="text-[10px] font-mono font-bold tracking-[0.1em] uppercase">Live Demo</span>
               </a>
             </div>
           </motion.div>
