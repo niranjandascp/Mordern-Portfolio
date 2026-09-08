@@ -20,7 +20,7 @@ const projects = [
     ],
     github: 'https://github.com/niranjandascp/react-ts-personal-portfolio',
     live: 'https://www.niranjandas.in/',
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
+    image: 'src/assets/portfolio2.png',
     color: '#ff4d4d',
   },
   {
@@ -48,7 +48,7 @@ const projects = [
     ],
     github: 'https://github.com/niranjandascp/Mini-Torque-Ecommerce',
     live: 'https://mini-torque.onrender.com/',
-    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop',
+    image: 'src/assets/Minitorque.png',
     color: '#ff4d4d',
   },
   {

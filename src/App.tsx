@@ -29,6 +29,7 @@ import { MouseProvider } from '@/context/MouseContext';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 // import { Globe } from '@/components/ui/globe';
 import ScrollAnimatedObject from '@/components/animations/ScrollAnimatedObject';
+import { SEO } from '@/components/ui/SEO';
 
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
@@ -190,6 +191,7 @@ function App() {
     >
 
       <ThemeProvider>
+        <SEO />
         <MouseProvider>
           <HomeDockChromeProvider>
             <MainContent mainRef={mainRef} />
