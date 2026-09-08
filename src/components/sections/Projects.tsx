@@ -19,7 +19,7 @@ const projects = [
       { name: 'TypeScript', icon: SiTypescript },
     ],
     github: 'https://github.com/niranjandascp/react-ts-personal-portfolio',
-    live: 'https://www.niranjandas.in/',
+    live: 'https://officialwebsite-vert.vercel.app/',
     image: 'src/assets/portfolio2.png',
     color: '#ff4d4d',
   },
