@@ -1,5 +1,5 @@
 import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
-import { useMemo, memo, type ReactNode, type ElementType } from 'react';
+import { useMemo, memo, type ReactNode } from 'react';
 
 type HTMLMotionTag =
   | 'div'
@@ -104,7 +104,7 @@ export const ScrollReveal = memo(<T extends HTMLMotionTag = 'div'>({
     };
   }, [direction, staggerDelay, duration, distance]);
 
-  const Component = motion[as as keyof typeof motion] as ElementType;
+  const Component = motion[as as keyof typeof motion] as unknown as React.ComponentType<any>;
 
   return (
     <Component

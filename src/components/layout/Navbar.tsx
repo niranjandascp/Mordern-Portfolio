@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, type Variants } from 'framer-motion';
-import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { useLenis } from 'lenis/react';
-import { useTheme } from '@/context/ThemeContext';
+// useTheme removed — Navbar doesn't need the theme directly
 import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
 import { AnimatedThemeToggler } from '@/components/ui/AnimatedThemeToggler';
 
@@ -129,7 +129,6 @@ const navItemVariants: Variants = {
 
 export default function Navbar() {
   const { activeTab, setActiveTab } = useHomeDockChrome();
-  const { theme, toggleTheme } = useTheme();
   const [hoveredTab, setHoveredTab] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);

@@ -98,7 +98,6 @@ export default memo(function Skills() {
         <div className="flex flex-wrap justify-center gap-2 sm:gap-4 max-w-4xl mx-auto bg-bg-secondary/30 border border-border-main rounded-2xl sm:rounded-[2rem] p-4 sm:p-12 shadow-2xl">
           {techStack.map((skill, idx) => {
             const Icon = skill.icon;
-            const iconColor = skill.color;
 
             return (
               <ScrollReveal

@@ -6,7 +6,7 @@ import { useMouse } from '@/context/MouseContext';
 export const KillianBackground: React.FC = memo(() => {
   const { theme } = useTheme();
   const { positionRef } = useMouse();
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [_dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);

@@ -34,11 +34,11 @@ export function MouseProvider({ children }: { children: React.ReactNode }) {
       const isInteractive =
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
-        target.closest('button') ||
-        target.closest('a') ||
+        !!target.closest('button') ||
+        !!target.closest('a') ||
         window.getComputedStyle(target).cursor === 'pointer';
 
-      setIsHovering(isInteractive);
+      setIsHovering(Boolean(isInteractive));
     };
 
     const handleMouseDown = () => setIsClicking(true);

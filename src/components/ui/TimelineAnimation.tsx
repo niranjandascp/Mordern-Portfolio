@@ -1,5 +1,5 @@
 import { motion, type HTMLMotionProps, type Variants } from 'framer-motion';
-import { useMemo, memo, type ReactNode, type ElementType } from 'react';
+import { useMemo, memo, type ReactNode } from 'react';
 
 type HTMLMotionTag =
   | 'div'
@@ -88,7 +88,7 @@ export const TimelineAnimation = memo(<T extends HTMLMotionTag = 'div'>({
 
   const variants = customVariants || elite3DVariants;
 
-  const Component = motion[as as keyof typeof motion] as ElementType;
+  const Component = motion[as as keyof typeof motion] as unknown as React.ComponentType<any>;
 
   return (
     <div style={{ perspective: '1200px' }} className="w-full h-full">

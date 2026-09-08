@@ -313,7 +313,7 @@ export default memo(function Projects() {
     offset: ["start end", "end start"]
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden transition-colors">

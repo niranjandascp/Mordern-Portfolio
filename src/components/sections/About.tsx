@@ -41,7 +41,7 @@ function AboutCard({ card, idx }: { card: any, idx: number, theme: string }) {
     scale.set(1);
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: {
       opacity: 0,
       y: 80,

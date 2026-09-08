@@ -652,7 +652,7 @@ export default function LiquidEther({
         super({ output: simProps.dst });
         this.init(simProps);
       }
-      init(simProps: any) {
+      init(simProps?: any) {
         super.init();
         const mouseG = new THREE.PlaneGeometry(1, 1);
         const mouseM = new THREE.RawShaderMaterial({
