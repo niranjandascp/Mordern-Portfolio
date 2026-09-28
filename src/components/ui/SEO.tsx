@@ -9,17 +9,15 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = 'Niranjan Das C.P - Full Stack Developer | Portfolio',
-  description = 'Full Stack Developer (MERN, Nest.js)from Thrissur, Kerala. Specializing in React, Next.js, Node.js, Nest.js, TypeScript, MongoDB, and PostgreSQL.',
+  title = 'Niranjan Das C.P. | Full Stack Developer',
+  description = 'Niranjan Das C.P. is a Full Stack Developer from Thrissur, Kerala, specializing in React, Next.js, Node.js, NestJS, TypeScript, MongoDB, PostgreSQL, and modern web applications.',
   image = 'https://niranjandas.in/assets/profile.png',
   url = 'https://niranjandas.in/',
   type = 'website',
 }: SEOProps) {
   useEffect(() => {
-    // Update document title
     document.title = title;
 
-    // Update or create meta tags
     const updateMetaTag = (
       name: string,
       content: string,
@@ -27,34 +25,44 @@ export function SEO({
     ) => {
       let element = document.querySelector(
         `meta[${attribute}="${name}"]`
-      ) as HTMLMetaElement;
+      ) as HTMLMetaElement | null;
+
       if (!element) {
         element = document.createElement('meta');
         element.setAttribute(attribute, name);
         document.head.appendChild(element);
       }
+
       element.setAttribute('content', content);
     };
 
-    // Update description
+    // Basic SEO
     updateMetaTag('description', description);
 
-    // Update Open Graph tags
+    // Open Graph
     updateMetaTag('og:title', title, 'property');
     updateMetaTag('og:description', description, 'property');
     updateMetaTag('og:image', image, 'property');
     updateMetaTag('og:url', url, 'property');
     updateMetaTag('og:type', type, 'property');
 
-    // Update canonical URL
+    // Twitter/X
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:title', title);
+    updateMetaTag('twitter:description', description);
+    updateMetaTag('twitter:image', image);
+
+    // Canonical URL
     let canonical = document.querySelector(
       'link[rel="canonical"]'
-    ) as HTMLLinkElement;
+    ) as HTMLLinkElement | null;
+
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
+
     canonical.setAttribute('href', url);
   }, [title, description, image, url, type]);
 
