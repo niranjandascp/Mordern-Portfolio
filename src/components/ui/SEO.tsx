@@ -16,6 +16,7 @@ export function SEO({
   type = 'website',
 }: SEOProps) {
   useEffect(() => {
+    // Page title
     document.title = title;
 
     const updateMetaTag = (
@@ -45,8 +46,9 @@ export function SEO({
     updateMetaTag('og:image', image, 'property');
     updateMetaTag('og:url', url, 'property');
     updateMetaTag('og:type', type, 'property');
+    updateMetaTag('og:site_name', 'Niranjan Das C.P.', 'property');
 
-    // Twitter/X
+    // Twitter / X
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
@@ -64,6 +66,36 @@ export function SEO({
     }
 
     canonical.setAttribute('href', url);
+
+    // Person structured data
+    const structuredDataId = 'niranjan-person-schema';
+
+    let structuredData = document.getElementById(
+      structuredDataId
+    ) as HTMLScriptElement | null;
+
+    if (!structuredData) {
+      structuredData = document.createElement('script');
+      structuredData.id = structuredDataId;
+      structuredData.type = 'application/ld+json';
+      document.head.appendChild(structuredData);
+    }
+
+    structuredData.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Niranjan Das C.P.',
+      url: 'https://niranjandas.in/',
+      image: 'https://niranjandas.in/assets/profile.png',
+      jobTitle: 'Full Stack Developer',
+      description:
+        'Full Stack Developer from Thrissur, Kerala specializing in React, Next.js, Node.js, NestJS, TypeScript, MongoDB, and PostgreSQL.',
+      sameAs: [
+        'https://github.com/niranjandascp',
+        'https://www.linkedin.com/in/niranjandascp/',
+        'https://leetcode.com/u/niranjandascp/',
+      ],
+    });
   }, [title, description, image, url, type]);
 
   return null;
